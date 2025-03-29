@@ -27,6 +27,7 @@ makedocs(
     build=joinpath(@__DIR__, "docs", "build"),
     pages=[
         "Home" => "index.md",
+        "Examples" => "examples.md",
         "Papers" => [
             "Overview" => "papers.md",
             "MES07: Memory Evolutive Systems" => "mes07.md",

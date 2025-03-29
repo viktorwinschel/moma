@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · Moma.jl</title><meta name="title" content="Examples · Moma.jl"/><meta property="og:title" content="Examples · Moma.jl"/><meta property="twitter:title" content="Examples · Moma.jl"/><meta name="description" content="Documentation for Moma.jl."/><meta property="og:description" content="Documentation for Moma.jl."/><meta property="twitter:description" content="Documentation for Moma.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Moma.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Examples</a><ul class="internal"><li><a class="tocitem" href="#Basic-Categorical-Constructions"><span>Basic Categorical Constructions</span></a></li><li><a class="tocitem" href="#Traffic-Network-Example"><span>Traffic Network Example</span></a></li><li><a class="tocitem" href="#Advanced-Usage"><span>Advanced Usage</span></a></li></ul></li><li><span class="tocitem">Papers</span><ul><li><a class="tocitem" href="../papers/">Overview</a></li><li><a class="tocitem" href="../mes07/">MES07: Memory Evolutive Systems</a></li><li><a class="tocitem" href="../mes25/">MES25: Human-Machine Interactions</a></li><li><a class="tocitem" href="../moma25/">MOMA25: Monetary Macro Accounting</a></li></ul></li><li><a class="tocitem" href="../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/examples.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>This section provides detailed examples of using Moma.jl, including both basic categorical constructions and the traffic network example.</p><h2 id="Basic-Categorical-Constructions"><a class="docs-heading-anchor" href="#Basic-Categorical-Constructions">Basic Categorical Constructions</a><a id="Basic-Categorical-Constructions-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Categorical-Constructions" title="Permalink"></a></h2><h3 id="Creating-Objects-and-Morphisms"><a class="docs-heading-anchor" href="#Creating-Objects-and-Morphisms">Creating Objects and Morphisms</a><a id="Creating-Objects-and-Morphisms-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Objects-and-Morphisms" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Moma
+
+# Create objects with different data types
+point = Object(:P1, (x=1.0, y=2.0))
+number = Object(:N1, 42)
+
+# Create a morphism between objects
+f = Morphism(point, number, p -&gt; p.x + p.y, :f1)</code></pre><h3 id="Working-with-Categories"><a class="docs-heading-anchor" href="#Working-with-Categories">Working with Categories</a><a id="Working-with-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a simple category with two objects and a morphism
+objects = [point, number]
+morphisms = [f]
+cat = Category(objects, morphisms, :SimpleCategory)
+
+# Create identity morphisms
+id_point = identity(point)
+id_number = identity(number)
+
+# Compose morphisms
+g = Morphism(number, point, n -&gt; (x=n, y=n), :g1)
+h = compose(f, g)  # Composition of f and g</code></pre><h3 id="Patterns-and-Colimits"><a class="docs-heading-anchor" href="#Patterns-and-Colimits">Patterns and Colimits</a><a id="Patterns-and-Colimits-1"></a><a class="docs-heading-anchor-permalink" href="#Patterns-and-Colimits" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a pattern in the category
+pattern_objects = [point, number]
+pattern_morphisms = [f]
+pattern = create_pattern(cat, pattern_objects, pattern_morphisms)
+
+# Check if an object forms a colimit
+bindings = Dict(point =&gt; id_point, number =&gt; id_number)
+is_colimit = check_binding(point, bindings, pattern)</code></pre><h2 id="Traffic-Network-Example"><a class="docs-heading-anchor" href="#Traffic-Network-Example">Traffic Network Example</a><a id="Traffic-Network-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Traffic-Network-Example" title="Permalink"></a></h2><h3 id="Creating-a-Traffic-Network"><a class="docs-heading-anchor" href="#Creating-a-Traffic-Network">Creating a Traffic Network</a><a id="Creating-a-Traffic-Network-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-a-Traffic-Network" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Moma
+
+# Create a traffic network
+network = create_traffic_network()
+
+# The network contains:
+# - 3 junctions (J1, J2, J3)
+# - 3 road segments (R1, R2, R3)
+# - 6 traffic flow connections (m1 through m6)</code></pre><h3 id="Analyzing-Traffic-Flow"><a class="docs-heading-anchor" href="#Analyzing-Traffic-Flow">Analyzing Traffic Flow</a><a id="Analyzing-Traffic-Flow-1"></a><a class="docs-heading-anchor-permalink" href="#Analyzing-Traffic-Flow" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Analyze traffic flow in the network
+results = analyze_traffic_flow(network)
+
+# Results include:
+println(&quot;Path length: $(results[&quot;path_length&quot;])&quot;)
+println(&quot;Total flow: $(results[&quot;total_flow&quot;])&quot;)
+println(&quot;Bottleneck capacity: $(results[&quot;bottleneck&quot;])&quot;)</code></pre><h3 id="Understanding-the-Network-Structure"><a class="docs-heading-anchor" href="#Understanding-the-Network-Structure">Understanding the Network Structure</a><a id="Understanding-the-Network-Structure-1"></a><a class="docs-heading-anchor-permalink" href="#Understanding-the-Network-Structure" title="Permalink"></a></h3><p>The traffic network is modeled as a category where:</p><ol><li><p><strong>Objects</strong>:</p><ul><li><code>Junction</code>: Represents intersection points with capacity and current load</li><li><code>RoadSegment</code>: Represents road sections with length, capacity, and current flow</li></ul></li><li><p><strong>Morphisms</strong>:</p><ul><li>Represent traffic flow connections between junctions and road segments</li><li>Map junction loads to road segment flows and vice versa</li></ul></li><li><p><strong>Patterns</strong>:</p><ul><li>Used to analyze specific paths through the network</li><li>Help identify bottlenecks and flow patterns</li></ul></li></ol><h3 id="Example-Network-Layout"><a class="docs-heading-anchor" href="#Example-Network-Layout">Example Network Layout</a><a id="Example-Network-Layout-1"></a><a class="docs-heading-anchor-permalink" href="#Example-Network-Layout" title="Permalink"></a></h3><pre><code class="nohighlight hljs">    J1 ----R1----&gt; J2 ----R2----&gt; J3
+                   |
+                   R3
+                   |
+                   v</code></pre><p>In this example:</p><ul><li>Traffic flows from J1 to J3 through two possible paths</li><li>The network can be analyzed using categorical patterns to:<ul><li>Find optimal routes</li><li>Identify bottlenecks</li><li>Calculate total flow capacity</li><li>Track traffic evolution over time</li></ul></li></ul><h2 id="Advanced-Usage"><a class="docs-heading-anchor" href="#Advanced-Usage">Advanced Usage</a><a id="Advanced-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Usage" title="Permalink"></a></h2><h3 id="Creating-Custom-Categories"><a class="docs-heading-anchor" href="#Creating-Custom-Categories">Creating Custom Categories</a><a id="Creating-Custom-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Custom-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Define custom data types for your category
+struct CustomObject
+    name::String
+    value::Float64
+end
+
+# Create objects with custom data
+obj1 = Object(:O1, CustomObject(&quot;first&quot;, 1.0))
+obj2 = Object(:O2, CustomObject(&quot;second&quot;, 2.0))
+
+# Create custom morphisms
+m = Morphism(obj1, obj2, o -&gt; CustomObject(o.name * &quot;_mapped&quot;, o.value * 2), :m1)
+
+# Build your category
+custom_cat = Category([obj1, obj2], [m], :CustomCategory)</code></pre><h3 id="Working-with-Functors"><a class="docs-heading-anchor" href="#Working-with-Functors">Working with Functors</a><a id="Working-with-Functors-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Functors" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a functor between categories
+# (This is a simplified example - actual implementation would be more complex)
+function create_simple_functor(source::Category, target::Category)
+    object_map = Dict()
+    morphism_map = Dict()
+    
+    # Map objects and morphisms
+    for obj in source.objects
+        object_map[obj] = Object(Symbol(&quot;F_$(obj.id)&quot;), obj.data)
+    end
+    
+    for mor in source.morphisms
+        morphism_map[mor] = Morphism(
+            object_map[mor.source],
+            object_map[mor.target],
+            mor.map,
+            Symbol(&quot;F_$(mor.id)&quot;)
+        )
+    end
+    
+    Functor(source, target, object_map, morphism_map, :SimpleFunctor)
+end</code></pre><h3 id="Natural-Transformations"><a class="docs-heading-anchor" href="#Natural-Transformations">Natural Transformations</a><a id="Natural-Transformations-1"></a><a class="docs-heading-anchor-permalink" href="#Natural-Transformations" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a natural transformation between functors
+# (This is a simplified example - actual implementation would be more complex)
+function create_simple_transformation(source::Functor, target::Functor)
+    components = Dict()
+    
+    # Create component morphisms
+    for obj in source.source.objects
+        components[obj] = Morphism(
+            source.object_map[obj],
+            target.object_map[obj],
+            x -&gt; x,  # Identity mapping
+            Symbol(&quot;η_$(obj.id)&quot;)
+        )
+    end
+    
+    NaturalTransformation(source, target, components, :SimpleTransformation)
+end</code></pre><pre><code class="nohighlight hljs"></code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../papers/">Overview »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Saturday 29 March 2025 16:03">Saturday 29 March 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

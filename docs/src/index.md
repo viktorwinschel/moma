@@ -52,4 +52,10 @@ The package consists of two main modules:
 
 ## Contributing
 
-Contributions to Moma.jl are welcome! Please feel free to submit issues and pull requests on our GitHub repository. 
+Contributions to Moma.jl are welcome! Please feel free to submit issues and pull requests on our GitHub repository.
+
+## Documentation Sections
+
+- [Examples](examples.md) - Detailed examples of using Moma.jl
+- [Papers](papers.md) - Theoretical foundations and papers
+- [API Reference](api.md) - Complete API documentation 
