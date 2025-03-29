@@ -7,93 +7,119 @@
 
 A Julia package template that you can use as a starting point for your own package.
 
-## Installation
+## Quick Start
 
-### For Users
-To install Moma, use the Julia package manager:
-
+### Installation
 ```julia
 using Pkg
 Pkg.add("Moma")
 ```
 
-### For Developers
-To develop Moma locally:
+### Basic Usage
+```julia
+using Moma
+result = example_function(5)  # Returns 10
+```
 
+## Development Setup
+
+### Prerequisites
+- Julia 1.6 or later
+- Git
+
+### Local Development Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/viktorwinschel/moma.git
    cd moma
    ```
 
-2. Start Julia and enter the package manager mode by pressing `]`, then:
-   ```julia
-   activate .
-   instantiate
-   ```
-   
-   Or use the setup script:
+2. Set up the development environment:
    ```bash
    julia setup.jl
    ```
-   The `setup.jl` script will:
+   This will:
    - Activate the project in the current directory
    - Add Documenter as a dependency
    - Instantiate the project
    - Set up everything needed for local development
 
-3. You can now use the package in your Julia REPL:
+3. Start using the package:
    ```julia
    using Moma
    ```
 
-## Usage
-
+### Manual Setup
+If you prefer manual setup:
 ```julia
-using Moma
-
-# Example usage
-result = example_function(5)  # Returns 10
+using Pkg
+Pkg.activate(".")
+Pkg.instantiate()
 ```
 
 ## Documentation
 
-For more information, please visit the [documentation](https://viktorwinschel.github.io/moma/stable).
+### Online Documentation
+- [Stable Documentation](https://viktorwinschel.github.io/moma/stable)
+- [Development Documentation](https://viktorwinschel.github.io/moma/dev)
 
-### Building Documentation Locally
-To build and preview the documentation locally:
-
+### Local Documentation
+To build and preview documentation locally:
 ```bash
 julia compile_docs.jl
 ```
-
 This will:
 - Activate the docs environment
 - Install necessary dependencies
 - Build the documentation
-- Output the documentation to `docs/build/index.html`
+- Output to `docs/build/index.html`
 
-You can then open `docs/build/index.html` in your web browser to view the documentation.
+## Development Workflow
 
-## Development
+### Testing
+```julia
+using Pkg
+Pkg.test("Moma")
+```
 
-To develop Moma locally:
-
-1. Clone the repository
-2. Start Julia and enter the package manager mode by pressing `]`
-3. Activate the development environment:
-   ```julia
-   activate .
+### Documentation Updates
+1. Make changes to documentation in `docs/src/`
+2. Build documentation locally:
+   ```bash
+   julia compile_docs.jl
    ```
-4. Install dependencies:
-   ```julia
-   instantiate
-   ```
-5. Run tests:
-   ```julia
-   test
-   ```
+3. Preview changes in `docs/build/index.html`
+
+### Pushing Changes
+To build documentation and push changes to remote:
+```bash
+julia push_remote.jl
+```
+This will:
+- Build the documentation
+- Stage all changes
+- Commit with a default message
+- Push to the main branch
+
+## Project Structure
+```
+moma/
+├── src/           # Source code
+├── test/          # Test files
+├── docs/          # Documentation
+│   ├── src/      # Documentation source
+│   └── make.jl   # Documentation build script
+├── setup.jl       # Development setup script
+├── compile_docs.jl # Documentation build script
+└── push_remote.jl  # Remote update script
+```
+
+## Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and build documentation
+5. Submit a pull request
 
 ## License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
