@@ -1,40 +1,33 @@
 # Papers
 
-This section provides summaries of the key papers that form the foundation of the Moma package.
+This section provides summaries of the key papers that form the foundation of the Moma package. Each paper is detailed on its own page, accessible through the links below.
 
-## MES07: Multi-Energy Systems
-**Title:** "Multi-Energy Systems: An Overview of Concepts and Methodologies"
+## [MES07: Memory Evolutive Systems](mes07.md)
+**Title:** "Memory Evolutive Systems: An Overview of Concepts and Methodologies"
 
-This paper introduces the fundamental concepts of multi-energy systems and their importance in modern energy infrastructure. Key points include:
-- Definition and scope of multi-energy systems
-- Integration of different energy carriers
-- System modeling approaches
-- Optimization strategies
+A foundational paper introducing Memory Evolutive Systems (MES) as mathematical models for autonomous evolutionary systems. This work establishes the core theoretical framework used throughout the Moma package.
 
-## MES25: Advanced Multi-Energy Systems
-**Title:** "Advanced Multi-Energy Systems: Integration and Optimization"
+[Read more about MES07...](mes07.md)
 
-Building upon MES07, this paper explores advanced concepts in multi-energy systems:
-- Advanced modeling techniques
-- Real-time optimization methods
-- Integration of renewable energy sources
-- System resilience and reliability
+## [MES25: Human-Machine Interactions](mes25.md)
+**Title:** "A Mathematical Framework for Enriching Human-Machine Interactions"
 
-## MOMA25: Multi-Objective Multi-Energy Analysis
-**Title:** "Multi-Objective Multi-Energy Analysis: A Comprehensive Framework"
+Building upon MES07, this paper presents a framework for developing rich human-machine interactions in social organizations, introducing the concept of a data analyser (DA) for improved decision-making.
 
-The latest paper introduces the MOMA framework:
-- Multi-objective optimization approaches
-- Energy system integration strategies
-- Performance metrics and evaluation
-- Case studies and applications
+[Read more about MES25...](mes25.md)
+
+## [MOMA25: Monetary Macro Accounting](moma25.md)
+**Title:** "Monetary Macro Accounting Theory"
+
+The latest paper introduces the MoMa framework for monetary macro accounting, presenting a novel approach to understanding money as a medium of payment for obligations and debts.
+
+[Read more about MOMA25...](moma25.md)
 
 ## Implementation in Moma.jl
 
-The Moma.jl package implements the methodologies and frameworks described in these papers. Key features include:
-- Multi-energy system modeling
-- Optimization algorithms
-- Analysis tools
-- Visualization capabilities
+The Moma.jl package implements the methodologies and frameworks described in these papers, integrating:
+- Memory evolutive systems from MES07
+- Human-machine interaction frameworks from MES25
+- Monetary macro accounting concepts from MOMA25
 
-For detailed implementation examples, see the [API Reference](@ref). 
+For detailed implementation examples, see the [API Reference](api.md). 

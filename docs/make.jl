@@ -2,14 +2,19 @@ using Documenter
 using Moma
 
 makedocs(
-    sitename="Moma",
+    sitename="MoMa",
     format=Documenter.HTML(
         prettyurls=false
     ),
     modules=[Moma],
     pages=[
         "Home" => "index.md",
-        "Papers" => "papers.md",
+        "Papers" => [
+            "Overview" => "papers.md",
+            "MES07: Memory Evolutive Systems" => "mes07.md",
+            "MES25: Human-Machine Interactions" => "mes25.md",
+            "MOMA25: Monetary Macro Accounting" => "moma25.md"
+        ],
         "API" => "api.md",
     ]
 )
