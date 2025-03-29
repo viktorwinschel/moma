@@ -60,6 +60,21 @@ result = example_function(5)  # Returns 10
 
 For more information, please visit the [documentation](https://viktorwinschel.github.io/moma/stable).
 
+### Building Documentation Locally
+To build and preview the documentation locally:
+
+```bash
+julia compile_docs.jl
+```
+
+This will:
+- Activate the docs environment
+- Install necessary dependencies
+- Build the documentation
+- Output the documentation to `docs/build/index.html`
+
+You can then open `docs/build/index.html` in your web browser to view the documentation.
+
 ## Development
 
 To develop Moma locally:
