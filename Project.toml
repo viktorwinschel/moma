@@ -1,14 +1,15 @@
 name = "Moma"
-uuid = "68f45c00-d248-4a90-b080-94636f5d00e2"
-authors = ["Your Name <your.email@example.com>"]
+uuid = "68f45c00-1ebf-11e9-2d7e-e1a13ff85a8f"
+authors = ["Viktor Winschel <viktor.winschel@gmail.com>"]
 version = "0.1.0"
 
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-julia = "1.6"
 Documenter = "1.0"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

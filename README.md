@@ -5,21 +5,75 @@
 [![Build Status](https://github.com/viktorwinschel/moma/workflows/CI/badge.svg)](https://github.com/viktorwinschel/moma/actions)
 [![Coverage](https://codecov.io/gh/viktorwinschel/moma/branch/main/graph/badge.svg)](https://codecov.io/gh/viktorwinschel/moma)
 
-A Julia package template that you can use as a starting point for your own package.
+A Julia package implementing Memory Evolutive Systems (MES) for complex system modeling and analysis.
 
-## Quick Start
+## Installation
 
-### Installation
+To install the package, use Julia's package manager:
+
 ```julia
 using Pkg
 Pkg.add("Moma")
 ```
 
-### Basic Usage
+## Features
+
+- Basic categorical constructions (objects, morphisms, categories)
+- Memory Evolutive Systems implementation
+- Traffic network example demonstrating MES concepts
+- Tools for analyzing complex systems using categorical methods
+
+## Usage
+
+Here's a basic example of creating and analyzing a traffic network using Moma:
+
 ```julia
 using Moma
-result = example_function(5)  # Returns 10
+
+# Create a traffic network
+network = create_traffic_network()
+
+# Analyze traffic flow
+analysis = analyze_traffic_flow(network)
+println("Path length: $(analysis["path_length"])")
+println("Total flow: $(analysis["total_flow"])")
+println("Bottleneck capacity: $(analysis["bottleneck"])")
 ```
+
+## Running Tests
+
+To run the test suite:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/Moma.jl.git
+   cd Moma.jl
+   ```
+
+2. Start Julia and activate the package environment:
+   ```julia
+   using Pkg
+   Pkg.activate(".")
+   Pkg.instantiate()
+   ```
+
+3. Run the tests:
+   ```julia
+   Pkg.test()
+   ```
+
+## Documentation
+
+For detailed documentation, visit our [documentation site](https://yourusername.github.io/Moma.jl/dev/).
+
+The documentation includes:
+- Theoretical background on Memory Evolutive Systems
+- API reference
+- Examples and tutorials
+- Detailed explanations of the implemented papers:
+  - MES07: Memory Evolutive Systems
+  - MES25: Human-Machine Interactions
+  - MOMA25: Monetary Macro Accounting
 
 ## Development Setup
 
@@ -56,23 +110,6 @@ using Pkg
 Pkg.activate(".")
 Pkg.instantiate()
 ```
-
-## Documentation
-
-### Online Documentation
-- [Stable Documentation](https://viktorwinschel.github.io/moma/stable)
-- [Development Documentation](https://viktorwinschel.github.io/moma/dev)
-
-### Local Documentation
-To build and preview documentation locally:
-```bash
-julia compile_docs.jl
-```
-This will:
-- Activate the docs environment
-- Install necessary dependencies
-- Build the documentation
-- Output to `docs/build/index.html`
 
 ## Development Workflow
 
@@ -115,11 +152,9 @@ moma/
 ```
 
 ## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and build documentation
-5. Submit a pull request
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the MIT License - see the LICENSE file for details.

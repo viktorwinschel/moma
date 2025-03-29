@@ -1,21 +1,12 @@
 module Moma
 
-# Export your public interface here
-export example_function
+# Export types and functions
+export Object, Morphism, Category, Functor, NaturalTransformation, Pattern
+export identity, compose, create_pattern, check_binding, find_colimit
+export create_traffic_network, analyze_traffic_flow
 
-"""
-    example_function(x::Number)
-
-An example function that doubles its input.
-
-# Examples
-```julia
-julia> example_function(2)
-4
-```
-"""
-function example_function(x::Number)
-    return 2 * x
-end
+# Include submodules
+include("Categories.jl")
+include("examples/TrafficNetwork.jl")
 
 end # module 
