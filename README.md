@@ -36,6 +36,11 @@ To develop Moma locally:
    ```bash
    julia setup.jl
    ```
+   The `setup.jl` script will:
+   - Activate the project in the current directory
+   - Add Documenter as a dependency
+   - Instantiate the project
+   - Set up everything needed for local development
 
 3. You can now use the package in your Julia REPL:
    ```julia
