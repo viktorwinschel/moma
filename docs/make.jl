@@ -7,6 +7,7 @@ makedocs(
     modules=[Moma],
     pages=[
         "Home" => "index.md",
+        "Papers" => "papers.md",
         "API" => "api.md",
     ]
 )
