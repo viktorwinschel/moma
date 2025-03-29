@@ -1,20 +1,5 @@
 """
 Module implementing a traffic network example using Memory Evolutive Systems.
-
-This module provides an example implementation of Memory Evolutive Systems (MES) using traffic networks.
-It demonstrates how to model and analyze traffic flow using categorical constructions.
-
-# Exports
-- `RoadSegment`: Represents a road segment in the traffic network
-- `Junction`: Represents a junction connecting road segments
-- `create_traffic_network`: Creates a traffic network with road segments and junctions
-- `analyze_traffic_flow`: Analyzes traffic flow in the network
-
-The module shows how to:
-- Model road segments and junctions as objects in a category
-- Represent traffic flow using morphisms
-- Analyze network properties using categorical constructions
-- Track network state evolution over time
 """
 module TrafficNetwork
 

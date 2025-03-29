@@ -2,7 +2,7 @@
 
 julia_version = "1.11.4"
 manifest_format = "2.0"
-project_hash = "d06617f36d7775d342a339c8f4b1bb806b3ff1bb"
+project_hash = "aba100523345f74f2eb93bde4dba514df8d3410f"
 
 [[deps.ANSIColoredPrinters]]
 git-tree-sha1 = "574baf8110975760d391c710b6341da1afa48d8c"
@@ -163,9 +163,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 version = "1.11.0"
 
 [[deps.Moma]]
-deps = ["Documenter"]
-path = ".."
-uuid = "68f45c00-d248-4a90-b080-94636f5d00e2"
+deps = ["Documenter", "Test"]
+path = "/Users/viktorwinschel/Desktop/code/moma"
+uuid = "68f45c00-1ebf-11e9-2d7e-e1a13ff85a8f"
 version = "0.1.0"
 
 [[deps.MozillaCACerts_jll]]

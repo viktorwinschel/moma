@@ -1,9 +1,13 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-Moma = "68f45c00-d248-4a90-b080-94636f5d00e2"
+Moma = "68f45c00-1ebf-11e9-2d7e-e1a13ff85a8f"
+
+[compat]
+Documenter = "1"
+julia = "1.6"
 
 [extras]
-Moma = "68f45c00-d248-4a90-b080-94636f5d00e2"
+Moma = "68f45c00-1ebf-11e9-2d7e-e1a13ff85a8f"
 
 [targets]
 build = ["Documenter"]

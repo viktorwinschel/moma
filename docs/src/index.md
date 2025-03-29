@@ -1,31 +1,55 @@
-# Moma
+# Moma.jl Documentation
 
-Welcome to the documentation for Moma.jl!
+Welcome to the documentation for `Moma.jl`, a Julia package implementing Memory Evolutive Systems (MES) for complex system modeling and analysis.
 
 ## Overview
 
-Moma is a Julia package that provides example functionality. This is a template project that you can use as a starting point for your own Julia package.
+Moma.jl provides tools for working with Memory Evolutive Systems, a mathematical framework for modeling complex hierarchical systems that evolve over time. The package includes implementations of categorical constructions and practical examples like traffic network analysis.
 
 ## Installation
 
-To install Moma, use the Julia package manager:
+To install Moma.jl, use Julia's package manager:
 
 ```julia
 using Pkg
 Pkg.add("Moma")
 ```
 
-## Quick Start
+## Basic Usage
 
-Here's a quick example of how to use Moma:
+Here's a simple example of creating and analyzing a traffic network:
 
 ```julia
 using Moma
 
-result = example_function(5)  # Returns 10
+# Create a traffic network
+network = create_traffic_network()
+
+# Analyze traffic flow
+results = analyze_traffic_flow(network)
 ```
 
-## Documentation Structure
+## Package Structure
 
-- [Papers](@ref) - Overview of the foundational papers
-- [API Reference](@ref) - Detailed documentation of all exported functions 
+The package consists of two main modules:
+
+- `Categories`: Implements basic categorical constructions used in MES
+- `TrafficNetwork`: Provides an example implementation using traffic networks
+
+## Features
+
+### Categorical Constructions
+
+- Objects and morphisms in categories
+- Functors and natural transformations
+- Pattern matching and colimit finding
+
+### Traffic Network Example
+
+- Road segment and junction modeling
+- Traffic flow analysis
+- Network state evolution
+
+## Contributing
+
+Contributions to Moma.jl are welcome! Please feel free to submit issues and pull requests on our GitHub repository. 
