@@ -1,0 +1,28 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.9'
+    - uses: julia-actions/cache@v1
+    - name: Install dependencies
+      run: |
+        julia --project=docs -e 'using Pkg; Pkg.develop(path="."); Pkg.instantiate()'
+    - name: Build and deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: julia --project=docs docs/make.jl 
