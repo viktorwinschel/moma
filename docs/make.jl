@@ -3,12 +3,14 @@ using Moma
 
 makedocs(
     sitename="Moma",
-    format=Documenter.HTML(),
+    format=Documenter.HTML(
+        prettyurls=false
+    ),
     modules=[Moma],
     pages=[
-        "index.md",
-        "papers.md",
-        "api.md",
+        "Home" => "index.md",
+        "Papers" => "papers.md",
+        "API" => "api.md",
     ]
 )
 
