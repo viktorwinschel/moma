@@ -27,5 +27,5 @@ result = example_function(5)  # Returns 10
 
 ## Documentation Structure
 
-- [Papers](papers.md) - Overview of the foundational papers
-- [API Reference](api.md) - Detailed documentation of all exported functions 
+- [Papers](@ref) - Overview of the foundational papers
+- [API Reference](@ref) - Detailed documentation of all exported functions 

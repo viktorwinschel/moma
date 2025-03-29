@@ -6,9 +6,9 @@ makedocs(
     format=Documenter.HTML(),
     modules=[Moma],
     pages=[
-        "Home" => "index.md",
-        "Papers" => "papers.md",
-        "API" => "api.md",
+        "index.md",
+        "papers.md",
+        "api.md",
     ]
 )
 

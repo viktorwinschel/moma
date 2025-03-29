@@ -37,4 +37,4 @@ The Moma.jl package implements the methodologies and frameworks described in the
 - Analysis tools
 - Visualization capabilities
 
-For detailed implementation examples, see the [API Reference](api.md). 
+For detailed implementation examples, see the [API Reference](@ref). 
