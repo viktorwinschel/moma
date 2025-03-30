@@ -11,6 +11,9 @@ git checkout main
 
 # Build the documentation
 julia --project=docs/ docs/make.jl
+git add .
+git commit -m "Update local documentation $(date +%Y-%m-%d)"
+git push origin main
 
 # Create temp directory for docs
 TEMP_DOCS_DIR=$(mktemp -d)
