@@ -8,7 +8,7 @@ julia --project=docs/ docs/make.jl
 
 # Save current changes to main
 git add .
-git commit -m "Update code and documentation"
+git commit -m "Update code and documentation, 2"
 git push origin main
 
 # Create and switch to temporary branch
