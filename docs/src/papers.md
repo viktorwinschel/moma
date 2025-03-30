@@ -14,28 +14,12 @@ This section provides an overview of the papers that form the theoretical founda
 **Monetary Macro Accounting Theory (MoMaT)**:
 [pdf](assets/moma25.pdf) - A monetary macro accounting theory.
 
-### Original MOMA Simulation Files
+### Simulation of National Accounting Simulation according to MOMA25
 
 The `src/original_moma` directory contains several files used for generating and checking simulation data
 underlying the moma25 paper.
 
-### Simulation Files
-- `momascf_check.jl`: Validates the generated simulation data against expected results
-- `momascf_original.jl`: Contains the original implementation of the MOMA simulation
-- `momascf_v01.jl`: First version of the simulation with initial improvements
-- `momascf_v02.jl`: Second version with enhanced functionality
-- `momascf_v02_en.jl`: English version of v02 with additional documentation
-
-### Associated Data Files
-Each simulation file has four corresponding data files:
-- `momascf_original_data.csv`: Data for the original implementation
-- `momascf_v01_data.csv`: Data for version 1
-- `momascf_v02_data.csv`: Data for version 2
-- `momascf_v02_en_data.csv`: Data for the English version
-
-These files demonstrate the evolution of the MOMA implementation and provide test data for the current version of the package.
-
-### National Accounting Simulation
-The following image shows an example of the basic national accounting structure used in the simulations:
+- `momascf_v02_en.jl`: Current simulation file
+The following image shows an example of the basic national accounting structure used in the simulation.
 
 ![Basic National Accounting Structure](assets/bookings.png) 

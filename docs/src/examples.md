@@ -9,68 +9,61 @@ This section provides examples of using the basic categorical constructions impl
 ```julia
 using Moma.Categories
 
-# Create objects
-A = Object(:A, "object A")
-B = Object(:B, "object B")
-C = Object(:C, "object C")
+# Create objects with different types of data
+A = Object(:A, "object A")  # String data
+B = Object(:B, 42)         # Integer data
+C = Object(:C, 3.14)      # Float data
 
-# Create morphisms
-f = Morphism(A, B, x -> x, :f)
-g = Morphism(B, C, x -> x, :g)
+# Create morphisms with explicit functions
+f = Morphism(A, Object(:B, "OBJECT A"), uppercase, :f)
+g = Morphism(B, C, x -> float(x), :g)
 
-# Compose morphisms
-h = compose(f, g)
+# Compose morphisms when they are compatible
+h = compose(Morphism(A, B, x -> length(x), :h),
+           Morphism(B, C, x -> float(x), :i))
 ```
 
 ### Working with Categories
 
 ```julia
-# Create a category
+# Create a category with objects and morphisms
 objects = [A, B, C]
 morphisms = [f, g, h]
-C = Category(objects, morphisms, :ExampleCategory)
+cat = Category(objects, morphisms, :ExampleCategory)
 
-# Check if a morphism is in the category
-is_morphism_in_category(f, C)  # true
-is_morphism_in_category(Morphism(A, C, x -> x, :k), C)  # false
+# Check if morphisms belong to the category
+@assert is_morphism_in_category(f, cat)
+@assert !is_morphism_in_category(Morphism(A, C, x -> 0, :k), cat)
+
+# Identity morphisms are always valid
+id_A = identity(A)
+@assert id_A.source == id_A.target == A
+@assert id_A.map("test") == "test"
 ```
 
 ### Patterns and Colimits
 
 ```julia
-# Create a pattern
+# Create a simple pattern (diagram)
 pattern_objects = [A, B]
 pattern_morphisms = [f]
-P = create_pattern(C, pattern_objects, pattern_morphisms)
+pattern = create_pattern(cat, pattern_objects, pattern_morphisms)
 
-# Create bindings for colimit analysis
-bindings = Dict()
-for obj in pattern_objects
-    bindings[obj] = identity(obj)
-end
+# Create a candidate colimit object
+colimit = Object(:colimit, ["object A", 42])  # Combines data from A and B
 
-# Check if the pattern forms a colimit
-is_colimit = check_binding(B, bindings, P)
-```
+# Create binding morphisms
+bindings = Dict(
+    A => Morphism(A, colimit, x -> [x, 42], :bind_A),
+    B => Morphism(B, colimit, x -> ["object A", x], :bind_B)
+)
 
-### Functors and Natural Transformations
+# Check if it forms a colimit
+is_colimit = check_binding(colimit, bindings, pattern)
 
-```julia
-# Create another category
-D = Object(:D, "object D")
-E = Object(:E, "object E")
-k = Morphism(D, E, x -> x, :k)
-D = Category([D, E], [k], :TargetCategory)
-
-# Create object and morphism maps for the functor
-object_map = Dict(A => D, B => E)
-morphism_map = Dict(f => k)
-
-# Create a functor
-F = Functor(C, D, object_map, morphism_map, :ExampleFunctor)
-
-# Create a natural transformation
-η = NaturalTransformation(F, F, Dict(A => identity(A), B => identity(B)), :eta)
+# Alternatively, find a colimit automatically
+colimit_obj, auto_bindings = find_colimit(pattern)
+@assert check_binding(colimit_obj, auto_bindings, pattern)
 ```
 
 ## Advanced Usage
@@ -98,18 +91,59 @@ l1 = Object(:L1, Line(Point(0.0, 0.0), Point(1.0, 1.0)))
 f = Morphism(p1, l1, p -> Line(p, Point(p.x + 1.0, p.y + 1.0)), :f)
 
 # Create a category of geometric objects
-GeomCategory = Category([p1, p2, l1], [f], :Geometry)
+geom_cat = Category([p1, p2, l1], [f], :Geometry)
+
+# Create and verify patterns
+geom_pattern = create_pattern(geom_cat, [p1, l1], [f])
 ```
 
 ### Working with Multiple Categories
 
 ```julia
+# Create two categories
+cat1 = Category([A, B], [f], :Cat1)
+cat2 = Category([C], [], :Cat2)
+
+# Create mappings for a functor
+obj_map = Dict(A => C, B => C)
+morph_map = Dict(f => identity(C))
+
 # Create a functor between categories
-object_map = Dict(p1 => A, p2 => B, l1 => C)
-morphism_map = Dict(f => g)
+F = Functor(cat1, cat2, obj_map, morph_map, :F)
 
-G = Functor(GeomCategory, C, object_map, morphism_map, :GeometryToExample)
+# Create a natural transformation
+components = Dict(
+    A => Morphism(obj_map[A], obj_map[A], identity, :eta_A),
+    B => Morphism(obj_map[B], obj_map[B], identity, :eta_B)
+)
+eta = NaturalTransformation(F, F, components, :eta)
+```
 
-# Compose functors
-H = compose(F, G)
+## Error Handling Examples
+
+```julia
+# Attempting to compose incompatible morphisms
+f = Morphism(A, B, x -> x, :f)
+g = Morphism(C, A, x -> x, :g)
+try
+    compose(f, g)  # This will throw an error
+catch e
+    println("Error: ", e)  # "Morphisms are not composable"
+end
+
+# Attempting to create invalid patterns
+try
+    create_pattern(cat, [Object(:X, 0)], [])  # Object not in category
+catch e
+    println("Error: ", e)  # "Objects must belong to the category"
+end
+
+# Attempting to find invalid colimits
+invalid_pattern = create_pattern(cat, [A, B], [])
+colimit_obj, bindings = find_colimit(invalid_pattern)
+try
+    check_binding(Object(:bad, 0), Dict(), invalid_pattern)
+catch e
+    println("Error: ", e)  # Missing bindings
+end
 ```
