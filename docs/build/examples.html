@@ -7,26 +7,30 @@ B = Object(:B, 42)         # Integer data
 C = Object(:C, 3.14)      # Float data
 
 # Create morphisms with explicit functions
-f = Morphism(A, Object(:B, &quot;OBJECT A&quot;), uppercase, :f)
-g = Morphism(B, C, x -&gt; float(x), :g)
+f_str = Morphism(A, Object(:B, &quot;OBJECT A&quot;), uppercase, :f_str)
+g_float = Morphism(B, C, x -&gt; float(x), :g_float)
 
 # Compose morphisms when they are compatible
 h = compose(Morphism(A, B, x -&gt; length(x), :h),
-           Morphism(B, C, x -&gt; float(x), :i))</code></pre><h3 id="Working-with-Categories"><a class="docs-heading-anchor" href="#Working-with-Categories">Working with Categories</a><a id="Working-with-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a category with objects and morphisms
+           Morphism(B, C, x -&gt; float(x), :i))
+
+# this results in 11
+h.map(&quot;testa10,m12&quot;)</code></pre><h3 id="Working-with-Categories"><a class="docs-heading-anchor" href="#Working-with-Categories">Working with Categories</a><a id="Working-with-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a category with objects and morphisms
 objects = [A, B, C]
-morphisms = [f, g, h]
+morphisms = [f_str, g_float, h]
 cat = Category(objects, morphisms, :ExampleCategory)
 
 # Check if morphisms belong to the category
-@assert is_morphism_in_category(f, cat)
+@assert is_morphism_in_category(f_str, cat)
 @assert !is_morphism_in_category(Morphism(A, C, x -&gt; 0, :k), cat)
 
 # Identity morphisms are always valid
-id_A = identity(A)
-@assert id_A.source == id_A.target == A
+id_A = Moma.Categories.identity(A)
+@assert id_A.source == A
+@assert id_A.target == A
 @assert id_A.map(&quot;test&quot;) == &quot;test&quot;</code></pre><h3 id="Patterns-and-Colimits"><a class="docs-heading-anchor" href="#Patterns-and-Colimits">Patterns and Colimits</a><a id="Patterns-and-Colimits-1"></a><a class="docs-heading-anchor-permalink" href="#Patterns-and-Colimits" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a simple pattern (diagram)
 pattern_objects = [A, B]
-pattern_morphisms = [f]
+pattern_morphisms = [f_str]
 pattern = create_pattern(cat, pattern_objects, pattern_morphisms)
 
 # Create a candidate colimit object
@@ -51,7 +55,7 @@ end
 
 struct Line
     start::Point
-    end::Point
+    ends::Point
 end
 
 # Create objects with custom data
@@ -105,4 +109,4 @@ try
     check_binding(Object(:bad, 0), Dict(), invalid_pattern)
 catch e
     println(&quot;Error: &quot;, e)  # Missing bindings
-end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="papers.html">Papers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Sunday 30 March 2025 20:29">Sunday 30 March 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="papers.html">Papers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Sunday 30 March 2025 23:44">Sunday 30 March 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
