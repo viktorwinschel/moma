@@ -10,10 +10,6 @@ MoMa provides this documentation and implementations of
 - basic category theoretical constructions
 - basic simulation of a MoMa national accounting
 - pdfs and summaries of MES and MoMa
- 
-## Current work
-
-- categorify MoMa national accounting simulation
 
 ## Documentation Sections
 
