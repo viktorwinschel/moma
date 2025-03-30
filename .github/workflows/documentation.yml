@@ -36,5 +36,5 @@ jobs:
         force_orphan: true
         commit_message: "Deploy documentation"
         enable_jekyll: false
-        cname: viktorwinschel.github.io
-        destination_dir: . 
+        destination_dir: .
+        keep_files: false 
