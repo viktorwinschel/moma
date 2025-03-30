@@ -10,7 +10,10 @@ using Moma
 
 makedocs(
     sitename="Moma.jl",
-    format=Documenter.HTML(prettyurls=get(ENV, "CI", nothing) == "true"),
+    format=Documenter.HTML(
+        prettyurls=get(ENV, "CI", nothing) == "true",
+        canonical="https://viktorwinschel.github.io/moma"
+    ),
     modules=[Moma],
     pages=[
         "Home" => "index.md",
@@ -30,5 +33,6 @@ deploydocs(
     devbranch="main",
     push_preview=true,
     forcepush=true,
+    deploy_config=Documenter.GitHubActions()
 )
 
