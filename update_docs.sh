@@ -3,35 +3,44 @@
 # Exit on error
 set -e
 
-# Build the documentation
-julia --project=docs/ docs/make.jl
+# Stash any changes
+git stash
 
-# Save current changes to main
-git add .
-git commit -m "Update code and documentation, 5, todos"
-git push origin main
-
-# Create and switch to temporary branch
-git checkout --orphan gh-pages-temp
-
-# Remove everything except docs/build
-git rm -rf .
-cp -r docs/build/* .
-rm -rf docs
-
-# Add and commit documentation
-git add .
-git commit -m "Update documentation"
-
-# Force push to gh-pages
-git push -f origin gh-pages-temp:gh-pages
-
-# Return to main and cleanup
-git checkout main
-git branch -D gh-pages-temp
+# Ensure we're on main branch
 git checkout main
 
 # Build the documentation
 julia --project=docs/ docs/make.jl
+
+# Create temp directory for docs
+TEMP_DOCS_DIR=$(mktemp -d)
+cp -r docs/build/* "$TEMP_DOCS_DIR/"
+
+# Switch to gh-pages branch (create if doesn't exist)
+if git show-ref --verify --quiet refs/heads/gh-pages; then
+    git checkout gh-pages
+    git pull origin gh-pages
+    git rm -rf .
+else
+    git checkout --orphan gh-pages
+    git rm -rf .
+fi
+
+# Copy documentation from temp directory
+cp -r "$TEMP_DOCS_DIR"/* .
+
+# Add and commit
+git add .
+git commit -m "Update documentation $(date +%Y-%m-%d)"
+
+# Push to gh-pages
+git push -f origin gh-pages
+
+# Cleanup
+rm -rf "$TEMP_DOCS_DIR"
+
+# Return to main and restore changes
+git checkout main
+git stash pop || true
 
 echo "Documentation updated successfully!"
