@@ -1,5 +1,22 @@
 """
-Module implementing basic categorical constructions for Memory Evolutive Systems.
+    module Categories
+
+This module provides basic categorical constructions used in Memory Evolutive Systems (MES).
+It includes implementations of objects, morphisms, categories, functors, natural transformations,
+and patterns, along with functions for working with these constructions.
+
+# Exports
+- `Object`: Represents an object in a category
+- `Morphism`: Represents a morphism between objects
+- `Category`: Represents a category with objects and morphisms
+- `Functor`: Represents a functor between categories
+- `NaturalTransformation`: Represents a natural transformation between functors
+- `Pattern`: Represents a pattern (diagram) in a category
+- `identity`: Creates an identity morphism for an object
+- `compose`: Composes two morphisms
+- `create_pattern`: Creates a pattern from objects and morphisms
+- `check_binding`: Checks if an object forms a colimit for a pattern
+- `find_colimit`: Finds or constructs colimits for patterns
 """
 module Categories
 
