@@ -12,8 +12,7 @@ makedocs(
     sitename="Moma.jl",
     format=Documenter.HTML(
         prettyurls=get(ENV, "CI", nothing) == "true",
-        canonical="https://viktorwinschel.github.io/moma",
-        assets=["assets/favicon.ico"]
+        canonical="https://viktorwinschel.github.io/moma"
     ),
     modules=[Moma],
     pages=[
