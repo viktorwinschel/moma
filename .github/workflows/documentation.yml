@@ -12,8 +12,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      pages: write
-      id-token: write
 
     steps:
     - uses: actions/checkout@v4
@@ -27,13 +25,4 @@ jobs:
     - name: Build documentation
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: julia --project=docs docs/make.jl
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/build
-        force_orphan: true
-        commit_message: "Deploy documentation"
-        destination_dir: .
-        keep_files: false 
+      run: julia --project=docs docs/make.jl 
