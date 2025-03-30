@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · MoMa</title><meta name="title" content="Examples · MoMa"/><meta property="og:title" content="Examples · MoMa"/><meta property="twitter:title" content="Examples · MoMa"/><meta name="description" content="Documentation for MoMa."/><meta property="og:description" content="Documentation for MoMa."/><meta property="twitter:description" content="Documentation for MoMa."/><meta property="og:url" content="https://viktorwinschel.github.io/moma/examples.html"/><meta property="twitter:url" content="https://viktorwinschel.github.io/moma/examples.html"/><link rel="canonical" href="https://viktorwinschel.github.io/moma/examples.html"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script><link href="assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="index.html">MoMa</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="index.html">Home</a></li><li class="is-active"><a class="tocitem" href="examples.html">Examples</a><ul class="internal"><li><a class="tocitem" href="#Basic-Categorical-Constructions"><span>Basic Categorical Constructions</span></a></li><li><a class="tocitem" href="#Advanced-Usage"><span>Advanced Usage</span></a></li><li><a class="tocitem" href="#Error-Handling-Examples"><span>Error Handling Examples</span></a></li></ul></li><li><a class="tocitem" href="papers.html">Papers</a></li><li><a class="tocitem" href="api.html">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="examples.html">Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="examples.html">Examples</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/examples.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>This section provides examples of using the basic categorical constructions implemented in the <code>Categories</code> module.</p><h2 id="Basic-Categorical-Constructions"><a class="docs-heading-anchor" href="#Basic-Categorical-Constructions">Basic Categorical Constructions</a><a id="Basic-Categorical-Constructions-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Categorical-Constructions" title="Permalink"></a></h2><h3 id="Creating-Objects-and-Morphisms"><a class="docs-heading-anchor" href="#Creating-Objects-and-Morphisms">Creating Objects and Morphisms</a><a id="Creating-Objects-and-Morphisms-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Objects-and-Morphisms" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Moma.Categories
+
+# Create objects with different types of data
+A = Object(:A, &quot;object A&quot;)  # String data
+B = Object(:B, 42)         # Integer data
+C = Object(:C, 3.14)      # Float data
+
+# Create morphisms with explicit functions
+f_str = Morphism(A, Object(:B, &quot;OBJECT A&quot;), uppercase, :f_str)
+g_float = Morphism(B, C, x -&gt; float(x), :g_float)
+
+# Compose morphisms when they are compatible
+h = compose(Morphism(A, B, x -&gt; length(x), :h),
+           Morphism(B, C, x -&gt; float(x), :i))
+
+# this results in 11
+h.map(&quot;testa10,m12&quot;)</code></pre><h3 id="Working-with-Categories"><a class="docs-heading-anchor" href="#Working-with-Categories">Working with Categories</a><a id="Working-with-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a category with objects and morphisms
+objects = [A, B, C]
+morphisms = [f_str, g_float, h]
+cat = Category(objects, morphisms, :ExampleCategory)
+
+# Check if morphisms belong to the category
+@assert is_morphism_in_category(f_str, cat)
+@assert !is_morphism_in_category(Morphism(A, C, x -&gt; 0, :k), cat)
+
+# Identity morphisms are always valid
+id_A = Moma.Categories.identity(A)
+@assert id_A.source == A
+@assert id_A.target == A
+@assert id_A.map(&quot;test&quot;) == &quot;test&quot;</code></pre><h3 id="Patterns-and-Colimits"><a class="docs-heading-anchor" href="#Patterns-and-Colimits">Patterns and Colimits</a><a id="Patterns-and-Colimits-1"></a><a class="docs-heading-anchor-permalink" href="#Patterns-and-Colimits" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a simple pattern (diagram)
+pattern_objects = [A, B]
+pattern_morphisms = [f_str]
+pattern = create_pattern(cat, pattern_objects, pattern_morphisms)
+
+# Create a candidate colimit object
+colimit = Object(:colimit, [&quot;object A&quot;, 42])  # Combines data from A and B
+
+# Create binding morphisms
+bindings = Dict(
+    A =&gt; Morphism(A, colimit, x -&gt; [x, 42], :bind_A),
+    B =&gt; Morphism(B, colimit, x -&gt; [&quot;object A&quot;, x], :bind_B)
+)
+
+# Check if it forms a colimit
+is_colimit = check_binding(colimit, bindings, pattern)
+
+# Alternatively, find a colimit automatically
+colimit_obj, auto_bindings = find_colimit(pattern)
+@assert check_binding(colimit_obj, auto_bindings, pattern)</code></pre><h2 id="Advanced-Usage"><a class="docs-heading-anchor" href="#Advanced-Usage">Advanced Usage</a><a id="Advanced-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Usage" title="Permalink"></a></h2><h3 id="Creating-Custom-Categories"><a class="docs-heading-anchor" href="#Creating-Custom-Categories">Creating Custom Categories</a><a id="Creating-Custom-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Custom-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Define custom data types
+struct Point
+    x::Float64
+    y::Float64
+end
+
+struct Line
+    start::Point
+    ends::Point
+end
+
+# Create objects with custom data
+p1 = Object(:P1, Point(0.0, 0.0))
+p2 = Object(:P2, Point(1.0, 1.0))
+l1 = Object(:L1, Line(Point(0.0, 0.0), Point(1.0, 1.0)))
+
+# Create morphisms between custom objects
+f = Morphism(p1, l1, p -&gt; Line(p, Point(p.x + 1.0, p.y + 1.0)), :f)
+
+# Create a category of geometric objects
+geom_cat = Category([p1, p2, l1], [f], :Geometry)
+
+# Create and verify patterns
+geom_pattern = create_pattern(geom_cat, [p1, l1], [f])</code></pre><h3 id="Working-with-Multiple-Categories"><a class="docs-heading-anchor" href="#Working-with-Multiple-Categories">Working with Multiple Categories</a><a id="Working-with-Multiple-Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Multiple-Categories" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create two categories
+cat1 = Category([A, B], [f], :Cat1)
+cat2 = Category([C], [], :Cat2)
+
+# Create mappings for a functor
+obj_map = Dict(A =&gt; C, B =&gt; C)
+morph_map = Dict(f =&gt; identity(C))
+
+# Create a functor between categories
+F = Functor(cat1, cat2, obj_map, morph_map, :F)
+
+# Create a natural transformation
+components = Dict(
+    A =&gt; Morphism(obj_map[A], obj_map[A], identity, :eta_A),
+    B =&gt; Morphism(obj_map[B], obj_map[B], identity, :eta_B)
+)
+eta = NaturalTransformation(F, F, components, :eta)</code></pre><h2 id="Error-Handling-Examples"><a class="docs-heading-anchor" href="#Error-Handling-Examples">Error Handling Examples</a><a id="Error-Handling-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Error-Handling-Examples" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Attempting to compose incompatible morphisms
+f = Morphism(A, B, x -&gt; x, :f)
+g = Morphism(C, A, x -&gt; x, :g)
+try
+    compose(f, g)  # This will throw an error
+catch e
+    println(&quot;Error: &quot;, e)  # &quot;Morphisms are not composable&quot;
+end
+
+# Attempting to create invalid patterns
+try
+    create_pattern(cat, [Object(:X, 0)], [])  # Object not in category
+catch e
+    println(&quot;Error: &quot;, e)  # &quot;Objects must belong to the category&quot;
+end
+
+# Attempting to find invalid colimits
+invalid_pattern = create_pattern(cat, [A, B], [])
+colimit_obj, bindings = find_colimit(invalid_pattern)
+try
+    check_binding(Object(:bad, 0), Dict(), invalid_pattern)
+catch e
+    println(&quot;Error: &quot;, e)  # Missing bindings
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="papers.html">Papers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Monday 31 March 2025 01:02">Monday 31 March 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
