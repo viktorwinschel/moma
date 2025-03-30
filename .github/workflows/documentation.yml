@@ -24,7 +24,12 @@ jobs:
     - name: Install dependencies
       run: |
         julia --project=docs -e 'using Pkg; Pkg.develop(path="."); Pkg.instantiate()'
-    - name: Build and deploy
+    - name: Build documentation
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: julia --project=docs docs/make.jl 
+      run: julia --project=docs docs/make.jl
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build 

@@ -1,33 +1,41 @@
 # Papers
 
-This section provides summaries of the key papers that form the foundation of the Moma package. Each paper is detailed on its own page, accessible through the links below.
+This section provides an overview of the papers that form the theoretical foundation of the MOMA package.
 
-## [MES07: Memory Evolutive Systems](mes07.md)
-**Title:** "Memory Evolutive Systems: An Overview of Concepts and Methodologies"
+## [MES07](mes07.md)
+**Memory Evolutive Systems: Hierarhy, Emergence, Cognition**:
+[pdf](assets/mes07.pdf) - A comprehensive synthesis of two decades of research on memory evolutive systems, presenting mathematical models for autonomous evolutionary systems such as biological, social, and nervous systems.
 
-A foundational paper introducing Memory Evolutive Systems (MES) as mathematical models for autonomous evolutionary systems. This work establishes the core theoretical framework used throughout the Moma package.
+## [MES23](mes23.md)
+**A Mathematical Framework for Enriching Human–Machine Interactions**:
+[pdf](assets/mes23.pdf) - Analysis of human-machine interactions using MES framework.
 
-[Read more about MES07...](mes07.md)
+## [MOMA25](moma25.md)
+**Monetary Macro Accounting Theory (MoMaT)**:
+[pdf](assets/moma25.pdf) - A monetary macro accounting theory.
 
-## [MES25: Human-Machine Interactions](mes25.md)
-**Title:** "A Mathematical Framework for Enriching Human-Machine Interactions"
+### Original MOMA Simulation Files
 
-Building upon MES07, this paper presents a framework for developing rich human-machine interactions in social organizations, introducing the concept of a data analyser (DA) for improved decision-making.
+The `src/original_moma` directory contains several files used for generating and checking simulation data
+underlying the moma25 paper.
 
-[Read more about MES25...](mes25.md)
+### Simulation Files
+- `momascf_check.jl`: Validates the generated simulation data against expected results
+- `momascf_original.jl`: Contains the original implementation of the MOMA simulation
+- `momascf_v01.jl`: First version of the simulation with initial improvements
+- `momascf_v02.jl`: Second version with enhanced functionality
+- `momascf_v02_en.jl`: English version of v02 with additional documentation
 
-## [MOMA25: Monetary Macro Accounting](moma25.md)
-**Title:** "Monetary Macro Accounting Theory"
+### Associated Data Files
+Each simulation file has four corresponding data files:
+- `momascf_original_data.csv`: Data for the original implementation
+- `momascf_v01_data.csv`: Data for version 1
+- `momascf_v02_data.csv`: Data for version 2
+- `momascf_v02_en_data.csv`: Data for the English version
 
-The latest paper introduces the MoMa framework for monetary macro accounting, presenting a novel approach to understanding money as a medium of payment for obligations and debts.
+These files demonstrate the evolution of the MOMA implementation and provide test data for the current version of the package.
 
-[Read more about MOMA25...](moma25.md)
+### National Accounting Simulation
+The following image shows an example of the basic national accounting structure used in the simulations:
 
-## Implementation in Moma.jl
-
-The Moma.jl package implements the methodologies and frameworks described in these papers, integrating:
-- Memory evolutive systems from MES07
-- Human-machine interaction frameworks from MES25
-- Monetary macro accounting concepts from MOMA25
-
-For detailed implementation examples, see the [API Reference](api.md). 
+![Basic National Accounting Structure](assets/bookings.png) 

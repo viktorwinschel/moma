@@ -1,61 +1,41 @@
-# Moma.jl Documentation
+# Moma.jl
 
-Welcome to the documentation for `Moma.jl`, a Julia package implementing Memory Evolutive Systems (MES) for complex system modeling and analysis.
+A Julia package implementing Memory Evolutive Systems (MES) and related mathematical frameworks.
 
 ## Overview
 
-Moma.jl provides tools for working with Memory Evolutive Systems, a mathematical framework for modeling complex hierarchical systems that evolve over time. The package includes implementations of categorical constructions and practical examples like traffic network analysis.
+Moma.jl provides implementations of:
+
+- Memory Evolutive Systems (MES)
+- Category Theory constructions
+- Network Theory components
+- Complex Systems analysis
 
 ## Installation
-
-To install Moma.jl, use Julia's package manager:
 
 ```julia
 using Pkg
 Pkg.add("Moma")
 ```
 
-## Basic Usage
-
-Here's a simple example of creating and analyzing a traffic network:
+## Quick Start
 
 ```julia
 using Moma
 
-# Create a traffic network
-network = create_traffic_network()
+# Create basic categorical objects
+A = Object(:A, "object A")
+B = Object(:B, "object B")
 
-# Analyze traffic flow
-results = analyze_traffic_flow(network)
+# Create a morphism
+f = Morphism(A, B, x -> x, :f)
+
+# Create a category
+C = Category([A, B], [f], :ExampleCategory)
 ```
-
-## Package Structure
-
-The package consists of two main modules:
-
-- `Categories`: Implements basic categorical constructions used in MES
-- `TrafficNetwork`: Provides an example implementation using traffic networks
-
-## Features
-
-### Categorical Constructions
-
-- Objects and morphisms in categories
-- Functors and natural transformations
-- Pattern matching and colimit finding
-
-### Traffic Network Example
-
-- Road segment and junction modeling
-- Traffic flow analysis
-- Network state evolution
-
-## Contributing
-
-Contributions to Moma.jl are welcome! Please feel free to submit issues and pull requests on our GitHub repository.
 
 ## Documentation Sections
 
-- [Examples](examples.md) - Detailed examples of using Moma.jl
-- [Papers](papers.md) - Theoretical foundations and papers
-- [API Reference](api.md) - Complete API documentation 
+- [Examples](examples.md) - Basic categorical constructions and usage examples
+- [Papers](papers.md) - Mathematical foundations and theoretical background
+- [API Reference](api.md) - Detailed documentation of all functions and types 

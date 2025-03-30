@@ -1,22 +1,25 @@
+using Pkg
+
+# Activate and setup the docs environment
+Pkg.activate(@__DIR__)
+Pkg.develop(PackageSpec(path=dirname(@__DIR__)))
+Pkg.instantiate()
+
 using Documenter
 using Moma
 
 makedocs(
-    sitename="MoMa",
-    format=Documenter.HTML(
-        prettyurls=false
-    ),
+    sitename="Moma.jl",
+    format=Documenter.HTML(prettyurls=get(ENV, "CI", nothing) == "true"),
     modules=[Moma],
     pages=[
         "Home" => "index.md",
-        "Papers" => [
-            "Overview" => "papers.md",
-            "MES07: Memory Evolutive Systems" => "mes07.md",
-            "MES25: Human-Machine Interactions" => "mes25.md",
-            "MOMA25: Monetary Macro Accounting" => "moma25.md"
-        ],
-        "API" => "api.md",
-    ]
+        "Examples" => "examples.md",
+        "Papers" => "papers.md",
+        "API" => "api.md"
+    ],
+    doctest=true,
+    clean=true
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.
@@ -28,3 +31,4 @@ deploydocs(
     push_preview=true,
     forcepush=true,
 )
+
