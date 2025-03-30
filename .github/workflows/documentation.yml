@@ -28,6 +28,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: julia --project=docs docs/make.jl
+    - name: Create .nojekyll file
+      run: touch docs/build/.nojekyll
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
@@ -35,4 +37,5 @@ jobs:
         publish_dir: docs/build
         force_orphan: true
         commit_message: "Deploy documentation"
-        enable_jekyll: false 
+        enable_jekyll: false
+        cname: viktorwinschel.github.io 
