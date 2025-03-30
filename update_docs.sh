@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Exit on error
 set -e
@@ -41,7 +40,7 @@ git push -f origin gh-pages
 
 # Cleanup
 rm -rf "$TEMP_DOCS_DIR"
-
+please run update_docs.sh and 
 # Return to main and restore changes
 git checkout main
 git stash pop || true
