@@ -26,3 +26,9 @@ makedocs(
     clean=true
 )
 
+deploydocs(
+    repo="github.com/viktorwinschel/moma.git",
+    devbranch="main",
+    push_preview=true
+)
+
