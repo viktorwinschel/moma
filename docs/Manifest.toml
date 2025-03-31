@@ -2,7 +2,7 @@
 
 julia_version = "1.11.4"
 manifest_format = "2.0"
-project_hash = "3ce181bd4230c12264b9dc736b71fbd8e8be5964"
+project_hash = "bb9c6e806a51d0d76c3df209915d963991f72f43"
 
 [[deps.ANSIColoredPrinters]]
 git-tree-sha1 = "574baf8110975760d391c710b6341da1afa48d8c"
@@ -44,9 +44,9 @@ version = "0.9.4"
 
 [[deps.Documenter]]
 deps = ["ANSIColoredPrinters", "AbstractTrees", "Base64", "CodecZlib", "Dates", "DocStringExtensions", "Downloads", "Git", "IOCapture", "InteractiveUtils", "JSON", "LibGit2", "Logging", "Markdown", "MarkdownAST", "Pkg", "PrecompileTools", "REPL", "RegistryInstances", "SHA", "TOML", "Test", "Unicode"]
-git-tree-sha1 = "30f520c66490393bf4e4ff2bb144db65f569d974"
+git-tree-sha1 = "0efa18ca40b9928422d782b3191c032fd0c90682"
 uuid = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-version = "1.9.0"
+version = "1.10.0"
 
 [[deps.DocumenterTools]]
 deps = ["AbstractTrees", "Base64", "DocStringExtensions", "Documenter", "FileWatching", "Git", "Gumbo", "LibGit2", "OpenSSH_jll", "Sass"]
