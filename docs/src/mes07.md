@@ -54,10 +54,10 @@ The paper contains detailed figures illustrating key concepts. Each figure is ac
 ### Chapter 1: Basic Concepts
 The first chapter introduces fundamental mathematical concepts using visual representations:
 
-![A graph](@assets/mes07/image_0000.jpg)
+![A graph](assets/mes07/image_0000.jpg)
 *A graph. The vertices of the graph are represented by points, in this case A, B, B0, C, D and D0. The edges are represented by arrows such as f. Not all the arrows in the figure are labelled.*
 
-![A path](@assets/mes07/image_0001.jpg)
+![A path](assets/mes07/image_0001.jpg)
 *A path. A path of a graph G from vertex A to vertex B is a finite sequence of successive arrows of the graph, the first one beginning at A and the last ending at B.*
 
 [Additional figures from Chapter 1...]
@@ -65,7 +65,7 @@ The first chapter introduces fundamental mathematical concepts using visual repr
 ### Chapter 2: Patterns and Colimits
 This chapter illustrates the mathematical structures used to model complex systems:
 
-![A pattern](@assets/mes07/image_0013.jpg)
+![A pattern](assets/mes07/image_0013.jpg)
 *A pattern. A pattern P in the category K is a homomorphism of graphs P from a graph sP (the "sketch" of the pattern) to K. The components of the pattern are the images of the vertices (indices) of sP under P.*
 
 [Additional figures from Chapter 2...]
@@ -73,7 +73,7 @@ This chapter illustrates the mathematical structures used to model complex syste
 ### Chapter 3: Links and Simple Links
 Visual representations of relationships between components:
 
-![P-factors of a link to cP](@assets/mes07/image_0019.jpg)
+![P-factors of a link to cP](assets/mes07/image_0019.jpg)
 *P-factors of a link to cP. A link g from B to the colimit cP of the pattern P is mediated by the pattern P if it factors through a link gi from B to one of the components Pi of P. Such a link gi is called a P-factor of g (with respect to P).*
 
 [Additional figures from Chapter 3...]
@@ -81,7 +81,7 @@ Visual representations of relationships between components:
 ### Chapter 4: Functors and Complexification
 Illustrations of mathematical transformations:
 
-![Image of a pattern and of a collective link](@assets/mes07/image_0034.jpg)
+![Image of a pattern and of a collective link](assets/mes07/image_0034.jpg)
 *Image of a pattern and of a collective link. p is a functor from K to K0. A pattern P in K has for its image by p a pattern pP in K0: it has the same sketch as P; the component of index i is the image pPi of the component Pi of P.*
 
 [Additional figures from Chapter 4...]
@@ -89,7 +89,7 @@ Illustrations of mathematical transformations:
 ### Chapter 5: Evolutive Systems
 Visual representations of system evolution:
 
-![Transition between two configurations](@assets/mes07/image_0046.jpg)
+![Transition between two configurations](assets/mes07/image_0046.jpg)
 *Transition between two configurations. The evolutive system K admits T as its time scale and K_t for its configuration category at time t. The transition (partial) functor from K_t to the configuration category K_t' (at a later time t') identifies what each component at time t becomes at time t'.*
 
 [Additional figures from Chapter 5...]
@@ -97,7 +97,7 @@ Visual representations of system evolution:
 ### Chapter 6: Memory Evolutive Systems
 Illustrations of the core MES concepts:
 
-![A schematic view of a memory evolutive system](@assets/mes07/image_0054.jpg)
+![A schematic view of a memory evolutive system](assets/mes07/image_0054.jpg)
 *A schematic view of a memory evolutive system. A memory evolutive system (MES) is a hierarchical evolutive system, and the figure represents one of its configuration categories. Different sub-systems are distinguished.*
 
 [Additional figures from Chapter 6...]
@@ -105,7 +105,7 @@ Illustrations of the core MES concepts:
 ### Chapter 7: Aging and Dysfunction
 Visual representations of system aging and failure modes:
 
-![Different causes of fractures](@assets/mes07/image_0062.jpg)
+![Different causes of fractures](assets/mes07/image_0062.jpg)
 *Different causes of fractures. Time is on the horizontal axis (left to right). (1) Regular step for the co-regulator, showing durations of the different phases. (2) A de-synchronization: the period d increases, causing a temporary misalignment that is later corrected.*
 
 [Additional figures from Chapter 7...]
@@ -113,7 +113,7 @@ Visual representations of system aging and failure modes:
 ### Chapter 8: Memory and Learning
 Illustrations of memory and learning processes:
 
-![Formation of a record](@assets/mes07/image_0068.jpg)
+![Formation of a record](assets/mes07/image_0068.jpg)
 *Formation of a record. An item S activates a pattern R of (internal or external) receptors. Only some of its components are observable in the landscape L_E of a particular co-regulator E, by the pattern r_E of their perspectives.*
 
 [Additional figures from Chapter 8...]
@@ -121,7 +121,7 @@ Illustrations of memory and learning processes:
 ### Chapter 9: Neural Systems
 Visual representations of neural network concepts:
 
-![Neurons and synapses](@assets/mes07/image_0078.jpg)
+![Neurons and synapses](assets/mes07/image_0078.jpg)
 *Neurons and synapses. A neuron N is a cell of the neuronal system. It has two prolongations: an axon and a dendritic tree. Two neurons N and N0 are linked by synapses such as f, which connect the axon of one to the dendrite of the other.*
 
 [Additional figures from Chapter 9...] 
