@@ -379,7 +379,7 @@ end
 ## Further Reading
 
 For more detailed mathematical background and applications:
-- [MES23](mes23.md): Latest developments in Memory Evolutive Systems
-- [MES07](mes07.md): Foundational theory of Memory Evolutive Systems
+- [MES23](mes23.md): Newer developments in Memory Evolutive Systems on human-machine interaction
+- [MES07](mes07.md): Foundational theory of Memory Evolutive Systems (MES)
 - [MoMa25](moma25.md) Mometary mMcro Accounting (MoMa) Theory (MoMaT)
 - [Papers](papers.md): Complete list of related publications and theoretical background
