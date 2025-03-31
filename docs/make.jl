@@ -18,7 +18,7 @@ makedocs(
     modules=[Moma],
     pages=[
         "Home" => "index.md",
-        "Examples" => "examples.md",
+        "Category Theory" => "category_theory.md",
         "Papers" => "papers.md",
         "API" => "api.md"
     ],

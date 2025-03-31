@@ -1,0 +1,4 @@
+name = "Moma"
+uuid = "c9330576-f75f-4ba6-8230-bdc5b0e53eff"
+authors = ["Viktor Winschel <viktor.winschel@gmail.com>"]
+version = "0.1.0"

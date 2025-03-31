@@ -13,6 +13,6 @@ MoMa provides this documentation and implementations of
 
 ## Documentation Sections
 
-- [Examples](examples.md) - Basic categorical constructions and usage examples
+- [Category Theory](category_theory.md) - Mathematical foundations and implementation examples
 - [Papers](papers.md) - Mathematical foundations and theoretical background
 - [API Reference](api.md) - Documentation of all functions and types 
