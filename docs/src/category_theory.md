@@ -26,7 +26,7 @@ A @>{f}>> B @>{g}>> C
 
 ### Implementation
 
-In Moma, categories are implemented using the following types:
+In MoMa, categories are implemented using the following types:
 
 - [`Object` (lines 61-65)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L61-L65)
 - [`Morphism` (lines 97-102)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L97-L102)

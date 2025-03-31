@@ -2,6 +2,11 @@
 
 A Julia package implementing a Monetary Macro Accounting (MoMa).
 To be extended with categorical tools of Memory Evolutive Systems (MES).
+The money theory works for national accounting, sectors and companies
+but also for within companies as holdings with subsidiaries
+and down to the smallest level of a box ordering screws.
+MoMa is a multi-level accounting theory for macro accounting 
+extending micro accounting aka double-entry bookkeeping.
 
 ## Overview
 
