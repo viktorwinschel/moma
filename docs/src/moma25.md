@@ -1,4 +1,4 @@
-# MOMA25: Monetary Macro Accounting Theory
+# MoMa25: Monetary Macro Accounting Theory
 
 ## Overview
 This paper develops a specification for software for macro accounting (MoMa) and a monetary macro accounting theory (MoMaT). It presents a novel approach where money functions as a medium of payment for obligations and debts, rather than just a medium of exchange.

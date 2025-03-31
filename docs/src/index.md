@@ -7,9 +7,9 @@ To be extended with categorical tools of Memory Evolutive Systems (MES).
 
 MoMa provides this documentation and implementations of
 
-- basic category theoretical constructions
-- basic simulation of a MoMa national accounting
-- pdfs and summaries of MES and MoMa
+- Basic category theoretical constructions
+- Basic simulation of a MoMa national accounting
+- Summaries and pdfs of MES and MoMa
 
 ## Documentation Sections
 
