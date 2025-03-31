@@ -23,12 +23,16 @@ makedocs(
         "API" => "api.md"
     ],
     doctest=true,
-    clean=true
+    clean=true,
+    remotes=nothing  # Force clean build
 )
 
 deploydocs(
     repo="github.com/viktorwinschel/moma.git",
     devbranch="main",
-    push_preview=true
+    push_preview=true,
+    target="build",
+    versions=nothing,  # Don't create version selector
+    forcepush=true    # Force push to overwrite gh-pages
 )
 
