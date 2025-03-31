@@ -1,6 +1,6 @@
 # Category Theory
 
-This section provides a mathematical introduction to the category theory concepts implemented in the Moma package.
+This section provides a mathematical introduction to the category theory concepts implemented in MoMa.
 
 ## Categories
 
@@ -380,6 +380,6 @@ end
 
 For more detailed mathematical background and applications:
 - [MES23](mes23.md): Newer developments in Memory Evolutive Systems on human-machine interaction
-- [MES07](mes07.md): Foundational theory of Memory Evolutive Systems (MES)
-- [MoMa25](moma25.md) Mometary mMcro Accounting (MoMa) Theory (MoMaT)
+- [MES07](mes07.md): Memory Evolutive Systems (MES)
+- [MoMa25](moma25.md) Monetary Macro Accounting (MoMa) Theory (MoMaT)
 - [Papers](papers.md): Complete list of related publications and theoretical background

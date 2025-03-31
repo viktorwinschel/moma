@@ -1,16 +1,17 @@
-# MoMa
+# MoMa: Central Banks for All
 
-A Julia package implementing a Monetary Macro Accounting (MoMa).
-To be extended with categorical tools of Memory Evolutive Systems (MES).
-The money theory works for national accounting, sectors and companies
+A Julia package implementing a Monetary Macro Accounting (MoMa) of Menéndez and Winschel.
+To be extended with categorical tools of Memory Evolutive Systems (MES) of Ehresmann and Vanbremeersch.
+
+The monetary theory of MoMa works for national accounting, sectors and companies
 but also for within companies as holdings with subsidiaries
-and down to the smallest level of a box ordering screws.
-MoMa is a multi-level accounting theory for macro accounting 
+and down to smaller levels down like to processes of a box ordering screws.
+MoMa is a multi-level accounting theory for macro accounting with different time scales
 extending micro accounting aka double-entry bookkeeping.
 
 ## Overview
 
-MoMa provides this documentation and implementations of
+This documentation contain implementations and
 
 - Basic category theoretical constructions
 - Basic simulation of a MoMa national accounting

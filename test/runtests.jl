@@ -89,4 +89,6 @@ using Moma
         end
     end
 
+    # Include documentation examples tests
+    include("examples_test.jl")
 end

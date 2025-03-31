@@ -51,22 +51,23 @@ Utilizes:
 ## Technical Implementation
 
 ### Software Components
-MoMa implementation includes:
+MoMa implementation can include:
 - Macro accounting systems
 - Smart contracts
 - Structural econometric models
 - Data analysis tools
 
 ### Mathematical Tools
-Employs:
+Proposes:
 - Category theory
-- Sheaf theory
-- Homology theory
+- Sheaf theory like MES colimits
+- Homology theory like MES coregulators
 - Game theory
 
 ## Future Implications
 The framework provides foundations for:
-- Modern monetary systems
-- Digital currency development
-- Financial system evolution
+- Macro economic research in monetary systems
+- Digital currency development, like stable coins
+- Real estate management 
+- Renewable energy management systems, virtual power plants
 - Economic policy making 

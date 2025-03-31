@@ -71,13 +71,4 @@ Functions in the module may throw the following errors:
 - `ErrorException`: When colimit construction fails
 - `ErrorException`: When pattern creation fails due to invalid inputs
 
-## Mathematical Background
-
-The implementation follows standard category theory definitions:
-
-- A category consists of objects and morphisms satisfying identity and composition laws
-- Functors preserve categorical structure between categories
-- Natural transformations provide mappings between functors
-- Colimits represent universal constructions for patterns
-
 For more detailed mathematical background, see the [Papers](papers.md) section. 
