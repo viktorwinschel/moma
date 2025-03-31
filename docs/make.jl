@@ -13,7 +13,8 @@ makedocs(
     format=Documenter.HTML(
         prettyurls=get(ENV, "CI", nothing) == "true",
         canonical="https://viktorwinschel.github.io/moma",
-        assets=["assets/favicon.ico"]
+        assets=["assets/favicon.ico"],
+        edit_link="main"
     ),
     modules=[Moma],
     pages=[
@@ -24,15 +25,14 @@ makedocs(
     ],
     doctest=true,
     clean=true,
-    remotes=nothing  # Force clean build
+    checkdocs=:exports
 )
 
 deploydocs(
     repo="github.com/viktorwinschel/moma.git",
     devbranch="main",
     push_preview=true,
-    target="build",
-    versions=nothing,  # Don't create version selector
-    forcepush=true    # Force push to overwrite gh-pages
+    versions=nothing,
+    forcepush=true
 )
 
