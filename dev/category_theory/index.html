@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Category Theory · MoMa</title><meta name="title" content="Category Theory · MoMa"/><meta property="og:title" content="Category Theory · MoMa"/><meta property="twitter:title" content="Category Theory · MoMa"/><meta name="description" content="Documentation for MoMa."/><meta property="og:description" content="Documentation for MoMa."/><meta property="twitter:description" content="Documentation for MoMa."/><meta property="og:url" content="https://viktorwinschel.github.io/moma/category_theory/"/><meta property="twitter:url" content="https://viktorwinschel.github.io/moma/category_theory/"/><link rel="canonical" href="https://viktorwinschel.github.io/moma/category_theory/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">MoMa</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Category Theory</a><ul class="internal"><li><a class="tocitem" href="#Categories"><span>Categories</span></a></li><li><a class="tocitem" href="#Functors"><span>Functors</span></a></li><li><a class="tocitem" href="#Natural-Transformations"><span>Natural Transformations</span></a></li><li><a class="tocitem" href="#Patterns-and-Colimits"><span>Patterns and Colimits</span></a></li><li><a class="tocitem" href="#Memory-Evolutive-Systems"><span>Memory Evolutive Systems</span></a></li><li><a class="tocitem" href="#Advanced-Examples"><span>Advanced Examples</span></a></li><li><a class="tocitem" href="#Further-Reading"><span>Further Reading</span></a></li></ul></li><li><a class="tocitem" href="../papers/">Papers</a></li><li><a class="tocitem" href="../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Category Theory</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Category Theory</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/category_theory.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Category-Theory"><a class="docs-heading-anchor" href="#Category-Theory">Category Theory</a><a id="Category-Theory-1"></a><a class="docs-heading-anchor-permalink" href="#Category-Theory" title="Permalink"></a></h1><p>This section provides a mathematical introduction to the category theory concepts implemented in the Moma package.</p><h2 id="Categories"><a class="docs-heading-anchor" href="#Categories">Categories</a><a id="Categories-1"></a><a class="docs-heading-anchor-permalink" href="#Categories" title="Permalink"></a></h2><h3 id="Mathematical-Definition"><a class="docs-heading-anchor" href="#Mathematical-Definition">Mathematical Definition</a><a id="Mathematical-Definition-1"></a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition" title="Permalink"></a></h3><p>A category <span>$\mathcal{C}$</span> consists of:</p><ul><li>A collection of objects <span>$\text{Ob}(\mathcal{C})$</span></li><li>A collection of morphisms <span>$\text{Hom}(\mathcal{C})$</span>, where each morphism <span>$f: A \to B$</span> has a source <span>$A$</span> and target <span>$B$</span></li><li>For each object <span>$A$</span>, an identity morphism <span>$\text{id}_A: A \to A$</span></li><li>A composition operation <span>$\circ: \text{Hom}(B,C) \times \text{Hom}(A,B) \to \text{Hom}(A,C)$</span> that satisfies:<ul><li>Associativity: <span>$(h \circ g) \circ f = h \circ (g \circ f)$</span> <span>$\forall f: A \to B, g: B \to C, h: C \to D$</span></li><li>Identity: <span>$f \circ \text{id}_A = f = \text{id}_B \circ f$</span> <span>$\forall f: A \to B$</span></li></ul></li></ul><p>For a detailed theoretical background on categories, see <a href="../mes23/#categories-and-functors">MES23: Categories and Functors</a>.</p><p class="math-container">\[\begin{CD}
+A @&gt;{f}&gt;&gt; B @&gt;{g}&gt;&gt; C \\
+@V{\text{id}_A}VV @V{\text{id}_B}VV @V{\text{id}_C}VV \\
+A @&gt;{f}&gt;&gt; B @&gt;{g}&gt;&gt; C
+\end{CD}\]</p><h3 id="Implementation"><a class="docs-heading-anchor" href="#Implementation">Implementation</a><a id="Implementation-1"></a><a class="docs-heading-anchor-permalink" href="#Implementation" title="Permalink"></a></h3><p>In Moma, categories are implemented using the following types:</p><ul><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L61-L65"><code>Object</code> (lines 61-65)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L97-L102"><code>Morphism</code> (lines 97-102)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L114-L118"><code>Category</code> (lines 114-118)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L194-L196"><code>identity</code> (lines 194-196)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L231-L237"><code>compose</code> (lines 231-237)</a></li></ul><pre><code class="language-julia hljs"># Implementation in Categories.jl
+struct Object{T}
+    name::Symbol
+    data::T
+end
+
+struct Morphism{S,T}
+    source::Object{S}
+    target::Object{T}
+    map::Function
+    name::Symbol
+end
+
+struct Category
+    objects::Vector{Object}
+    morphisms::Vector{Morphism}
+    name::Symbol
+end</code></pre><p>For comprehensive tests of these implementations, see the test files in the repository.</p><h3 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h3><p>The following examples demonstrate the basic usage:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Examples from Categories.jl docstrings and tests
+A = Object(:A, &quot;hello&quot;)           # String data
+B = Object(:B, 42)               # Integer data
+C = Object(:C, Point(0.0, 1.0))  # Custom type data
+
+# Create morphisms with explicit functions
+f = Morphism(A, Object(:B, &quot;HELLO&quot;), uppercase, :f)
+g = Morphism(B, Object(:C, 43), x -&gt; x + 1, :g)
+
+# Create identity morphisms
+id_A = identity(A)
+@assert id_A.map(&quot;hello&quot;) == &quot;hello&quot;
+
+# Compose compatible morphisms
+h = compose(
+    Morphism(A, B, x -&gt; length(x), :h),
+    Morphism(B, C, x -&gt; Point(float(x), 0.0), :i)
+)</code></pre><p>For more complex examples and edge cases, see the test files in the repository.</p><h2 id="Functors"><a class="docs-heading-anchor" href="#Functors">Functors</a><a id="Functors-1"></a><a class="docs-heading-anchor-permalink" href="#Functors" title="Permalink"></a></h2><h3 id="Mathematical-Definition-2"><a class="docs-heading-anchor" href="#Mathematical-Definition-2">Mathematical Definition</a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition-2" title="Permalink"></a></h3><p>A functor <span>$F: \mathcal{C} \to \mathcal{D}$</span> between categories consists of:</p><ul><li>An object mapping <span>$F_{\text{ob}}: \text{Ob}(\mathcal{C}) \to \text{Ob}(\mathcal{D})$</span></li><li>A morphism mapping <span>$F_{\text{mor}}: \text{Hom}_{\mathcal{C}}(A,B) \to \text{Hom}_{\mathcal{D}}(F(A),F(B))$</span></li></ul><p>For theoretical foundations and applications of functors in MES, see <a href="../mes23/#functorial-evolution">MES23: Functorial Evolution</a>.</p><h3 id="Implementation-2"><a class="docs-heading-anchor" href="#Implementation-2">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-2" title="Permalink"></a></h3><p>Functors are implemented in the <code>Moma.Categories</code> module as:</p><ul><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L132-L138"><code>Functor</code> (lines 132-138)</a></li></ul><pre><code class="language-julia hljs"># Implementation in Categories.jl
+struct Functor
+    source::Category
+    target::Category
+    object_map::Dict{Object,Object}
+    morphism_map::Dict{Morphism,Morphism}
+    name::Symbol
+end</code></pre><h3 id="Examples-2"><a class="docs-heading-anchor" href="#Examples-2">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-2" title="Permalink"></a></h3><p>The following examples demonstrate functor creation and verification:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Examples from Categories.jl docstrings
+src_cat = Category([A, B], [f], :source)
+tgt_cat = Category([C], [identity(C)], :target)
+
+# Define functor mappings
+obj_map = Dict(A =&gt; C, B =&gt; C)
+morph_map = Dict(f =&gt; identity(C))
+
+# Create functor
+F = Functor(src_cat, tgt_cat, obj_map, morph_map, :F)</code></pre><h2 id="Natural-Transformations"><a class="docs-heading-anchor" href="#Natural-Transformations">Natural Transformations</a><a id="Natural-Transformations-1"></a><a class="docs-heading-anchor-permalink" href="#Natural-Transformations" title="Permalink"></a></h2><h3 id="Mathematical-Definition-3"><a class="docs-heading-anchor" href="#Mathematical-Definition-3">Mathematical Definition</a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition-3" title="Permalink"></a></h3><p>Given functors <span>$F,G: \mathcal{C} \to \mathcal{D}$</span>, a natural transformation <span>$\eta: F \Rightarrow G$</span> consists of:</p><ul><li>A family of morphisms <span>$\eta_A: F(A) \to G(A)$</span> <span>$\forall A \in \text{Ob}(\mathcal{C})$</span></li></ul><p>For the role of natural transformations in MES, see <a href="../mes07/#natural-transformations">MES07: Natural Transformations and System Evolution</a>.</p><p>Such that the naturality condition holds:</p><ul><li><span>$G(f) \circ \eta_A = \eta_B \circ F(f)$</span> <span>$\forall f: A \to B$</span> in <span>$\mathcal{C}$</span></li></ul><p class="math-container">\[\begin{CD}
+F(A) @&gt;{F(f)}&gt;&gt; F(B) \\
+@V{\eta_A}VV @V{\eta_B}VV \\
+G(A) @&gt;{G(f)}&gt;&gt; G(B)
+\end{CD}\]</p><h3 id="Implementation-3"><a class="docs-heading-anchor" href="#Implementation-3">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-3" title="Permalink"></a></h3><p>Natural transformations are implemented in the <code>Moma.Categories</code> module as:</p><ul><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L151-L156"><code>NaturalTransformation</code> (lines 151-156)</a></li></ul><pre><code class="language-julia hljs"># Implementation in Categories.jl
+struct NaturalTransformation
+    source::Functor
+    target::Functor
+    components::Dict{Object,Morphism}
+    name::Symbol
+end</code></pre><h3 id="Examples-3"><a class="docs-heading-anchor" href="#Examples-3">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-3" title="Permalink"></a></h3><p>The following examples demonstrate natural transformation creation and verification:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Examples from Categories.jl docstrings
+components = Dict(
+    A =&gt; Morphism(F.object_map[A], G.object_map[A], x -&gt; x, :eta_A),
+    B =&gt; Morphism(F.object_map[B], G.object_map[B], x -&gt; x, :eta_B)
+)
+
+eta = NaturalTransformation(F, G, components, :eta)</code></pre><h2 id="Patterns-and-Colimits"><a class="docs-heading-anchor" href="#Patterns-and-Colimits">Patterns and Colimits</a><a id="Patterns-and-Colimits-1"></a><a class="docs-heading-anchor-permalink" href="#Patterns-and-Colimits" title="Permalink"></a></h2><h3 id="Mathematical-Definition-4"><a class="docs-heading-anchor" href="#Mathematical-Definition-4">Mathematical Definition</a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition-4" title="Permalink"></a></h3><p>A pattern <span>$P$</span> in a category <span>$\mathcal{C}$</span> consists of:</p><ul><li>A diagram <span>$D: \mathcal{J} \to \mathcal{C}$</span> where <span>$\mathcal{J}$</span> is a small category</li><li>Objects <span>$D(j)$</span> for each <span>$j \in \text{Ob}(\mathcal{J})$</span></li><li>Morphisms <span>$D(f): D(j) \to D(k)$</span> for each <span>$f: j \to k$</span> in <span>$\mathcal{J}$</span></li></ul><p>For the significance of patterns and colimits in complex systems, see <a href="../mes23/#patterns-and-complexity">MES23: Patterns and Complexity</a>.</p><p>A colimit of pattern <span>$P$</span> consists of:</p><ul><li>An object <span>$\text{colim}(P)$</span></li><li>A family of morphisms <span>$\iota_j: D(j) \to \text{colim}(P)$</span></li></ul><p>Such that:</p><ul><li><span>$\iota_k \circ D(f) = \iota_j$</span> for all <span>$f: j \to k$</span> in <span>$\mathcal{J}$</span></li><li>Universal property: For any other cocone <span>$(C, (\gamma_j)_{j \in \mathcal{J}})$</span>, there exists a unique <span>$u: \text{colim}(P) \to C$</span> such that <span>$u \circ \iota_j = \gamma_j$</span></li></ul><p class="math-container">\[\begin{CD}
+D(j) @&gt;{D(f)}&gt;&gt; D(k) \\
+@V{\iota_j}VV @VV{\iota_k}V \\
+\text{colim}(P) @= \text{colim}(P)
+\end{CD}\]</p><h3 id="Implementation-4"><a class="docs-heading-anchor" href="#Implementation-4">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-4" title="Permalink"></a></h3><p>Patterns and colimits are implemented in the <code>Moma.Categories</code> module as:</p><ul><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L169-L174"><code>Pattern</code> (lines 169-174)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L271-L284"><code>create_pattern</code> (lines 271-284)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L318-L342"><code>check_binding</code> (lines 318-342)</a></li><li><a href="https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L384-L401"><code>find_colimit</code> (lines 384-401)</a></li></ul><pre><code class="language-julia hljs"># Implementation in Categories.jl
+struct Pattern
+    category::Category
+    objects::Vector{Object}
+    morphisms::Vector{Morphism}
+    name::Symbol
+end
+
+struct Colimit
+    pattern::Pattern
+    colimit_object::Object
+    injections::Dict{Object,Morphism}
+end</code></pre><h3 id="Examples-4"><a class="docs-heading-anchor" href="#Examples-4">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-4" title="Permalink"></a></h3><p>The following examples demonstrate pattern and colimit creation:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Examples from Categories.jl docstrings
+pattern = create_pattern(cat, [A, B], [f])
+colimit_obj, bindings = find_colimit(pattern)
+@assert check_binding(colimit_obj, bindings, pattern)</code></pre><h2 id="Memory-Evolutive-Systems"><a class="docs-heading-anchor" href="#Memory-Evolutive-Systems">Memory Evolutive Systems</a><a id="Memory-Evolutive-Systems-1"></a><a class="docs-heading-anchor-permalink" href="#Memory-Evolutive-Systems" title="Permalink"></a></h2><h3 id="Mathematical-Definition-5"><a class="docs-heading-anchor" href="#Mathematical-Definition-5">Mathematical Definition</a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition-5" title="Permalink"></a></h3><p>A Memory Evolutive System (MES) consists of:</p><ul><li>A category <span>$\mathcal{C}$</span> of components and their relationships</li><li>A hierarchy of complexity levels through colimit formation</li><li>A dynamic structure through time evolution</li></ul><p>For a comprehensive introduction to MES, see <a href="../mes07/#introduction">MES07: Introduction</a> and <a href="../mes23/#memory-evolutive-systems">MES23: Memory Evolutive Systems</a>.</p><p>The key operations include:</p><ul><li>Pattern formation through selection of objects and morphisms</li><li>Colimit computation for complex component formation</li><li>Temporal evolution through functorial transitions</li></ul><h3 id="Implementation-5"><a class="docs-heading-anchor" href="#Implementation-5">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-5" title="Permalink"></a></h3><p>The MES implementation builds upon the previous structures:</p><ul><li>Uses categories to represent system state</li><li>Employs patterns to identify meaningful subsystems</li><li>Computes colimits to form higher-order components</li><li>Tracks temporal evolution through category morphisms</li></ul><p>For example, creating a basic hierarchical structure:</p><pre><code class="language-julia hljs"># Create base level components
+A = Object(:A, &quot;base_component_1&quot;)
+B = Object(:B, &quot;base_component_2&quot;)
+f = Morphism(A, B, x -&gt; process(x), :f)
+
+# Form a pattern
+pattern = Pattern(category, [A, B], [f])
+
+# Compute colimit for higher-order component
+colimit = find_colimit(pattern)</code></pre><h3 id="Examples-5"><a class="docs-heading-anchor" href="#Examples-5">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-5" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create base level components
+neuron1 = Object(:N1, &quot;neuron_data_1&quot;)
+neuron2 = Object(:N2, &quot;neuron_data_2&quot;)
+synapse = Morphism(neuron1, neuron2, 
+                  x -&gt; &quot;synapse_&quot; * x, :syn)
+
+# Create neural pattern
+neural_cat = Category([neuron1, neuron2], [synapse], :neural)
+pattern = create_pattern(neural_cat, [neuron1, neuron2], [synapse])
+
+# Form higher-order component (neural assembly)
+assembly, bindings = find_colimit(pattern)
+
+# Verify the formation
+@assert check_binding(assembly, bindings, pattern)</code></pre><h2 id="Advanced-Examples"><a class="docs-heading-anchor" href="#Advanced-Examples">Advanced Examples</a><a id="Advanced-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Examples" title="Permalink"></a></h2><h3 id="Custom-Data-Types"><a class="docs-heading-anchor" href="#Custom-Data-Types">Custom Data Types</a><a id="Custom-Data-Types-1"></a><a class="docs-heading-anchor-permalink" href="#Custom-Data-Types" title="Permalink"></a></h3><p>The category theory framework can be used with any custom data types. Here&#39;s an example using geometric objects:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Define custom data types
+struct Point
+    x::Float64
+    y::Float64
+end
+
+struct Line
+    start::Point
+    ends::Point
+end
+
+# Create objects with custom data
+p1 = Object(:P1, Point(0.0, 0.0))
+p2 = Object(:P2, Point(1.0, 1.0))
+l1 = Object(:L1, Line(Point(0.0, 0.0), Point(1.0, 1.0)))
+
+# Create morphisms between custom objects
+f = Morphism(p1, l1, p -&gt; Line(p, Point(p.x + 1.0, p.y + 1.0)), :f)
+
+# Create a category of geometric objects
+geom_cat = Category([p1, p2, l1], [f], :Geometry)
+
+# Create and verify patterns
+geom_pattern = create_pattern(geom_cat, [p1, l1], [f])</code></pre><h3 id="Error-Handling"><a class="docs-heading-anchor" href="#Error-Handling">Error Handling</a><a id="Error-Handling-1"></a><a class="docs-heading-anchor-permalink" href="#Error-Handling" title="Permalink"></a></h3><p>The framework includes comprehensive error checking to ensure categorical laws are maintained:</p><pre><code class="language-julia hljs">using Moma.Categories
+
+# Attempting to compose incompatible morphisms
+f = Morphism(A, B, x -&gt; x, :f)
+g = Morphism(C, A, x -&gt; x, :g)
+try
+    compose(f, g)  # This will throw an error
+catch e
+    println(&quot;Error: &quot;, e)  # &quot;Morphisms are not composable&quot;
+end
+
+# Attempting to create invalid patterns
+try
+    create_pattern(cat, [Object(:X, 0)], [])  # Object not in category
+catch e
+    println(&quot;Error: &quot;, e)  # &quot;Objects must belong to the category&quot;
+end
+
+# Attempting to find invalid colimits
+invalid_pattern = create_pattern(cat, [A, B], [])
+colimit_obj, bindings = find_colimit(invalid_pattern)
+try
+    check_binding(Object(:bad, 0), Dict(), invalid_pattern)
+catch e
+    println(&quot;Error: &quot;, e)  # Missing bindings
+end</code></pre><h2 id="Further-Reading"><a class="docs-heading-anchor" href="#Further-Reading">Further Reading</a><a id="Further-Reading-1"></a><a class="docs-heading-anchor-permalink" href="#Further-Reading" title="Permalink"></a></h2><p>For more detailed mathematical background and applications:</p><ul><li><a href="../mes23/">MES23</a>: Latest developments in Memory Evolutive Systems</li><li><a href="../mes07/">MES07</a>: Foundational theory of Memory Evolutive Systems</li><li><a href="../moma25/">MoMa25</a> Mometary mMcro Accounting (MoMa) Theory (MoMaT)</li><li><a href="../papers/">Papers</a>: Complete list of related publications and theoretical background</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../papers/">Papers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Monday 31 March 2025 14:37">Monday 31 March 2025</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
