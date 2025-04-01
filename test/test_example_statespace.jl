@@ -91,7 +91,7 @@ p4 = plot_timeseries(stochastic_memory, "Stochastic Nonlinear VAR")
 
 # Create comparison plot
 comparison_plot = plot(p1, p2, p3, p4, layout=(2, 2), size=(1000, 1000))
-savefig(comparison_plot, "statespace_models_dynamics_comparison.png")
+savefig(comparison_plot, "test/statespace_models_dynamics_comparison.png")
 
 println("\nAll examples completed successfully!")
 

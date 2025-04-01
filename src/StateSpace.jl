@@ -1,6 +1,6 @@
 module StateSpace
 
-using Moma.Categories: Object, Morphism
+using ..Categories: Object, Morphism
 using LinearAlgebra
 using Plots
 
@@ -17,7 +17,7 @@ A type for storing time series data in a Memory Evolutive Systems (MES) style.
 # Fields
 - `times::Vector{Object{Float64}}`: Time objects representing the temporal dimension
 - `states::Vector{Object{T}}`: State objects representing the system's evolution
-- `links::Vector{Morphism}`: Links between consecutive states (morphisms)
+- `links::Vector{Morphism{T,T}}`: Links between consecutive states (morphisms)
 
 # Constructors
 ```julia
@@ -28,17 +28,17 @@ TimeSeriesMemory(initial_time::Object{Float64}, initial_state::Object{T}) where 
 struct TimeSeriesMemory{T}
     times::Vector{Object{Float64}}
     states::Vector{Object{T}}
-    links::Vector{Morphism}
+    links::Vector{Morphism{T,T}}
 
     function TimeSeriesMemory{T}(initial_time::Object{Float64}, initial_state::Object{T}) where {T}
-        new{T}([initial_time], [initial_state], Morphism[])
+        new{T}([initial_time], [initial_state], Morphism{T,T}[])
     end
 end
 
 TimeSeriesMemory(initial_time::Object{Float64}, initial_state::Object{T}) where {T} = TimeSeriesMemory{T}(initial_time, initial_state)
 
 """
-    extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism)
+    extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism{T,T})
 
 Extend the memory with a new time point, state, and link between states.
 
@@ -46,9 +46,9 @@ Extend the memory with a new time point, state, and link between states.
 - `memory::TimeSeriesMemory{T}`: The memory to extend
 - `new_time::Object{Float64}`: New time point
 - `new_state::Object{T}`: New state
-- `link::Morphism`: Link between the previous and new state
+- `link::Morphism{T,T}`: Link between the previous and new state
 """
-function extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism) where {T}
+function extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism{T,T}) where {T}
     push!(memory.times, new_time)
     push!(memory.states, new_state)
     push!(memory.links, link)
