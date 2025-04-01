@@ -1,4 +1,4 @@
-# MoMa: Central Banks for All and Everything
+# Central Banks for All and Everything
 
 This Julia package implements a Monetary Macro Accounting (MoMa) system of Menéndez and Winschel.
 It is modeled with categorical tools of Memory Evolutive Systems (MES) of Ehresmann and Vanbremeersch.
