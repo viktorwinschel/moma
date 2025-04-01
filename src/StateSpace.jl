@@ -9,9 +9,6 @@ export collect_timeseries, plot_timeseries
 export create_ar_model, create_var_model, create_nonlinear_var_model, create_stochastic_nonlinear_var_model
 export simulate_dynamics
 
-# Add precompile directive
-Base.precompile(Memory{Vector{Float64}}, (Object{Float64}, Object{Vector{Float64}}))
-
 """
     TimeSeriesMemory{T}
 
