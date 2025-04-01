@@ -1,4 +1,4 @@
-# MoMa: Central Banks for All
+# MoMa: Central Banks for All and Everything
 
 A Julia package implementing a Monetary Macro Accounting (MoMa) of Menéndez and Winschel.
 To be extended with categorical tools of Memory Evolutive Systems (MES) of Ehresmann and Vanbremeersch.
@@ -19,6 +19,37 @@ This documentation contain implementations and
 
 ## Documentation Sections
 
-- [Category Theory](category_theory.md) - Mathematical foundations and implementation examples
-- [Papers](papers.md) - Mathematical foundations and theoretical background
-- [API Reference](api.md) - Documentation of all functions and types 
+- [Categories](categories.md): Introduction to category theory concepts
+- [State Space Models](state_space_models.md): Implementation of state space models using MES
+- [Examples](examples.md): Usage examples and tutorials
+- [Papers](papers.md): Related academic papers and references
+- [API](api.md): Detailed API documentation
+
+## Installation
+
+```julia
+using Pkg
+Pkg.add("MoMa")
+```
+
+## Quick Start
+
+```julia
+using Moma
+
+# Create objects and morphisms
+A = Object(:A, "data")
+B = Object(:B, "DATA")
+f = Morphism(A, B, uppercase, :f)
+
+# Create a category
+C = Category([A, B], [f], :C)
+
+# Create and simulate a state space model
+t₁, s₁, time_step, evolution = create_ar_model([0.5])
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. 

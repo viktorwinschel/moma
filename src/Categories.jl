@@ -289,51 +289,33 @@ Check if an object with specified bindings forms a colimit for a pattern.
 
 # Returns
 - `Bool`: true if the object with bindings forms a colimit, false otherwise
-
-# Mathematical Description
-For a pattern P and an object C with bindings b, this checks if C is a colimit by verifying:
-1. Every object in P has a binding morphism to C
-2. All diagrams commute: For any morphism f: X → Y in P, b_Y ∘ f = b_X
-where b_X and b_Y are the binding morphisms for X and Y respectively.
-
-# Examples
-```julia
-# Create a simple pattern
-A = Object(:A, 1)
-B = Object(:B, 2)
-f = Morphism(A, B, x -> x + 1, :f)
-C = Category([A, B], [f], :C)
-P = create_pattern(C, [A, B], [f])
-
-# Create bindings to a candidate colimit
-colimit = Object(:Col, [1, 2])
-bindings = Dict(
-    A => Morphism(A, colimit, x -> [x, x+1], :bA),
-    B => Morphism(B, colimit, x -> [x-1, x], :bB)
-)
-
-# Check if it forms a colimit
-is_colimit = check_binding(colimit, bindings, P)
-```
 """
 function check_binding(object::Object, bindings::Dict{<:Object,<:Morphism}, pattern::Pattern)
     # Verify all pattern objects have bindings
-    all(o in keys(bindings) for o in pattern.objects) || return false
+    if !all(o -> haskey(bindings, o), pattern.objects)
+        error("Missing bindings")
+    end
 
     # Verify morphisms commute
     for m in pattern.morphisms
         source_binding = bindings[m.source]
         target_binding = bindings[m.target]
 
-        # Check if the diagram commutes: source_binding = m ∘ target_binding
+        # Check if the diagram commutes
         source_data = m.source.data
         path1 = source_binding.map(source_data)
         path2 = target_binding.map(m.map(source_data))
 
-        path1 == path2 || return false
+        # Convert both paths to arrays for comparison
+        path1_arr = collect(path1)
+        path2_arr = collect(path2)
+
+        if length(path1_arr) != length(path2_arr) || !all(x == y for (x, y) in zip(path1_arr, path2_arr))
+            return false
+        end
     end
 
-    true
+    return true
 end
 
 """
@@ -345,57 +327,41 @@ Find or construct a colimit for a pattern.
 - `pattern::Pattern`: The pattern to find a colimit for
 
 # Returns
-- `Tuple{Object,Dict{<:Object,<:Morphism}}`: A tuple containing:
-  - The colimit object
-  - A dictionary mapping pattern objects to their binding morphisms
-
-# Description
-This function constructs a colimit by:
-1. Creating a candidate object that combines data from all pattern objects
-2. Constructing appropriate morphisms from pattern objects to the candidate
-3. Verifying the colimit properties
-
-# Mathematical Background
-A colimit is a universal cocone over a diagram. For a pattern P, it consists of:
-- An object C (the colimit object)
-- A family of morphisms b_i: P_i → C (the binding morphisms)
-such that:
-1. All diagrams commute
-2. For any other cocone (D, h_i), there exists a unique morphism u: C → D
-   making all triangles commute
-
-# Examples
-```julia
-# Create a simple pattern
-A = Object(:A, 1)
-B = Object(:B, 2)
-f = Morphism(A, B, x -> x + 1, :f)
-C = Category([A, B], [f], :C)
-P = create_pattern(C, [A, B], [f])
-
-# Find its colimit
-colimit_obj, bindings = find_colimit(P)
-@assert colimit_obj.data == [1, 2]  # Combined data
-@assert check_binding(colimit_obj, bindings, P)  # Verify it's a colimit
-```
-
-# Throws
-- `ErrorException`: If a valid colimit cannot be constructed
+- `Tuple{Object,Dict{<:Object,<:Morphism}}`: A tuple containing the colimit object and bindings
 """
 function find_colimit(pattern::Pattern)
-    # Always combine data into an array
-    combined_data = [obj.data for obj in pattern.objects]
-    colimit_id = Symbol("colimit_$(pattern.id)")
-    colimit_obj = Object(colimit_id, combined_data)
-
-    # Create bindings that map each object's data to the combined array
-    bindings = Dict{Object,Morphism}()
-    for obj in pattern.objects
-        binding_id = Symbol("binding_$(obj.id)_to_$(colimit_id)")
-        bindings[obj] = Morphism(obj, colimit_obj, x -> combined_data, binding_id)
+    if isempty(pattern.objects)
+        error("Pattern must have at least one object")
     end
 
-    return (colimit_obj, bindings)
+    # Create the colimit object with a properly initialized array of data
+    colimit_data = Vector{Any}(undef, length(pattern.objects))
+    for (i, obj) in enumerate(pattern.objects)
+        colimit_data[i] = obj.data
+    end
+
+    colimit_obj = Object(Symbol("colimit_$(pattern.id)"), colimit_data)
+
+    # Create bindings
+    bindings = Dict{Object,Morphism}()
+    for (i, obj) in enumerate(pattern.objects)
+        bindings[obj] = Morphism(
+            obj,
+            colimit_obj,
+            x -> begin
+                result = copy(colimit_data)
+                result[i] = x
+                result
+            end,
+            Symbol("binding_$(obj.id)_to_$(colimit_obj.id)")
+        )
+    end
+
+    if !check_binding(colimit_obj, bindings, pattern)
+        error("Failed to construct valid colimit")
+    end
+
+    return colimit_obj, bindings
 end
 
 """

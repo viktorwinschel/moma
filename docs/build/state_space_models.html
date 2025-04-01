@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>State Space Models · MoMa</title><meta name="title" content="State Space Models · MoMa"/><meta property="og:title" content="State Space Models · MoMa"/><meta property="twitter:title" content="State Space Models · MoMa"/><meta name="description" content="Documentation for MoMa."/><meta property="og:description" content="Documentation for MoMa."/><meta property="twitter:description" content="Documentation for MoMa."/><meta property="og:url" content="https://viktorwinschel.github.io/moma/state_space_models.html"/><meta property="twitter:url" content="https://viktorwinschel.github.io/moma/state_space_models.html"/><link rel="canonical" href="https://viktorwinschel.github.io/moma/state_space_models.html"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script><link href="assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="index.html">MoMa</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="index.html">Home</a></li><li><a class="tocitem" href="categories.html">Categories</a></li><li><a class="tocitem" href="examples.html">Examples</a></li><li class="is-active"><a class="tocitem" href="state_space_models.html">State Space Models</a><ul class="internal"><li><a class="tocitem" href="#MES(StateSpaceModel)"><span>MES(StateSpaceModel)</span></a></li><li><a class="tocitem" href="#Memory"><span>Memory</span></a></li><li><a class="tocitem" href="#AR(1)-Model"><span>AR(1) Model</span></a></li><li><a class="tocitem" href="#VAR(1)-Model"><span>VAR(1) Model</span></a></li><li><a class="tocitem" href="#Nonlinear-VAR-Model"><span>Nonlinear VAR Model</span></a></li><li><a class="tocitem" href="#Stochastic-Nonlinear-VAR-Model"><span>Stochastic Nonlinear VAR Model</span></a></li><li><a class="tocitem" href="#Visualization"><span>Visualization</span></a></li></ul></li><li><a class="tocitem" href="papers.html">Papers</a></li><li><a class="tocitem" href="api.html">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="state_space_models.html">State Space Models</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="state_space_models.html">State Space Models</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/state_space_models.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="State-Space-Models"><a class="docs-heading-anchor" href="#State-Space-Models">State Space Models</a><a id="State-Space-Models-1"></a><a class="docs-heading-anchor-permalink" href="#State-Space-Models" title="Permalink"></a></h1><p>A usual way to model dynamics of economic systems are state space models. We will see now how to model them in MES to use them for a simple economics approach to model the MoMa phenomenon of money. This is the tranditional way we have implemented a first version of <a href="papers.html">MoMa25</a> in simple Julia in file <code>momascf_v02_en.jl</code>. It is a deterministic nonlinear model but still reduced form model. Reduced form model is a economists way to say its a Markov decision process not even forward looking which would an economist call structural model. These forward lookings models can be modeled as Open Games but actually economic models should become MES systems where Open Games are coregulators.</p><h2 id="MES(StateSpaceModel)"><a class="docs-heading-anchor" href="#MES(StateSpaceModel)">MES(StateSpaceModel)</a><a id="MES(StateSpaceModel)-1"></a><a class="docs-heading-anchor-permalink" href="#MES(StateSpaceModel)" title="Permalink"></a></h2><p>Traditional state space models represent system dynamics as simple vector-valued functions mapping states to states. While this approach is intuitive and computationally efficient, it has several limitations:</p><ol><li><p><strong>Limited Expressiveness</strong>: Traditional state space models can only represent direct state-to-state mappings, making it difficult to model:</p><ul><li>Complex hierarchical relationships</li><li>Multiple time scales</li><li>Emergent properties</li><li>Memory-dependent dynamics</li></ul></li><li><p><strong>No Built-in Structure</strong>: Standard state space models don&#39;t naturally capture:</p><ul><li>System composition</li><li>Component relationships</li><li>Temporal dependencies</li><li>Memory formation</li></ul></li><li><p><strong>Rigid Evolution</strong>: Conventional models often struggle with:</p><ul><li>Adaptive behavior</li><li>System reconfiguration</li><li>Emergent complexity</li><li>Multi-level interactions</li></ul></li></ol><p>The Memory Evolutive Systems (MES) framework, built on category theory, addresses these limitations by:</p><ol><li><p><strong>Rich Mathematical Structure</strong>:</p><ul><li>Objects represent system components</li><li>Morphisms capture relationships and transformations</li><li>Categories organize system structure</li><li>Functors model system evolution</li></ul></li><li><p><strong>Built-in Memory</strong>:</p><ul><li>Explicit representation of past states</li><li>Temporal ordering through categorical structure</li><li>Memory formation through colimits</li><li>Historical dependencies</li></ul></li><li><p><strong>Flexible Composition</strong>:</p><ul><li>Hierarchical organization</li><li>Component relationships</li><li>System decomposition</li><li>Emergent properties</li></ul></li><li><p><strong>Natural Evolution</strong>:</p><ul><li>Functorial dynamics</li><li>Adaptive behavior</li><li>System reconfiguration</li><li>Multi-level interactions</li></ul></li></ol><p>The following examples demonstrate these advantages in practice, showing how MES and category theory provide a more powerful framework for modeling complex dynamical systems.</p><h2 id="Memory"><a class="docs-heading-anchor" href="#Memory">Memory</a><a id="Memory-1"></a><a class="docs-heading-anchor-permalink" href="#Memory" title="Permalink"></a></h2><p>The <code>TimeSeriesMemory</code> type provides a structured way to store and manage time series data with explicit temporal relationships between states. It maintains three key components:</p><ul><li><code>times</code>: Vector of time points</li><li><code>states</code>: Vector of state values</li><li><code>links</code>: Vector of morphisms connecting consecutive states</li></ul><h3 id="Core-Functions"><a class="docs-heading-anchor" href="#Core-Functions">Core Functions</a><a id="Core-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Core-Functions" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a new time series memory
+TimeSeriesMemory(initial_time::Object{Float64}, initial_state::Object{T})
+
+# Extend memory with new time point and state
+extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism)
+
+# Access memory components
+get_data(memory::TimeSeriesMemory)::Vector{T}
+get_times(memory::TimeSeriesMemory)::Vector{Float64}
+get_links(memory::TimeSeriesMemory)::Vector{Morphism}</code></pre><h3 id="Example"><a class="docs-heading-anchor" href="#Example">Example</a><a id="Example-1"></a><a class="docs-heading-anchor-permalink" href="#Example" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create initial memory
+t₁ = Object(:t1, 1.0)
+s₁ = Object(:s1, [1.0])
+memory = TimeSeriesMemory(t₁, s₁)
+
+# Verify initial state
+@assert length(memory.times) == 1
+@assert length(memory.states) == 1
+@assert length(memory.links) == 0
+
+# Extend memory with new state
+t₂ = Object(:t2, 2.0)
+s₂ = Object(:s2, [2.0])
+link = Morphism(s₁, s₂, x -&gt; 2.0 * x, :link)
+extend!(memory, t₂, s₂, link)
+
+# Verify extended state
+@assert length(memory.times) == 2
+@assert length(memory.states) == 2
+@assert length(memory.links) == 1
+
+# Access memory components
+data = get_data(memory)
+times = get_times(memory)
+links = get_links(memory)
+
+# Verify data types and values
+@assert length(data) == 2
+@assert length(times) == 2
+@assert length(links) == 1
+@assert all(x -&gt; x isa Vector{Float64}, data)
+@assert all(x -&gt; x isa Float64, times)
+@assert all(x -&gt; x isa Morphism, links)
+@assert data[1] == [1.0]
+@assert data[2] == [2.0]
+@assert times[1] == 1.0
+@assert times[2] == 2.0</code></pre><h2 id="AR(1)-Model"><a class="docs-heading-anchor" href="#AR(1)-Model">AR(1) Model</a><a id="AR(1)-Model-1"></a><a class="docs-heading-anchor-permalink" href="#AR(1)-Model" title="Permalink"></a></h2><p>The first-order autoregressive model represents a simple state space model where the next state depends linearly on the current state:</p><p class="math-container">\[x_{t+1} = \alpha x_t\]</p><p>where (\alpha) is the autoregression coefficient.</p><h3 id="Implementation"><a class="docs-heading-anchor" href="#Implementation">Implementation</a><a id="Implementation-1"></a><a class="docs-heading-anchor-permalink" href="#Implementation" title="Permalink"></a></h3><p>The AR(1) model is implemented using the following functions:</p><pre><code class="language-julia hljs">function create_ar_model(initial_state::Vector{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -&gt; t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, [0.0]), x -&gt; [0.7 * x[1]], :evolution)
+
+    return t₁, s₁, time_step, evolution
+end</code></pre><p>This implementation uses category theory concepts:</p><ul><li><code>Object</code>s represent time points and states</li><li><code>Morphism</code>s represent the evolution of time and states</li><li>The time step morphism maps each time point to the next one</li><li>The evolution morphism implements the AR(1) equation <span>$x_{t+1} = \alpha x_t$</span> with <span>$\alpha = 0.7$</span></li></ul><h3 id="Example-2"><a class="docs-heading-anchor" href="#Example-2">Example</a><a class="docs-heading-anchor-permalink" href="#Example-2" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create and simulate AR(1) model
+t₁, s₁, time_step, evolution = create_ar_model([0.5])
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 5)
+
+# Verify the model behavior
+@test s₁.data == [0.5]
+@test time_step.map(1.0) == 2.0
+@test evolution.map([0.5]) == [0.35]</code></pre><h2 id="VAR(1)-Model"><a class="docs-heading-anchor" href="#VAR(1)-Model">VAR(1) Model</a><a id="VAR(1)-Model-1"></a><a class="docs-heading-anchor-permalink" href="#VAR(1)-Model" title="Permalink"></a></h2><p>The first-order vector autoregressive model extends the AR(1) model to multiple dimensions:</p><p class="math-container">\[\mathbf{x}_{t+1} = A\mathbf{x}_t\]</p><p>where (A) is the coefficient matrix and (\mathbf{x}_t) is a vector of states.</p><h3 id="Implementation-2"><a class="docs-heading-anchor" href="#Implementation-2">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-2" title="Permalink"></a></h3><p>The VAR(1) model is implemented using:</p><pre><code class="language-julia hljs">function create_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -&gt; t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, similar(initial_state)), x -&gt; A * x, :evolution)
+
+    return t₁, s₁, time_step, evolution
+end</code></pre><p>This implementation extends the AR(1) model to multiple dimensions:</p><ul><li>Uses the same categorical structure with <code>Object</code>s and <code>Morphism</code>s</li><li>The evolution morphism implements the VAR(1) equation <span>$\mathbf{x}_{t+1} = A\mathbf{x}_t$</span></li><li>Matrix multiplication is used to compute the next state vector</li></ul><h3 id="Example-3"><a class="docs-heading-anchor" href="#Example-3">Example</a><a class="docs-heading-anchor-permalink" href="#Example-3" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create and simulate VAR(1) model
+A = [0.5 0.2; 0.1 0.6]
+t₁, s₁, time_step, evolution = create_var_model([1.0, 2.0], A)
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+
+# Verify the model behavior
+@test s₁.data == [1.0, 2.0]
+@test evolution.map([1.0, 2.0]) .== A * [1.0, 2.0]</code></pre><h2 id="Nonlinear-VAR-Model"><a class="docs-heading-anchor" href="#Nonlinear-VAR-Model">Nonlinear VAR Model</a><a id="Nonlinear-VAR-Model-1"></a><a class="docs-heading-anchor-permalink" href="#Nonlinear-VAR-Model" title="Permalink"></a></h2><p>The nonlinear VAR model introduces nonlinear transformations to the state evolution:</p><p class="math-container">\[\mathbf{x}_{t+1} = f(A\mathbf{x}_t)\]</p><p>where (f) is a nonlinear function applied element-wise.</p><h3 id="Implementation-3"><a class="docs-heading-anchor" href="#Implementation-3">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-3" title="Permalink"></a></h3><p>The nonlinear VAR model is implemented using:</p><pre><code class="language-julia hljs">function create_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -&gt; t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, similar(initial_state)), x -&gt; A * x + 0.1 * sin.(x), :evolution)
+
+    return t₁, s₁, time_step, evolution
+end</code></pre><p>This implementation adds nonlinearity to the VAR model:</p><ul><li>Maintains the same categorical structure</li><li>The evolution morphism combines linear transformation with nonlinear sine function</li><li>The nonlinear term <span>$0.1\sin(\mathbf{x})$</span> is applied element-wise to the state vector</li></ul><h3 id="Example-4"><a class="docs-heading-anchor" href="#Example-4">Example</a><a class="docs-heading-anchor-permalink" href="#Example-4" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create and simulate nonlinear VAR model
+t₁, s₁, time_step, evolution = create_nonlinear_var_model([1.0, 0.5], A)
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+
+# Verify the model behavior
+@test s₁.data == [1.0, 0.5]
+@test evolution.map isa Function
+result = evolution.map([1.0, 0.5])
+@test length(result) == 2
+@test all(isfinite, result)</code></pre><h2 id="Stochastic-Nonlinear-VAR-Model"><a class="docs-heading-anchor" href="#Stochastic-Nonlinear-VAR-Model">Stochastic Nonlinear VAR Model</a><a id="Stochastic-Nonlinear-VAR-Model-1"></a><a class="docs-heading-anchor-permalink" href="#Stochastic-Nonlinear-VAR-Model" title="Permalink"></a></h2><p>The stochastic nonlinear VAR model adds random components to the state evolution:</p><p class="math-container">\[\mathbf{x}_{t+1} = f(A\mathbf{x}_t) + \boldsymbol{\epsilon}_t\]</p><p>where (\boldsymbol{\epsilon}_t) is a random noise vector.</p><h3 id="Implementation-4"><a class="docs-heading-anchor" href="#Implementation-4">Implementation</a><a class="docs-heading-anchor-permalink" href="#Implementation-4" title="Permalink"></a></h3><p>The stochastic nonlinear VAR model is implemented using:</p><pre><code class="language-julia hljs">function create_stochastic_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -&gt; t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, similar(initial_state)), 
+                        x -&gt; A * x + 0.1 * sin.(x) + 0.1 * randn(length(x)), :evolution)
+
+    return t₁, s₁, time_step, evolution
+end</code></pre><p>This implementation adds stochasticity to the nonlinear VAR model:</p><ul><li>Uses the same categorical structure</li><li>The evolution morphism combines:<ul><li>Linear transformation <span>$A\mathbf{x}$</span></li><li>Nonlinear term <span>$0.1\sin(\mathbf{x})$</span></li><li>Random noise <span>$0.1\boldsymbol{\epsilon}$</span> where <span>$\boldsymbol{\epsilon} \sim \mathcal{N}(0,1)$</span></li></ul></li><li>Each call to the evolution morphism produces a different result due to the random component</li></ul><h3 id="Example-5"><a class="docs-heading-anchor" href="#Example-5">Example</a><a class="docs-heading-anchor-permalink" href="#Example-5" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create and simulate stochastic nonlinear VAR model
+t₁, s₁, time_step, evolution = create_stochastic_nonlinear_var_model([1.0, 0.5], A)
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+
+# Verify the model behavior
+@test s₁.data == [1.0, 0.5]
+@test evolution.map isa Function
+results = [evolution.map([1.0, 0.5]) for _ in 1:10]
+@test all(x -&gt; length(x) == 2, results)
+@test all(x -&gt; all(isfinite, x), results)
+@test length(unique(results)) &gt; 1  # Ensure stochastic behavior</code></pre><h2 id="Visualization"><a class="docs-heading-anchor" href="#Visualization">Visualization</a><a id="Visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Visualization" title="Permalink"></a></h2><p>The state space models can be visualized using the following functions:</p><pre><code class="language-julia hljs"># Create time series plots for each model
+p1 = plot_timeseries(ar1_memory, &quot;Deterministic Linear AR(1)&quot;)
+p2 = plot_timeseries(var1_memory, &quot;Deterministic Linear VAR(1)&quot;)
+p3 = plot_timeseries(nonlinear_memory, &quot;Deterministic Nonlinear VAR&quot;)
+p4 = plot_timeseries(stochastic_memory, &quot;Stochastic Nonlinear VAR&quot;)
+
+# Create comparison plot
+comparison_plot = plot(p1, p2, p3, p4, layout=(2, 2), size=(1000, 1000))
+savefig(comparison_plot, &quot;dynamics_comparison.png&quot;)</code></pre><p>This will generate a 2x2 grid of plots comparing the behavior of all four models, saved as &quot;dynamics_comparison.png&quot;.</p><p><img src="assets/dynamics_comparison.png" alt="Comparison of different state space models"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="examples.html">« Examples</a><a class="docs-footer-nextpage" href="papers.html">Papers »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.10.0 on <span class="colophon-date" title="Tuesday 1 April 2025 22:54">Tuesday 1 April 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -9,7 +9,7 @@ MoMa25 develops a specification for software for macro accounting (MoMa) and a m
 
 A MoMa Simulation in Julia of a National Accounting is in
 `src/original_moma` directory contains several files used for generating and checking simulation data
-underlying the MoMa paper. `momascf_v02_en.jl` is a simulation of the
+underlying the MoMa paper. In file `momascf_v02_en.jl` is a simulation of the
 following basic MoMa macro accounting structure.
 
 ![Basic National Accounting Structure](assets/bookings.png) 

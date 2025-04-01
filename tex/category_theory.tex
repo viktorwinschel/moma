@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsxtra}
+\usepackage{amscd}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Category Theory in MoMa}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Categories}
+
+\subsection{Mathematical Definition}
+
+A category $\mathcal{C}$ consists of:
+\begin{itemize}
+    \item A collection of objects $\text{Ob}(\mathcal{C})$
+    \item A collection of morphisms $\text{Hom}(\mathcal{C})$, where each morphism $f: A \to B$ has a source $A$ and target $B$
+    \item For each object $A$, an identity morphism $\text{id}_A: A \to A$
+    \item A composition operation $\circ: \text{Hom}(B,C) \times \text{Hom}(A,B) \to \text{Hom}(A,C)$ that satisfies:
+    \begin{itemize}
+        \item Associativity: $(h \circ g) \circ f = h \circ (g \circ f)$ $\forall f: A \to B, g: B \to C, h: C \to D$
+        \item Identity: $f \circ \text{id}_A = f = \text{id}_B \circ f$ $\forall f: A \to B$
+    \end{itemize}
+\end{itemize}
+
+\begin{CD}
+A @>{f}>> B @>{g}>> C \\
+@V{\text{id}_A}VV @V{\text{id}_B}VV @V{\text{id}_C}VV \\
+A @>{f}>> B @>{g}>> C
+\end{CD}
+
+\section{Functors}
+
+\subsection{Mathematical Definition}
+
+A functor $F: \mathcal{C} \to \mathcal{D}$ between categories consists of:
+\begin{itemize}
+    \item An object mapping $F_{\text{ob}}: \text{Ob}(\mathcal{C}) \to \text{Ob}(\mathcal{D})$
+    \item A morphism mapping $F_{\text{mor}}: \text{Hom}_{\mathcal{C}}(A,B) \to \text{Hom}_{\mathcal{D}}(F(A),F(B))$
+\end{itemize}
+
+\end{document} 

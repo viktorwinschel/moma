@@ -26,13 +26,11 @@ A @>{f}>> B @>{g}>> C
 
 ### Implementation
 
-In MoMa, categories are implemented using the following types:
+Objects, Morphisms, and Category are implemented in the `Moma.Categories` module as:
 
-- [`Object` (lines 61-65)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L61-L65)
-- [`Morphism` (lines 97-102)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L97-L102)
-- [`Category` (lines 114-118)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L114-L118)
-- [`identity` (lines 194-196)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L194-L196)
-- [`compose` (lines 231-237)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L231-L237)
+- [`Object`](@ref Moma.Categories.Object)
+- [`Morphism`](@ref Moma.Categories.Morphism)
+- [`Category`](@ref Moma.Categories.Category)
 
 ```julia
 # Implementation in Categories.jl
@@ -59,29 +57,79 @@ For comprehensive tests of these implementations, see the test files in the repo
 
 ### Examples
 
-The following examples demonstrate the basic usage:
+The following examples demonstrate the basic usage with
+the helper functions implemented in the `Moma.Categories` module as:
+
+- [`identity`](@ref Moma.Categories.identity)
+- [`compose`](@ref Moma.Categories.compose)
 
 ```julia
-using Moma.Categories
+using Moma
 
-# Examples from Categories.jl docstrings and tests
-A = Object(:A, "hello")           # String data
-B = Object(:B, 42)               # Integer data
-C = Object(:C, Point(0.0, 1.0))  # Custom type data
+# Test Object creation
+obj1 = Object(:A, "data1")
+obj2 = Object(:B, "data2")
+obj3 = Object(:C, "data3")
+@assert obj1.id == :A && obj1.data == "data1"
+@assert obj2.id == :B && obj2.data == "data2"
+@assert obj3.id == :C && obj3.data == "data3"
 
-# Create morphisms with explicit functions
-f = Morphism(A, Object(:B, "HELLO"), uppercase, :f)
-g = Morphism(B, Object(:C, 43), x -> x + 1, :g)
+# Test Morphism creation and composition
+m1 = Morphism(obj1, obj2, x -> uppercase(x), :m1)
+m2 = Morphism(obj2, obj3, x -> x * "!", :m2)
+@assert m1.source == obj1 && m1.target == obj2
+@assert m2.source == obj2 && m2.target == obj3
+@assert m1.name == :m1
+@assert m2.name == :m2
+@assert m1.map("test") == "TEST"
+@assert m2.map("test") == "test!"
 
-# Create identity morphisms
-id_A = identity(A)
-@assert id_A.map("hello") == "hello"
+# Test composition
+m3 = compose(m1, m2)
+@assert m3.source == obj1 &&
+    m3.target == obj3 &&
+    m3.map("test") == "TEST!"
+@assert m3.name == :m1_m2  # Check composed morphism name
 
-# Compose compatible morphisms
-h = compose(
-    Morphism(A, B, x -> length(x), :h),
-    Morphism(B, C, x -> Point(float(x), 0.0), :i)
+# Test identity morphism
+id_morph = Moma.identity(obj1)
+@assert id_morph.source == obj1 &&
+    id_morph.target == obj1 &&
+    id_morph.map("test") == "test"
+@assert id_morph.name == :id_A  # Check identity morphism name
+
+# Test Category creation and membership
+cat = Category([obj1, obj2, obj3], [m1, m2, m3], :TestCat)
+@assert length(cat.objects) == 3 &&
+    length(cat.morphisms) == 3 &&
+    is_morphism_in_category(m1, cat)
+@assert cat.name == :TestCat
+@assert obj1 in cat.objects
+@assert obj2 in cat.objects
+@assert obj3 in cat.objects
+@assert m1 in cat.morphisms
+@assert m2 in cat.morphisms
+@assert m3 in cat.morphisms
+
+# Test Pattern creation and validation
+pattern = create_pattern(cat, [obj1, obj2], [m1])
+@assert length(pattern.objects) == 2 &&
+    length(pattern.morphisms) == 1 &&
+    pattern.category == cat
+@assert obj1 in pattern.objects
+@assert obj2 in pattern.objects
+@assert m1 in pattern.morphisms
+
+# Test binding checks
+bindings = Dict(
+    obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
+    obj2 => Moma.identity(obj2)
 )
+@assert check_binding(obj2, bindings, pattern)
+@assert haskey(bindings, obj1)
+@assert haskey(bindings, obj2)
+@assert bindings[obj1].name == :bind1
+@assert bindings[obj2].name == :id_B
 ```
 
 For more complex examples and edge cases, see the test files in the repository.
@@ -94,13 +142,21 @@ A functor $F: \mathcal{C} \to \mathcal{D}$ between categories consists of:
 - An object mapping $F_{\text{ob}}: \text{Ob}(\mathcal{C}) \to \text{Ob}(\mathcal{D})$
 - A morphism mapping $F_{\text{mor}}: \text{Hom}_{\mathcal{C}}(A,B) \to \text{Hom}_{\mathcal{D}}(F(A),F(B))$
 
+```math
+\begin{CD}
+\mathcal{C} @>{F}>> \mathcal{D} \\
+@V{\text{id}_{\mathcal{C}}}VV @V{\text{id}_{\mathcal{D}}}VV \\
+\mathcal{C} @>{F}>> \mathcal{D}
+\end{CD}
+```
+
 For theoretical foundations and applications of functors in MES, see [MES23: Functorial Evolution](mes23.md#functorial-evolution).
 
 ### Implementation
 
 Functors are implemented in the `Moma.Categories` module as:
 
-- [`Functor` (lines 132-138)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L132-L138)
+- [`Functor`](@ref Moma.Categories.Functor)
 
 ```julia
 # Implementation in Categories.jl
@@ -118,15 +174,15 @@ end
 The following examples demonstrate functor creation and verification:
 
 ```julia
-using Moma.Categories
+using Moma
 
-# Examples from Categories.jl docstrings
-src_cat = Category([A, B], [f], :source)
-tgt_cat = Category([C], [identity(C)], :target)
+# Create source and target categories
+src_cat = Category([obj1, obj2], [m1], :source)
+tgt_cat = Category([obj3], [identity(obj3)], :target)
 
 # Define functor mappings
-obj_map = Dict(A => C, B => C)
-morph_map = Dict(f => identity(C))
+obj_map = Dict(obj1 => obj3, obj2 => obj3)
+morph_map = Dict(m1 => identity(obj3))
 
 # Create functor
 F = Functor(src_cat, tgt_cat, obj_map, morph_map, :F)
@@ -156,7 +212,7 @@ G(A) @>{G(f)}>> G(B)
 
 Natural transformations are implemented in the `Moma.Categories` module as:
 
-- [`NaturalTransformation` (lines 151-156)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L151-L156)
+- [`NaturalTransformation`](@ref Moma.Categories.NaturalTransformation)
 
 ```julia
 # Implementation in Categories.jl
@@ -173,14 +229,15 @@ end
 The following examples demonstrate natural transformation creation and verification:
 
 ```julia
-using Moma.Categories
+using Moma
 
-# Examples from Categories.jl docstrings
+# Create components for natural transformation
 components = Dict(
-    A => Morphism(F.object_map[A], G.object_map[A], x -> x, :eta_A),
-    B => Morphism(F.object_map[B], G.object_map[B], x -> x, :eta_B)
+    obj1 => Morphism(F.object_map[obj1], G.object_map[obj1], x -> x, :eta_A),
+    obj2 => Morphism(F.object_map[obj2], G.object_map[obj2], x -> x, :eta_B)
 )
 
+# Create natural transformation
 eta = NaturalTransformation(F, G, components, :eta)
 ```
 
@@ -215,10 +272,7 @@ D(j) @>{D(f)}>> D(k) \\
 
 Patterns and colimits are implemented in the `Moma.Categories` module as:
 
-- [`Pattern` (lines 169-174)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L169-L174)
-- [`create_pattern` (lines 271-284)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L271-L284)
-- [`check_binding` (lines 318-342)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L318-L342)
-- [`find_colimit` (lines 384-401)](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl#L384-L401)
+- [`Pattern`](@ref Moma.Categories.Pattern)
 
 ```julia
 # Implementation in Categories.jl
@@ -228,25 +282,55 @@ struct Pattern
     morphisms::Vector{Morphism}
     name::Symbol
 end
-
-struct Colimit
-    pattern::Pattern
-    colimit_object::Object
-    injections::Dict{Object,Morphism}
-end
 ```
+
+The module provides functions for working with patterns and colimits:
+- [`create_pattern`](@ref Moma.Categories.create_pattern): Creates a pattern from objects and morphisms
+- [`check_binding`](@ref Moma.Categories.check_binding): Verifies if an object forms a colimit for a pattern
+- [`find_colimit`](@ref Moma.Categories.find_colimit): Computes the colimit of a pattern
 
 ### Examples
 
-The following examples demonstrate pattern and colimit creation:
+The following examples demonstrate pattern creation and colimit construction:
 
 ```julia
-using Moma.Categories
+using Moma
 
-# Examples from Categories.jl docstrings
-pattern = create_pattern(cat, [A, B], [f])
-colimit_obj, bindings = find_colimit(pattern)
-@assert check_binding(colimit_obj, bindings, pattern)
+# Create simple objects and morphisms
+a = Object(:A, 1)
+b = Object(:B, 2)
+f = Morphism(a, b, x -> x + 1, :f)
+@assert a.id == :A && a.data == 1
+@assert b.id == :B && b.data == 2
+@assert f.name == :f
+@assert f.map(1) == 2
+
+# Create category and pattern
+cat = Category([a, b], [f], :ColimitTest)
+pat = create_pattern(cat, [a, b], [f])
+@assert cat.name == :ColimitTest
+@assert length(cat.objects) == 2
+@assert length(cat.morphisms) == 1
+@assert length(pat.objects) == 2
+@assert length(pat.morphisms) == 1
+
+# Find colimit
+colimit_obj, bindings = find_colimit(pat)
+
+# Test colimit properties
+@assert colimit_obj.data == [1, 2]  # Combined data
+@assert haskey(bindings, a)
+@assert haskey(bindings, b)
+@assert bindings[a].target == colimit_obj
+@assert bindings[b].target == colimit_obj
+@assert check_binding(colimit_obj, bindings, pat)
+@assert colimit_obj.id == :colimit  # Check colimit object name
+
+# Test colimit universal property
+@assert bindings[a].map(a.data) == [1, 2]
+@assert bindings[b].map(b.data) == [1, 2]
+@assert bindings[a].name == :injection_A  # Check injection morphism names
+@assert bindings[b].name == :injection_B
 ```
 
 ## Memory Evolutive Systems
@@ -291,89 +375,37 @@ colimit = find_colimit(pattern)
 ### Examples
 
 ```julia
+using Moma
+
 # Create base level components
 neuron1 = Object(:N1, "neuron_data_1")
 neuron2 = Object(:N2, "neuron_data_2")
 synapse = Morphism(neuron1, neuron2, 
                   x -> "synapse_" * x, :syn)
+@assert neuron1.id == :N1 && neuron1.data == "neuron_data_1"
+@assert neuron2.id == :N2 && neuron2.data == "neuron_data_2"
+@assert synapse.name == :syn
+@assert synapse.map("test") == "synapse_test"
 
 # Create neural pattern
 neural_cat = Category([neuron1, neuron2], [synapse], :neural)
 pattern = create_pattern(neural_cat, [neuron1, neuron2], [synapse])
+@assert neural_cat.name == :neural
+@assert length(neural_cat.objects) == 2
+@assert length(neural_cat.morphisms) == 1
+@assert length(pattern.objects) == 2
+@assert length(pattern.morphisms) == 1
 
 # Form higher-order component (neural assembly)
 assembly, bindings = find_colimit(pattern)
 
 # Verify the formation
 @assert check_binding(assembly, bindings, pattern)
-```
-
-## Advanced Examples
-
-### Custom Data Types
-
-The category theory framework can be used with any custom data types. Here's an example using geometric objects:
-
-```julia
-using Moma.Categories
-
-# Define custom data types
-struct Point
-    x::Float64
-    y::Float64
-end
-
-struct Line
-    start::Point
-    ends::Point
-end
-
-# Create objects with custom data
-p1 = Object(:P1, Point(0.0, 0.0))
-p2 = Object(:P2, Point(1.0, 1.0))
-l1 = Object(:L1, Line(Point(0.0, 0.0), Point(1.0, 1.0)))
-
-# Create morphisms between custom objects
-f = Morphism(p1, l1, p -> Line(p, Point(p.x + 1.0, p.y + 1.0)), :f)
-
-# Create a category of geometric objects
-geom_cat = Category([p1, p2, l1], [f], :Geometry)
-
-# Create and verify patterns
-geom_pattern = create_pattern(geom_cat, [p1, l1], [f])
-```
-
-### Error Handling
-
-The framework includes comprehensive error checking to ensure categorical laws are maintained:
-
-```julia
-using Moma.Categories
-
-# Attempting to compose incompatible morphisms
-f = Morphism(A, B, x -> x, :f)
-g = Morphism(C, A, x -> x, :g)
-try
-    compose(f, g)  # This will throw an error
-catch e
-    println("Error: ", e)  # "Morphisms are not composable"
-end
-
-# Attempting to create invalid patterns
-try
-    create_pattern(cat, [Object(:X, 0)], [])  # Object not in category
-catch e
-    println("Error: ", e)  # "Objects must belong to the category"
-end
-
-# Attempting to find invalid colimits
-invalid_pattern = create_pattern(cat, [A, B], [])
-colimit_obj, bindings = find_colimit(invalid_pattern)
-try
-    check_binding(Object(:bad, 0), Dict(), invalid_pattern)
-catch e
-    println("Error: ", e)  # Missing bindings
-end
+@assert assembly.id == :colimit  # Check assembly name
+@assert haskey(bindings, neuron1)
+@assert haskey(bindings, neuron2)
+@assert bindings[neuron1].name == :injection_N1  # Check injection morphism names
+@assert bindings[neuron2].name == :injection_N2
 ```
 
 ## Further Reading

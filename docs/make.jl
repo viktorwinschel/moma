@@ -8,10 +8,12 @@ Pkg.instantiate()
 using Documenter
 using Moma
 
+DocMeta.setdocmeta!(Moma, :DocTestSetup, :(using Moma); recursive=true)
+
 makedocs(
     sitename="MoMa",
     format=Documenter.HTML(
-        prettyurls=get(ENV, "CI", nothing) == "true",
+        prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://viktorwinschel.github.io/moma",
         assets=["assets/favicon.ico"],
         edit_link="main"
@@ -19,7 +21,9 @@ makedocs(
     modules=[Moma],
     pages=[
         "Home" => "index.md",
-        "Category Theory" => "category_theory.md",
+        "Categories" => "categories.md",
+        "Examples" => "examples.md",
+        "State Space Models" => "state_space_models.md",
         "Papers" => "papers.md",
         "API" => "api.md"
     ],
