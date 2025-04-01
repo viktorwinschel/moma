@@ -1,5 +1,4 @@
 using Moma
-
 # Test Object creation
 obj1 = Object(:A, "data1")
 obj2 = Object(:B, "data2")
@@ -56,8 +55,8 @@ pattern = create_pattern(cat, [obj1, obj2], [m1])
 
 # Test binding checks
 bindings = Dict(
-    obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-    obj2 => Moma.identity(obj2)
+        obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
+        obj2 => Moma.identity(obj2)
 )
 @assert check_binding(obj2, bindings, pattern)
 @assert haskey(bindings, obj1)
@@ -105,7 +104,7 @@ colimit_obj, bindings = find_colimit(pat)
 neuron1 = Object(:N1, "neuron_data_1")
 neuron2 = Object(:N2, "neuron_data_2")
 synapse = Morphism(neuron1, neuron2,
-    x -> "synapse_" * x, :syn)
+        x -> "synapse_" * x, :syn)
 @assert neuron1.id == :N1 && neuron1.data == "neuron_data_1"
 @assert neuron2.id == :N2 && neuron2.data == "neuron_data_2"
 @assert synapse.name == :syn

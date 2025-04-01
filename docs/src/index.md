@@ -6,15 +6,18 @@ By that we can model multi-level, hierarchical systems like micro, meso and macr
 
 The monetary theory of MoMa works for national accounting, sectors and companies
 but also for within companies as holdings with subsidiaries
-and down to smaller levels down like to processes of a box ordering screws.
+and down to smaller levels like to processes of a box ordering screws.
 MoMa is a multi-level accounting theory for macro accounting with different time scales
-extending micro accounting aka double-entry bookkeeping.
+extending micro accounting aka double-entry bookkeeping. 
+This then is the beginning of composable enterprises and a new generation of ERP systems, 
+then EcRP systems for economic resource planing.
 
 ## Overview
 
 This documentation contain implementations and
 
 - Basic category theoretical constructions
+- A statespace model implementation with categorical and MES tools
 - Basic simulation of a MoMa national accounting
 - Summaries and pdfs of MES and MoMa
 
@@ -25,13 +28,6 @@ This documentation contain implementations and
 - [Examples](examples.md): Usage examples and tutorials
 - [Papers](papers.md): Related academic papers and references
 - [API](api.md): Detailed API documentation
-
-## Installation
-
-```julia
-using Pkg
-Pkg.add("MoMa")
-```
 
 ## Quick Start
 
@@ -53,4 +49,4 @@ memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. 
+Contributions are welcome! by email to viktor winschel
