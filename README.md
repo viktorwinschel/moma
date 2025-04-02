@@ -14,11 +14,6 @@ The documentation includes:
 - Geometric system implementations
 - State space model examples
 
-You can also build the documentation locally:
-```bash
-julia --project=. -e 'using Documenter; Documenter.serve()'
-```
-
 ## ToDos: Current Work
 all examples are synchronized with implementations, runtests work
 
