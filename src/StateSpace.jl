@@ -40,6 +40,9 @@ export simulate_dynamics
 
 A type for storing time series data in a Memory Evolutive Systems (MES) style.
 
+# Type Parameters
+- `T`: The type of data stored in each state (e.g., Float64, Vector{Float64})
+
 # Fields
 - `times::Vector{Object{Float64}}`: Time objects representing the temporal dimension
 - `states::Vector{Object{T}}`: State objects representing the system's evolution
@@ -47,8 +50,15 @@ A type for storing time series data in a Memory Evolutive Systems (MES) style.
 
 # Constructors
 ```julia
-TimeSeriesMemory{T}(initial_time::Object{Float64}, initial_state::Object{T}) where {T}
-TimeSeriesMemory(initial_time::Object{Float64}, initial_state::Object{T}) where {T}
+# Create memory with scalar states
+t₁ = Object(:t1, 1.0)
+s₁ = Object(:s1, 1.0)
+memory = TimeSeriesMemory(t₁, s₁)
+
+# Create memory with vector states
+t₁ = Object(:t1, 1.0)
+s₁ = Object(:s1, [1.0, 2.0])
+memory = TimeSeriesMemory(t₁, s₁)
 ```
 """
 struct TimeSeriesMemory{T}
@@ -73,6 +83,20 @@ Extend the memory with a new time point, state, and link between states.
 - `new_time::Object{Float64}`: New time point
 - `new_state::Object{T}`: New state
 - `link::Morphism{T,T}`: Link between the previous and new state
+
+# Examples
+```julia
+# Create initial memory
+t₁ = Object(:t1, 1.0)
+s₁ = Object(:s1, 1.0)
+memory = TimeSeriesMemory(t₁, s₁)
+
+# Extend with new state
+t₂ = Object(:t2, 2.0)
+s₂ = Object(:s2, 2.0)
+link = Morphism(s₁, s₂, x -> x + 1, :link)
+extend!(memory, t₂, s₂, link)
+```
 """
 function extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism{T,T}) where {T}
     push!(memory.times, new_time)
@@ -89,7 +113,16 @@ Extract the state data from memory as a vector of values.
 - `memory::TimeSeriesMemory{T}`: The memory to extract data from
 
 # Returns
-- Vector of state values
+- `Vector{T}`: Vector of state values
+
+# Examples
+```julia
+# Get data from scalar state memory
+data = get_data(memory)  # Returns Vector{Float64}
+
+# Get data from vector state memory
+data = get_data(memory)  # Returns Vector{Vector{Float64}}
+```
 """
 function get_data(memory::TimeSeriesMemory{T}) where {T}
     return [state.data for state in memory.states]
@@ -104,7 +137,12 @@ Extract the time points from memory as a vector of values.
 - `memory::TimeSeriesMemory{T}`: The memory to extract times from
 
 # Returns
-- Vector of time values
+- `Vector{Float64}`: Vector of time values
+
+# Examples
+```julia
+times = get_times(memory)  # Returns Vector{Float64}
+```
 """
 function get_times(memory::TimeSeriesMemory{T}) where {T}
     return [t.data for t in memory.times]
@@ -119,7 +157,12 @@ Get the links (morphisms) between consecutive states.
 - `memory::TimeSeriesMemory{T}`: The memory to extract links from
 
 # Returns
-- Vector of morphisms
+- `Vector{Morphism{T,T}}`: Vector of morphisms representing state transitions
+
+# Examples
+```julia
+links = get_links(memory)  # Returns Vector{Morphism{T,T}}
+```
 """
 function get_links(memory::TimeSeriesMemory{T}) where {T}
     return memory.links
@@ -134,7 +177,12 @@ Collect the time series data from memory.
 - `memory::TimeSeriesMemory{T}`: The memory to collect data from
 
 # Returns
-- Tuple of (times, states) where times is a vector of Float64 and states is a vector of T
+- `Tuple{Vector{Float64},Vector{T}}`: Tuple containing (times, states)
+
+# Examples
+```julia
+times, states = collect_timeseries(memory)
+```
 """
 function collect_timeseries(memory::TimeSeriesMemory{T}) where {T}
     return (get_times(memory), get_data(memory))
@@ -147,10 +195,19 @@ Create a plot of the time series data.
 
 # Arguments
 - `memory::TimeSeriesMemory{T}`: The memory to plot
-- `title::String`: Title for the plot
+- `title::String`: Title for the plot (default: "Time Series")
 
 # Returns
-- Plots.Plot object
+- `Plots.Plot`: Plot object showing the time series
+
+# Examples
+```julia
+# Plot scalar time series
+p = plot_timeseries(memory, "Scalar Time Series")
+
+# Plot vector time series (multiple variables)
+p = plot_timeseries(memory, "Vector Time Series")
+```
 """
 function plot_timeseries(memory::TimeSeriesMemory{T}, title::String="Time Series") where {T}
     times, data = collect_timeseries(memory)
@@ -172,13 +229,27 @@ end
 """
     create_ar_model(initial_state::Vector{Float64})
 
-Create an AR(1) model.
+Create an AR(1) model with the form: xₜ₊₁ = 0.7xₜ + εₜ
 
 # Arguments
 - `initial_state::Vector{Float64}`: Initial state vector
 
 # Returns
-- Tuple of (initial_time, initial_state, time_step, evolution)
+- `Tuple{Object{Float64},Object{Vector{Float64}},Morphism,Morphism}`: Tuple containing:
+  - Initial time object
+  - Initial state object
+  - Time step morphism
+  - Evolution morphism
+
+# Examples
+```julia
+# Create AR(1) model
+initial_state = [1.0]
+t₁, s₁, time_step, evolution = create_ar_model(initial_state)
+
+# Simulate the model
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+```
 """
 function create_ar_model(initial_state::Vector{Float64})
     t₁ = Object(:t1, 1.0)
@@ -193,14 +264,29 @@ end
 """
     create_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
 
-Create a VAR(1) model.
+Create a VAR(1) model with the form: xₜ₊₁ = Axₜ + εₜ
 
 # Arguments
 - `initial_state::Vector{Float64}`: Initial state vector
 - `A::Matrix{Float64}`: Transition matrix
 
 # Returns
-- Tuple of (initial_time, initial_state, time_step, evolution)
+- `Tuple{Object{Float64},Object{Vector{Float64}},Morphism,Morphism}`: Tuple containing:
+  - Initial time object
+  - Initial state object
+  - Time step morphism
+  - Evolution morphism
+
+# Examples
+```julia
+# Create VAR(1) model
+initial_state = [1.0, 2.0]
+A = [0.7 0.2; 0.1 0.8]
+t₁, s₁, time_step, evolution = create_var_model(initial_state, A)
+
+# Simulate the model
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+```
 """
 function create_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
     t₁ = Object(:t1, 1.0)
@@ -215,14 +301,29 @@ end
 """
     create_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
 
-Create a nonlinear VAR model.
+Create a nonlinear VAR model with the form: xₜ₊₁ = Axₜ + 0.1sin(xₜ) + εₜ
 
 # Arguments
 - `initial_state::Vector{Float64}`: Initial state vector
 - `A::Matrix{Float64}`: Transition matrix
 
 # Returns
-- Tuple of (initial_time, initial_state, time_step, evolution)
+- `Tuple{Object{Float64},Object{Vector{Float64}},Morphism,Morphism}`: Tuple containing:
+  - Initial time object
+  - Initial state object
+  - Time step morphism
+  - Evolution morphism
+
+# Examples
+```julia
+# Create nonlinear VAR model
+initial_state = [1.0, 2.0]
+A = [0.7 0.2; 0.1 0.8]
+t₁, s₁, time_step, evolution = create_nonlinear_var_model(initial_state, A)
+
+# Simulate the model
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+```
 """
 function create_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
     t₁ = Object(:t1, 1.0)
@@ -237,14 +338,29 @@ end
 """
     create_stochastic_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
 
-Create a stochastic nonlinear VAR model.
+Create a stochastic nonlinear VAR model with the form: xₜ₊₁ = Axₜ + 0.1sin(xₜ) + 0.1εₜ
 
 # Arguments
 - `initial_state::Vector{Float64}`: Initial state vector
 - `A::Matrix{Float64}`: Transition matrix
 
 # Returns
-- Tuple of (initial_time, initial_state, time_step, evolution)
+- `Tuple{Object{Float64},Object{Vector{Float64}},Morphism,Morphism}`: Tuple containing:
+  - Initial time object
+  - Initial state object
+  - Time step morphism
+  - Evolution morphism
+
+# Examples
+```julia
+# Create stochastic nonlinear VAR model
+initial_state = [1.0, 2.0]
+A = [0.7 0.2; 0.1 0.8]
+t₁, s₁, time_step, evolution = create_stochastic_nonlinear_var_model(initial_state, A)
+
+# Simulate the model
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+```
 """
 function create_stochastic_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
     t₁ = Object(:t1, 1.0)
@@ -259,7 +375,7 @@ end
 """
     simulate_dynamics(t₁::Object{Float64}, s₁::Object{T}, time_step::Morphism, evolution::Morphism, n_steps::Int)
 
-Simulate the dynamics of a system.
+Simulate the dynamics of a system for a specified number of steps.
 
 # Arguments
 - `t₁::Object{Float64}`: Initial time
@@ -269,7 +385,17 @@ Simulate the dynamics of a system.
 - `n_steps::Int`: Number of steps to simulate
 
 # Returns
-- TimeSeriesMemory{T} containing the simulation results
+- `TimeSeriesMemory{T}`: Memory containing the simulation results
+
+# Examples
+```julia
+# Simulate AR(1) model
+t₁, s₁, time_step, evolution = create_ar_model([1.0])
+memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
+
+# Plot results
+plot_timeseries(memory, "AR(1) Simulation")
+```
 """
 function simulate_dynamics(t₁::Object{Float64}, s₁::Object{T}, time_step::Morphism, evolution::Morphism, n_steps::Int) where {T}
     memory = TimeSeriesMemory{T}(t₁, s₁)

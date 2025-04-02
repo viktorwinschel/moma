@@ -8,7 +8,10 @@ Pkg.instantiate()
 using Documenter
 using Moma
 
+# Set up documentation metadata for both modules
 DocMeta.setdocmeta!(Moma, :DocTestSetup, :(using Moma); recursive=true)
+DocMeta.setdocmeta!(Moma.Categories, :DocTestSetup, :(using Moma); recursive=true)
+DocMeta.setdocmeta!(Moma.StateSpace, :DocTestSetup, :(using Moma); recursive=true)
 
 makedocs(
     sitename="MoMa",
@@ -18,7 +21,7 @@ makedocs(
         assets=["assets/favicon.ico"],
         edit_link="main"
     ),
-    modules=[Moma],
+    modules=[Moma, Moma.Categories, Moma.StateSpace],
     pages=[
         "Home" => "index.md",
         "Categories" => "categories.md",

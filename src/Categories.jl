@@ -278,28 +278,38 @@ function create_pattern(category::Category, objects::Vector{<:Object}, morphisms
 end
 
 """
-    check_binding(object::Object, bindings::Dict{<:Object,<:Morphism}, pattern::Pattern)
+    check_binding(obj::Object, binding::Dict{<:Object,<:Morphism}, pattern::Pattern)
 
-Check if an object with specified bindings forms a colimit for a pattern.
+Check if an object forms a valid binding for a pattern.
 
 # Arguments
-- `object::Object`: The candidate colimit object
-- `bindings::Dict{<:Object,<:Morphism}`: Morphisms from pattern objects to the candidate
-- `pattern::Pattern`: The pattern to check
+- `obj::Object`: The object to check as a potential binding
+- `binding::Dict{<:Object,<:Morphism}`: Current binding of pattern objects to category objects
+- `pattern::Pattern`: The pattern to check the binding against
 
 # Returns
-- `Bool`: true if the object with bindings forms a colimit, false otherwise
+- `Bool`: true if the object forms a valid binding, false otherwise
+
+# Examples
+```julia
+# Create a pattern and potential binding
+pattern = create_pattern(cat, [obj1, obj2], [morph])
+binding = Dict(obj1 => obj3, obj2 => obj4)
+
+# Check if obj5 forms a valid binding
+is_valid = check_binding(obj5, binding, pattern)
+```
 """
-function check_binding(object::Object, bindings::Dict{<:Object,<:Morphism}, pattern::Pattern)
+function check_binding(obj::Object, binding::Dict{<:Object,<:Morphism}, pattern::Pattern)
     # Verify all pattern objects have bindings
-    if !all(o -> haskey(bindings, o), pattern.objects)
+    if !all(o -> haskey(binding, o), pattern.objects)
         error("Missing bindings")
     end
 
     # Verify morphisms commute
     for m in pattern.morphisms
-        source_binding = bindings[m.source]
-        target_binding = bindings[m.target]
+        source_binding = binding[m.source]
+        target_binding = binding[m.target]
 
         # Check if the diagram commutes
         source_data = m.source.data
@@ -321,13 +331,26 @@ end
 """
     find_colimit(pattern::Pattern)
 
-Find or construct a colimit for a pattern.
+Find or construct a colimit for a pattern in its category.
 
 # Arguments
 - `pattern::Pattern`: The pattern to find a colimit for
 
 # Returns
-- `Tuple{Object,Dict{<:Object,<:Morphism}}`: A tuple containing the colimit object and bindings
+- `Object`: The colimit object if found
+- `nothing`: If no colimit exists
+
+# Throws
+- `ErrorException`: If the pattern is invalid or the colimit cannot be constructed
+
+# Examples
+```julia
+# Create a pattern
+pattern = create_pattern(cat, [obj1, obj2], [morph])
+
+# Find its colimit
+colimit = find_colimit(pattern)
+```
 """
 function find_colimit(pattern::Pattern)
     if isempty(pattern.objects)
@@ -361,39 +384,29 @@ function find_colimit(pattern::Pattern)
         error("Failed to construct valid colimit")
     end
 
-    return colimit_obj, bindings
+    return colimit_obj
 end
 
 """
-    is_morphism_in_category(morphism::Morphism, category::Category)
+    is_morphism_in_category(morph::Morphism, cat::Category)
 
 Check if a morphism belongs to a category.
 
 # Arguments
-- `morphism::Morphism`: The morphism to check
-- `category::Category`: The category to check against
+- `morph::Morphism`: The morphism to check
+- `cat::Category`: The category to check against
 
 # Returns
 - `Bool`: true if the morphism belongs to the category, false otherwise
 
 # Examples
 ```julia
-# Create objects and a morphism
-A = Object(:A, 1)
-B = Object(:B, 2)
-f = Morphism(A, B, x -> x + 1, :f)
-
-# Create a category and check membership
-C = Category([A, B], [f], :C)
-@assert is_morphism_in_category(f, C)
-
-# Check a morphism not in the category
-g = Morphism(B, A, x -> x - 1, :g)
-@assert !is_morphism_in_category(g, C)
+# Check if a morphism belongs to a category
+belongs = is_morphism_in_category(morph, cat)
 ```
 """
-function is_morphism_in_category(morphism::Morphism, category::Category)
-    morphism in category.morphisms
+function is_morphism_in_category(morph::Morphism, cat::Category)
+    morph in cat.morphisms
 end
 
 end # module 

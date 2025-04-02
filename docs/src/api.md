@@ -25,20 +25,21 @@ Order = [:module]
 
 Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl) and [`src/statespace.jl`](https://github.com/viktorwinschel/moma/blob/main/src/statespace.jl)
 
-```@autodocs
-Modules = [Moma.Categories, Moma.StateSpace]
-Order = [:type]
-Filter = t -> t in [Object, Morphism, Category, TimeSeriesMemory]
+```@docs
+Moma.Categories.Object
+Moma.Categories.Morphism
+Moma.Categories.Category
+Moma.StateSpace.TimeSeriesMemory
 ```
 
 ### Advanced Types
 
 Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl)
 
-```@autodocs
-Modules = [Moma.Categories]
-Order = [:type]
-Filter = t -> t in [Functor, NaturalTransformation, Pattern]
+```@docs
+Moma.Categories.Functor
+Moma.Categories.NaturalTransformation
+Moma.Categories.Pattern
 ```
 
 ## Functions
