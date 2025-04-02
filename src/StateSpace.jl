@@ -1,3 +1,29 @@
+"""
+    module StateSpace
+
+This module provides implementations of state space models using Memory Evolutive Systems (MES) concepts.
+It includes:
+
+- Time series memory management
+- State space model implementations (AR, VAR, nonlinear VAR)
+- Simulation and visualization tools
+- Data collection and analysis utilities
+
+# Mathematical Background
+The module implements state space models using categorical tools:
+- Time series as sequences of objects and morphisms
+- State transitions as morphisms between objects
+- Memory as a structured collection of states and transitions
+- Visualization of system dynamics
+
+# Exports
+- `TimeSeriesMemory`: Type for storing time series data
+- `extend!`: Extend memory with new time point and state
+- `get_data`, `get_times`, `get_links`: Access memory components
+- `collect_timeseries`, `plot_timeseries`: Data collection and visualization
+- `create_ar_model`, `create_var_model`: Model creation functions
+- `simulate_dynamics`: System simulation
+"""
 module StateSpace
 
 using ..Categories: Object, Morphism

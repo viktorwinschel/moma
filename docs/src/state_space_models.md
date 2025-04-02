@@ -129,7 +129,7 @@ The first-order autoregressive model represents a simple state space model where
 x_{t+1} = \alpha x_t
 ```
 
-where \(\alpha\) is the autoregression coefficient.
+where $\alpha$ is the autoregression coefficient.
 
 ### Implementation
 
@@ -174,7 +174,7 @@ The first-order vector autoregressive model extends the AR(1) model to multiple 
 \mathbf{x}_{t+1} = A\mathbf{x}_t
 ``` 
 
-where \(A\) is the coefficient matrix and \(\mathbf{x}_t\) is a vector of states.
+where $A$ is the coefficient matrix and $\mathbf{x}_t$ is a vector of states.
 
 ### Implementation
 
@@ -218,7 +218,7 @@ The nonlinear VAR model introduces nonlinear transformations to the state evolut
 \mathbf{x}_{t+1} = f(A\mathbf{x}_t)
 ```
 
-where \(f\) is a nonlinear function applied element-wise.
+where $f$ is a nonlinear function applied element-wise.
 
 ### Implementation
 
@@ -264,7 +264,7 @@ The stochastic nonlinear VAR model adds random components to the state evolution
 \mathbf{x}_{t+1} = f(A\mathbf{x}_t) + \boldsymbol{\epsilon}_t
 ```
 
-where \(\boldsymbol{\epsilon}_t\) is a random noise vector.
+where $\boldsymbol{\epsilon}_t$ is a random noise vector.
 
 ### Implementation
 
@@ -323,7 +323,121 @@ comparison_plot = plot(p1, p2, p3, p4, layout=(2, 2), size=(1000, 1000))
 savefig(comparison_plot, "dynamics_comparison.png")
 ```
 
-This will generate a 2x2 grid of plots comparing the behavior of all four models, saved as "dynamics_comparison.png".
-
 ![Comparison of different state space models](assets/dynamics_comparison.png)
+
+## Implementation Details
+
+The following code snippets show the core implementation of the state space models in the `statespace.jl` file:
+
+### Time Series Memory Structure
+
+```julia
+struct TimeSeriesMemory{T}
+    times::Vector{Object{Float64}}
+    states::Vector{Object{T}}
+    links::Vector{Morphism{T,T}}
+
+    function TimeSeriesMemory{T}(initial_time::Object{Float64}, initial_state::Object{T}) where {T}
+        new{T}([initial_time], [initial_state], Morphism{T,T}[])
+    end
+end
+```
+
+### Core Functions
+
+```julia
+function extend!(memory::TimeSeriesMemory{T}, new_time::Object{Float64}, new_state::Object{T}, link::Morphism{T,T}) where {T}
+    push!(memory.times, new_time)
+    push!(memory.states, new_state)
+    push!(memory.links, link)
+end
+
+function get_data(memory::TimeSeriesMemory{T}) where {T}
+    return [state.data for state in memory.states]
+end
+
+function get_times(memory::TimeSeriesMemory{T}) where {T}
+    return [t.data for t in memory.times]
+end
+
+function get_links(memory::TimeSeriesMemory{T}) where {T}
+    return memory.links
+end
+```
+
+### Data Collection and Visualization
+
+```julia
+function collect_timeseries(memory::TimeSeriesMemory{T}) where {T}
+    return (get_times(memory), get_data(memory))
+end
+
+function plot_timeseries(memory::TimeSeriesMemory{T}, title::String="Time Series") where {T}
+    times, data = collect_timeseries(memory)
+
+    # Handle both scalar and vector states
+    if data[1] isa Vector
+        n_vars = length(data[1])
+        p = plot(title=title, xlabel="Time", ylabel="Value")
+        for i in 1:n_vars
+            plot!(p, times, [d[i] for d in data], label="Variable $i")
+        end
+    else
+        p = plot(times, data, title=title, xlabel="Time", ylabel="Value")
+    end
+
+    return p
+end
+```
+
+### Model Creation Functions
+
+```julia
+function create_ar_model(initial_state::Vector{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -> t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, [0.0]), x -> [0.7 * x[1]], :evolution)
+
+    return t₁, s₁, time_step, evolution
+end
+
+function create_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -> t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, similar(initial_state)), x -> A * x, :evolution)
+
+    return t₁, s₁, time_step, evolution
+end
+
+function create_nonlinear_var_model(initial_state::Vector{Float64}, A::Matrix{Float64})
+    t₁ = Object(:t1, 1.0)
+    s₁ = Object(:s1, initial_state)
+
+    time_step = Morphism(t₁, Object(:t2, 2.0), t -> t + 1.0, :time_step)
+    evolution = Morphism(s₁, Object(:s2, similar(initial_state)), x -> A * x + 0.1 * sin.(x), :evolution)
+
+    return t₁, s₁, time_step, evolution
+end
+```
+
+### Dynamics Simulation
+
+```julia
+function simulate_dynamics(t₁::Object{Float64}, s₁::Object{T}, time_step::Morphism, evolution::Morphism, n_steps::Int) where {T}
+    memory = TimeSeriesMemory{T}(t₁, s₁)
+    
+    for i in 1:n_steps
+        t_next = Object(Symbol("t$(i+1)"), time_step.map(memory.times[end].data))
+        s_next = Object(Symbol("s$(i+1)"), evolution.map(memory.states[end].data))
+        link = Morphism(memory.states[end], s_next, evolution.map, Symbol("link$i"))
+        extend!(memory, t_next, s_next, link)
+    end
+    
+    return memory
+end
+```
 

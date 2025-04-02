@@ -12,6 +12,8 @@ The `Categories` module provides implementations of fundamental category theory 
 
 ## Modules
 
+Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl) and [`src/statespace.jl`](https://github.com/viktorwinschel/moma/blob/main/src/statespace.jl)
+
 ```@autodocs
 Modules = [Moma.Categories, Moma.StateSpace]
 Order = [:module]
@@ -21,24 +23,29 @@ Order = [:module]
 
 ### Basic Types
 
-```@docs
-Moma.Categories.Object
-Moma.Categories.Morphism
-Moma.Categories.Category
-Moma.StateSpace.TimeSeriesMemory
+Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl) and [`src/statespace.jl`](https://github.com/viktorwinschel/moma/blob/main/src/statespace.jl)
+
+```@autodocs
+Modules = [Moma.Categories, Moma.StateSpace]
+Order = [:type]
+Filter = t -> t in [Object, Morphism, Category, TimeSeriesMemory]
 ```
 
 ### Advanced Types
 
-```@docs
-Moma.Categories.Functor
-Moma.Categories.NaturalTransformation
-Moma.Categories.Pattern
+Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl)
+
+```@autodocs
+Modules = [Moma.Categories]
+Order = [:type]
+Filter = t -> t in [Functor, NaturalTransformation, Pattern]
 ```
 
 ## Functions
 
 ### Basic Operations
+
+Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl)
 
 ```@docs
 Moma.Categories.identity
@@ -48,6 +55,8 @@ Moma.Categories.is_morphism_in_category
 
 ### Pattern and Colimit Operations
 
+Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl)
+
 ```@docs
 Moma.Categories.create_pattern
 Moma.Categories.check_binding
@@ -55,6 +64,8 @@ Moma.Categories.find_colimit
 ```
 
 ### State Space Operations
+
+Source: [`src/statespace.jl`](https://github.com/viktorwinschel/moma/blob/main/src/statespace.jl)
 
 ```@docs
 Moma.StateSpace.create_ar_model
