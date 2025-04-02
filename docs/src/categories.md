@@ -60,7 +60,7 @@ For comprehensive tests of these implementations, see the test files in the repo
 The following examples demonstrate the basic usage with
 the helper functions implemented in the `Moma.Categories` module as:
 
-- [`identity`](@ref Moma.Categories.identity)
+- [`identity_morphism`](@ref Moma.Categories.identity_morphism)
 - [`compose`](@ref Moma.Categories.compose)
 
 ```julia
@@ -92,7 +92,7 @@ m3 = compose(m1, m2)
 @assert m3.name == :m1_m2  # Check composed morphism name
 
 # Test identity morphism
-id_morph = Moma.identity(obj1)
+id_morph = identity_morphism(obj1)
 @assert id_morph.source == obj1 &&
     id_morph.target == obj1 &&
     id_morph.map("test") == "test"
@@ -123,7 +123,7 @@ pattern = create_pattern(cat, [obj1, obj2], [m1])
 # Test binding checks
 bindings = Dict(
     obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-    obj2 => Moma.identity(obj2)
+    obj2 => identity_morphism(obj2)
 )
 @assert check_binding(obj2, bindings, pattern)
 @assert haskey(bindings, obj1)
@@ -178,11 +178,11 @@ using Moma
 
 # Create source and target categories
 src_cat = Category([obj1, obj2], [m1], :source)
-tgt_cat = Category([obj3], [identity(obj3)], :target)
+tgt_cat = Category([obj3], [identity_morphism(obj3)], :target)
 
 # Define functor mappings
 obj_map = Dict(obj1 => obj3, obj2 => obj3)
-morph_map = Dict(m1 => identity(obj3))
+morph_map = Dict(m1 => identity_morphism(obj3))
 
 # Create functor
 F = Functor(src_cat, tgt_cat, obj_map, morph_map, :F)

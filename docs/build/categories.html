@@ -20,7 +20,7 @@ struct Category
     objects::Vector{Object}
     morphisms::Vector{Morphism}
     name::Symbol
-end</code></pre><p>For comprehensive tests of these implementations, see the test files in the repository.</p><h3 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h3><p>The following examples demonstrate the basic usage with the helper functions implemented in the <code>Moma.Categories</code> module as:</p><ul><li><a href="api.html#Moma.Categories.identity"><code>identity</code></a></li><li><a href="api.html#Moma.Categories.compose"><code>compose</code></a></li></ul><pre><code class="language-julia hljs">using Moma
+end</code></pre><p>For comprehensive tests of these implementations, see the test files in the repository.</p><h3 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h3><p>The following examples demonstrate the basic usage with the helper functions implemented in the <code>Moma.Categories</code> module as:</p><ul><li><a href="api.html#Moma.Categories.identity_morphism"><code>identity_morphism</code></a></li><li><a href="api.html#Moma.Categories.compose"><code>compose</code></a></li></ul><pre><code class="language-julia hljs">using Moma
 
 # Test Object creation
 obj1 = Object(:A, &quot;data1&quot;)
@@ -48,7 +48,7 @@ m3 = compose(m1, m2)
 @assert m3.name == :m1_m2  # Check composed morphism name
 
 # Test identity morphism
-id_morph = Moma.identity(obj1)
+id_morph = identity_morphism(obj1)
 @assert id_morph.source == obj1 &amp;&amp;
     id_morph.target == obj1 &amp;&amp;
     id_morph.map(&quot;test&quot;) == &quot;test&quot;
@@ -79,7 +79,7 @@ pattern = create_pattern(cat, [obj1, obj2], [m1])
 # Test binding checks
 bindings = Dict(
     obj1 =&gt; Morphism(obj1, obj2, x -&gt; uppercase(x), :bind1),
-    obj2 =&gt; Moma.identity(obj2)
+    obj2 =&gt; identity_morphism(obj2)
 )
 @assert check_binding(obj2, bindings, pattern)
 @assert haskey(bindings, obj1)
@@ -100,11 +100,11 @@ end</code></pre><h3 id="Examples-2"><a class="docs-heading-anchor" href="#Exampl
 
 # Create source and target categories
 src_cat = Category([obj1, obj2], [m1], :source)
-tgt_cat = Category([obj3], [identity(obj3)], :target)
+tgt_cat = Category([obj3], [identity_morphism(obj3)], :target)
 
 # Define functor mappings
 obj_map = Dict(obj1 =&gt; obj3, obj2 =&gt; obj3)
-morph_map = Dict(m1 =&gt; identity(obj3))
+morph_map = Dict(m1 =&gt; identity_morphism(obj3))
 
 # Create functor
 F = Functor(src_cat, tgt_cat, obj_map, morph_map, :F)</code></pre><h2 id="Natural-Transformations"><a class="docs-heading-anchor" href="#Natural-Transformations">Natural Transformations</a><a id="Natural-Transformations-1"></a><a class="docs-heading-anchor-permalink" href="#Natural-Transformations" title="Permalink"></a></h2><h3 id="Mathematical-Definition-3"><a class="docs-heading-anchor" href="#Mathematical-Definition-3">Mathematical Definition</a><a class="docs-heading-anchor-permalink" href="#Mathematical-Definition-3" title="Permalink"></a></h3><p>Given functors <span>$F,G: \mathcal{C} \to \mathcal{D}$</span>, a natural transformation <span>$\eta: F \Rightarrow G$</span> consists of:</p><ul><li>A family of morphisms <span>$\eta_A: F(A) \to G(A)$</span> <span>$\forall A \in \text{Ob}(\mathcal{C})$</span></li></ul><p>For the role of natural transformations in MES, see <a href="mes07.html#natural-transformations">MES07: Natural Transformations and System Evolution</a>.</p><p>Such that the naturality condition holds:</p><ul><li><span>$G(f) \circ \eta_A = \eta_B \circ F(f)$</span> <span>$\forall f: A \to B$</span> in <span>$\mathcal{C}$</span></li></ul><p class="math-container">\[\begin{CD}
@@ -211,4 +211,4 @@ assembly, bindings = find_colimit(pattern)
 @assert haskey(bindings, neuron1)
 @assert haskey(bindings, neuron2)
 @assert bindings[neuron1].name == :injection_N1  # Check injection morphism names
-@assert bindings[neuron2].name == :injection_N2</code></pre><h2 id="Further-Reading"><a class="docs-heading-anchor" href="#Further-Reading">Further Reading</a><a id="Further-Reading-1"></a><a class="docs-heading-anchor-permalink" href="#Further-Reading" title="Permalink"></a></h2><p>For more detailed mathematical background and applications:</p><ul><li><a href="mes23.html">MES23</a>: Newer developments in Memory Evolutive Systems on human-machine interaction</li><li><a href="mes07.html">MES07</a>: Memory Evolutive Systems (MES)</li><li><a href="moma25.html">MoMa25</a> Monetary Macro Accounting (MoMa) Theory (MoMaT)</li><li><a href="papers.html">Papers</a>: Complete list of related publications and theoretical background</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="examples.html">Examples »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.10.0 on <span class="colophon-date" title="Wednesday 2 April 2025 06:08">Wednesday 2 April 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+@assert bindings[neuron2].name == :injection_N2</code></pre><h2 id="Further-Reading"><a class="docs-heading-anchor" href="#Further-Reading">Further Reading</a><a id="Further-Reading-1"></a><a class="docs-heading-anchor-permalink" href="#Further-Reading" title="Permalink"></a></h2><p>For more detailed mathematical background and applications:</p><ul><li><a href="mes23.html">MES23</a>: Newer developments in Memory Evolutive Systems on human-machine interaction</li><li><a href="mes07.html">MES07</a>: Memory Evolutive Systems (MES)</li><li><a href="moma25.html">MoMa25</a> Monetary Macro Accounting (MoMa) Theory (MoMaT)</li><li><a href="papers.html">Papers</a>: Complete list of related publications and theoretical background</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="examples.html">Examples »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.10.0 on <span class="colophon-date" title="Wednesday 2 April 2025 06:30">Wednesday 2 April 2025</span>. Using Julia version 1.11.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

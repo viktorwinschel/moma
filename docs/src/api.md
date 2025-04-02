@@ -49,7 +49,7 @@ Moma.Categories.Pattern
 Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl)
 
 ```@docs
-Moma.Categories.identity
+Moma.Categories.identity_morphism
 Moma.Categories.compose
 Moma.Categories.is_morphism_in_category
 ```

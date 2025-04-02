@@ -40,7 +40,7 @@ composed = compose(valid_f, valid_g)
 @assert composed.id == :valid_f_valid_g
 
 # Test identity morphism
-id_A = identity(A)
+id_A = identity_morphism(A)
 @assert id_A.id == A.id  # Identity morphism name
 
 # Test incompatible morphism composition

@@ -25,7 +25,7 @@ m3 = compose(m1, m2)
 @assert m3.name == :m1_m2  # Check composed morphism name
 
 # Test identity morphism
-id_morph = Moma.identity(obj1)
+id_morph = identity_morphism(obj1)
 @assert id_morph.source == obj1 &&
         id_morph.target == obj1 &&
         id_morph.map("test") == "test"
@@ -56,7 +56,7 @@ pattern = create_pattern(cat, [obj1, obj2], [m1])
 # Test binding checks
 bindings = Dict(
         obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-        obj2 => Moma.identity(obj2)
+        obj2 => identity_morphism(obj2)
 )
 @assert check_binding(obj2, bindings, pattern)
 @assert haskey(bindings, obj1)

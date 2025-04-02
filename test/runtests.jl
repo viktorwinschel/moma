@@ -1,6 +1,10 @@
 using Test
 using Moma
 using Moma.Categories
+using Moma.StateSpace
+#: TimeSeriesMemory, extend!, get_data, get_times, get_links,
+#   create_ar_model, create_var_model, create_nonlinear_var_model,
+#  create_stochastic_nonlinear_var_model, simulate_dynamics
 
 # Test Categories Examples
 @testset "Categories Examples" begin
@@ -30,7 +34,7 @@ using Moma.Categories
     @test m3.id == :m1_m2
 
     # Test identity morphism
-    id_morph = Categories.identity(obj1)
+    id_morph = identity_morphism(obj1)
     @test id_morph.source == obj1 &&
           id_morph.target == obj1 &&
           id_morph.map("test") == "test"
@@ -61,7 +65,7 @@ using Moma.Categories
     # Test binding checks
     bindings = Dict(
         obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-        obj2 => Categories.identity(obj2)
+        obj2 => identity_morphism(obj2)
     )
     @test check_binding(obj2, bindings, pattern)
     @test haskey(bindings, obj1)
@@ -171,7 +175,7 @@ end
     @test composed.id == :valid_f_valid_g
 
     # Test identity morphism
-    id_A = Categories.identity(A)
+    id_A = identity_morphism(A)
     @test id_A.id == Symbol("id_", A.id)
 
     # Test incompatible morphism composition

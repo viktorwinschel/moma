@@ -19,7 +19,7 @@ The module implements core concepts from category theory:
 - `Functor`: Represents a functor between categories
 - `NaturalTransformation`: Represents a natural transformation between functors
 - `Pattern`: Represents a pattern (diagram) in a category
-- `identity`: Creates an identity morphism for an object
+- `identity_morphism`: Creates an identity morphism for an object
 - `compose`: Composes two morphisms
 - `create_pattern`: Creates a pattern from objects and morphisms
 - `check_binding`: Checks if an object forms a colimit for a pattern
@@ -29,7 +29,7 @@ The module implements core concepts from category theory:
 module Categories
 
 export Object, Morphism, Category, Functor, NaturalTransformation, Pattern
-export identity, compose, create_pattern, check_binding, find_colimit, is_morphism_in_category
+export identity_morphism, compose, create_pattern, check_binding, find_colimit, is_morphism_in_category
 
 """
     Object{T}
@@ -175,7 +175,7 @@ struct Pattern
 end
 
 """
-    identity(obj::Object)
+    identity_morphism(obj::Object)
 
 Create an identity morphism for an object.
 
@@ -188,11 +188,11 @@ Create an identity morphism for an object.
 # Examples
 ```julia
 A = Object(:A, "data")
-id_A = identity(A)
+id_A = identity_morphism(A)
 @assert id_A.map(A.data) == A.data
 ```
 """
-function identity(obj::Object{T}) where {T}
+function identity_morphism(obj::Object{T}) where {T}
     Morphism(obj, obj, x -> x, Symbol("id_$(obj.id)"))
 end
 
