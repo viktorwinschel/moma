@@ -14,6 +14,10 @@ following basic MoMa macro accounting structure.
 
 ![Basic National Accounting Structure](assets/bookings.png) 
 
+These macro accounting bookings generate such dynamics:
+
+![Basic National Accounting Dynamics](assets/moma25_nat_acc.png) 
+
 ## MES23: Human–Machine Interactions
 [Summary](mes23.md), [pdf](assets/mes23.pdf)
 

@@ -1,7 +1,13 @@
 # ---------------------------------------------------------------------
+
 # MoMa
 # Monetery Accounting in Supply Chain Finance (MoMaSCF)
 # ---------------------------------------------------------------------
+using Pkg
+Pkg.add("DataFrames")
+Pkg.add("Plots")
+Pkg.add("Parameters")
+Pkg.add("CSV")
 using DataFrames    # Simulated Time Series
 using Plots         # Visualization of Time Series
 using Parameters    # Initialization of State Variables, Accounts
@@ -324,6 +330,10 @@ sim = simulate(StateTransition, State(Parameters=Pars), 100);
 vars = [:Period, :Investment, :DividendPayment];
 sim[1:100, vars]
 plotVars(sim[:, vars])
+# Save plot as JPG
+filename = @__FILE__
+jpgfile = replace(filename, ".jl" => "_plot.png")
+savefig(jpgfile)
 # reaplce near zero values
 ϵ = 1e-12
 df = sim
