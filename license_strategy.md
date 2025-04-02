@@ -1,11 +1,6 @@
 # License Strategy
 
-## Current Implementation
-The project is currently licensed under the GNU Affero General Public License v3 (AGPL-3.0). This license ensures:
-- Software remains free and open source
-- Modifications must be shared back with the community
-- Source code must be available to users, even when accessed over a network
-- Commercial use is permitted while maintaining these freedoms
+## License
 
 The AGPL license is perfect for now because:
 - Keeping code open source
