@@ -10,6 +10,27 @@ The `Categories` module provides implementations of fundamental category theory 
 - Pattern (diagram) creation and manipulation
 - Colimit computation and verification
 
+## Type Parameters
+
+Many types in the module are parameterized to allow for flexible data types:
+
+- `Object{T}`: `T` can be any type
+- `Morphism{S,T}`: `S` is the source object's data type, `T` is the target object's data type
+- `Memory{T}`: `T` is the type of the state data
+
+This allows for creating categories with heterogeneous data types while maintaining type safety.
+
+## Error Handling
+
+Functions in the module may throw the following errors:
+
+- `ErrorException`: When morphisms are not composable
+- `ErrorException`: When objects or morphisms don't belong to a category
+- `ErrorException`: When colimit construction fails
+- `ErrorException`: When pattern creation fails due to invalid inputs
+- `ErrorException`: When simulation parameters are invalid
+- `ErrorException`: When plotting data is malformed
+
 ## Modules
 
 Source: [`src/Categories.jl`](https://github.com/viktorwinschel/moma/blob/main/src/Categories.jl) and [`src/statespace.jl`](https://github.com/viktorwinschel/moma/blob/main/src/statespace.jl)
@@ -81,24 +102,3 @@ Moma.StateSpace.extend!
 Moma.StateSpace.collect_timeseries
 Moma.StateSpace.get_links
 ```
-
-## Type Parameters
-
-Many types in the module are parameterized to allow for flexible data types:
-
-- `Object{T}`: `T` can be any type
-- `Morphism{S,T}`: `S` is the source object's data type, `T` is the target object's data type
-- `Memory{T}`: `T` is the type of the state data
-
-This allows for creating categories with heterogeneous data types while maintaining type safety.
-
-## Error Handling
-
-Functions in the module may throw the following errors:
-
-- `ErrorException`: When morphisms are not composable
-- `ErrorException`: When objects or morphisms don't belong to a category
-- `ErrorException`: When colimit construction fails
-- `ErrorException`: When pattern creation fails due to invalid inputs
-- `ErrorException`: When simulation parameters are invalid
-- `ErrorException`: When plotting data is malformed
