@@ -5,12 +5,12 @@ It is modeled with categorical tools of Memory Evolutive Systems (MES) of Ehresm
 By that we can model multi-level, hierarchical systems like micro, meso and macro economies are.
 
 The monetary theory of MoMa works for national accounting, sectors and companies
-but also for within companies as holdings with subsidiaries
+but applies also for within companies like holdings with subsidiaries
 and down to smaller levels like to processes of a box ordering screws.
-MoMa is a multi-level accounting theory for macro accounting with different time scales
+MoMa theory is a multi-level accounting theory for macro accounting with different time scales
 extending micro accounting aka double-entry bookkeeping. 
-This then is the beginning of composable enterprises and a new generation of ERP systems, 
-then EcRP systems for economic resource planing.
+This can be thought of concepts of composable enterprises for a new generation of ERP (Enterpsice Resource Planing) 
+systems, then EcRP systems for economic resource planing.
 
 ## Overview
 
