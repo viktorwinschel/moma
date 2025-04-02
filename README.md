@@ -12,13 +12,13 @@ The documentation includes:
 - Mathematical background and theory
 - Error handling guidelines
 - Geometric system implementations
-- State space model examples
+- State space models are in categorical and functorial form
+- State space examples
+- Examples are synchronized with implementations, runtests works
 
 ## ToDos: Current Work
-all examples are synchronized with implementations, runtests work
 
-- state space models are now in categorical and functorial form
-- categorify MoMa national accounting simulation
+- Categorify MoMa for functorial national accounting simulations
 
 ## License
 
