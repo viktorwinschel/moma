@@ -49,4 +49,4 @@ memory = simulate_dynamics(t₁, s₁, time_step, evolution, 100)
 
 ## Contributing
 
-Contributions are welcome! by email to viktor winschel
+Contributions are welcome! by email to [repository owner](https://github.com/viktorwinschel)

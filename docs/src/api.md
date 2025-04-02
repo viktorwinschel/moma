@@ -90,5 +90,3 @@ Functions in the module may throw the following errors:
 - `ErrorException`: When pattern creation fails due to invalid inputs
 - `ErrorException`: When simulation parameters are invalid
 - `ErrorException`: When plotting data is malformed
-
-For more detailed mathematical background, see the [Papers](papers.md) section. 

@@ -1,9 +1,12 @@
-# State Space Models
+# State Space Model
+
+We switch from functions to functors for state transitions, states become categories,
+and use it for a monetary macro accounting (MoMa) then MES, ERP and EcRP.
 
 A usual way to model dynamics of economic systems are state space models.
 We will see now how to model them in MES to use them for a simple economics approach to model the MoMa phenomenon of money. This is the tranditional way we have implemented a first version of [MoMa25](papers.md) in simple Julia in file `momascf_v02_en.jl`. It is a deterministic nonlinear model but still reduced form model. Reduced form model is a economists way to say its a Markov decision process not even forward looking which would an economist call structural model. These forward lookings models can be modeled as Open Games but actually economic models should become MES systems where Open Games are coregulators.
 
-## MES(StateSpaceModel)
+## State Space Model as MES
 
 Traditional state space models represent system dynamics as simple vector-valued functions mapping states to states. While this approach is intuitive and computationally efficient, it has several limitations:
 

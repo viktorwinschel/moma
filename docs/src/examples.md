@@ -2,7 +2,8 @@
 
 This section provides practical examples of using the Moma package for various applications.
 
-## [Geometric System](geometric_system.md)
+## Geometric System 
+[more...](geometric_system.md)
    - Implementation with custom data types (Point, Line)
    - Structured representation of geometric objects and transformations
    - Composition of geometric transformations using morphisms
@@ -12,7 +13,8 @@ This section provides practical examples of using the Moma package for various a
      - Hierarchical organization of complex geometric systems
      - Category and pattern construction for geometric configurations
 
-## [Error Handling](error_handling.md)
+## Error Handling
+[...more](error_handling.md)
    - Comprehensive error checking for categorical laws
    - Edge case handling and validation
    - Best practices for robust error management
