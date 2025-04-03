@@ -25,11 +25,16 @@ The module implements core concepts from category theory:
 - `check_binding`: Checks if an object forms a colimit for a pattern
 - `find_colimit`: Finds or constructs colimits for patterns
 - `is_morphism_in_category`: Checks if a morphism belongs to a category
+- `MorphismCompositionError`: Represents an error when composing morphisms
 """
 module Categories
 
-export Object, Morphism, Category, Functor, NaturalTransformation, Pattern
-export identity_morphism, compose, create_pattern, check_binding, find_colimit, is_morphism_in_category
+export Object, Morphism, Category, Functor, NaturalTransformation, Pattern,
+    identity_morphism, compose, create_pattern, check_binding, find_colimit,
+    is_morphism_in_category, is_object_in_category,
+    ObjectNotInCategoryError, MorphismNotInCategoryError,
+    MorphismCompositionError, PatternHasNoBindingError,
+    PatternMustHaveAtLeastOneObject
 
 """
     Object{T}
@@ -59,9 +64,9 @@ end
 point_obj = Object(:P, Point(0.0, 1.0))
 ```
 """
-struct Object{T}
-    id::Symbol
-    data::T
+struct Object{T}        # an object of type T consist of
+    id::Symbol          # name
+    data::T             # data of type T
 end
 
 """
@@ -95,11 +100,11 @@ Y = Object(:Y, 2)
 g = Morphism(X, Y, x -> x + 1, :g)
 ```
 """
-struct Morphism{S,T}
-    source::Object{S}
-    target::Object{T}
-    map::Function
-    id::Symbol
+struct Morphism{S,T}    # a morphism of type (S,T) consist of
+    source::Object{S}   # source Object of type S
+    target::Object{T}   # target Object of type T
+    map::Function       # Julia function, i.e. computation
+    id::Symbol          # name
 end
 
 """
@@ -112,10 +117,10 @@ Represents a category with objects and morphisms.
 - `morphisms::Vector{<:Morphism}`: Morphisms in the category
 - `id::Symbol`: Unique identifier for the category
 """
-struct Category
-    objects::Vector{<:Object}
-    morphisms::Vector{<:Morphism}
-    id::Symbol
+struct Category                   # a category consist of
+    objects::Vector{<:Object}     # objects of type Vector of Objects
+    morphisms::Vector{<:Morphism} # morphisms of type Vector of Morphisms
+    id::Symbol                    # name
 end
 
 """
@@ -172,6 +177,96 @@ struct Pattern
     objects::Vector{<:Object}
     morphisms::Vector{<:Morphism}
     id::Symbol
+end
+
+"""
+    ObjectNotInCategoryError <: Exception
+
+A custom error type thrown when an object does not belong to a category.
+
+# Fields
+- `msg::String`: A descriptive error message
+- `object::Object`: The object that does not belong to the category
+- `category::Category`: The category that the object should belong to
+"""
+struct ObjectNotInCategoryError <: Exception
+    msg::String
+    object::Object
+    category::Category
+end
+
+"""
+    MorphismNotInCategoryError <: Exception
+
+A custom error type thrown when a morphism does not belong to a category.
+
+# Fields
+- `msg::String`: A descriptive error message
+- `morphism::Morphism`: The morphism that does not belong to the category
+- `category::Category`: The category that the morphism should belong to
+
+"""
+struct MorphismNotInCategoryError <: Exception
+    msg::String
+    morphism::Morphism
+    category::Category
+end
+
+"""
+    MorphismCompositionError <: Exception
+
+A custom error type thrown when attempting to compose incompatible morphisms in a category.
+
+# Fields
+- `msg::String`: A descriptive error message
+- `first_morphism::Symbol`: The identifier of the first morphism
+- `second_morphism::Symbol`: The identifier of the second morphism
+- `target::Symbol`: The target object of the first morphism
+- `source::Symbol`: The source object of the second morphism
+
+# Examples
+```julia
+obj1 = Object(:A, "data1")
+obj2 = Object(:B, "data2")
+obj3 = Object(:C, "data3")
+m1 = Morphism(obj1, obj2, x -> uppercase(x), :m1)
+m2 = Morphism(obj2, obj3, x -> x * "!", :m2)
+# This will throw an error
+@assert try
+        compose(m2, m1)
+catch e
+        e.msg
+end == "Morphisms m2 and m1 are not composable, target of m2 C != A source of m1."
+```
+"""
+struct MorphismCompositionError <: Exception
+    msg::String
+    first_morphism::Symbol  # id of first morphism
+    second_morphism::Symbol # id of second morphism
+    target::Symbol          # target of first morphism
+    source::Symbol          # source of second morphism
+end
+
+"""
+    PatternHasNoBindingError <: Exception
+
+A custom error type thrown when a pattern has no binding.
+"""
+struct PatternHasNoBindingError <: Exception
+    msg::String
+    object::Object
+    binding::Dict{<:Object,<:Morphism}
+    pattern::Pattern
+end
+
+"""
+    PatternMustHaveAtLeastOneObject <: Exception
+
+A custom error type thrown when a pattern has no objects.
+"""
+struct PatternMustHaveAtLeastOneObject <: Exception
+    msg::String
+    pattern::Pattern
 end
 
 """
@@ -233,8 +328,50 @@ function compose(f::Morphism{S,T}, g::Morphism{T,U}) where {S,T,U}
     if f.target == g.source
         Morphism(f.source, g.target, x -> g.map(f.map(x)), Symbol("$(f.id)_$(g.id)"))
     else
-        error("Morphisms are not composable")
+        throw(MorphismCompositionError(
+            "Morphisms $(f.id) and $(g.id) are not composable," *
+            "target of $(f.id) $(f.target.id) != $(g.source.id) source of $(g.id).",
+            f.id,
+            g.id,
+            f.target.id,
+            g.source.id
+        ))
     end
+end
+
+"""
+    is_object_in_category(obj::Object, cat::Category)
+
+Check if an object belongs to a category.
+
+# Arguments
+- `obj::Object`: The object to check
+- `cat::Category`: The category to check against
+"""
+function is_object_in_category(obj::Object, cat::Category)
+    obj in cat.objects
+end
+
+"""
+    is_morphism_in_category(morph::Morphism, cat::Category)
+
+Check if a morphism belongs to a category.
+
+# Arguments
+- `morph::Morphism`: The morphism to check
+- `cat::Category`: The category to check against
+
+# Returns
+- `Bool`: true if the morphism belongs to the category, false otherwise
+
+# Examples
+```julia
+# Check if a morphism belongs to a category
+belongs = is_morphism_in_category(morph, cat)
+```
+"""
+function is_morphism_in_category(morph::Morphism, cat::Category)
+    morph in cat.morphisms
 end
 
 """
@@ -271,10 +408,22 @@ create_pattern(C, [A, X], [f])  # Error: Objects must belong to the category
 """
 function create_pattern(category::Category, objects::Vector{<:Object}, morphisms::Vector{<:Morphism})
     # Verify objects and morphisms belong to the category
-    all(o in category.objects for o in objects) || error("Objects must belong to the category")
-    all(m in category.morphisms for m in morphisms) || error("Morphisms must belong to the category")
+    for o in objects
+        is_object_in_category(o, category) ||
+            throw(ObjectNotInCategoryError(
+                "Object $(o.id) must belong to the category $(category.id)",
+                o,
+                category))
+    end
+    for m in morphisms
+        is_morphism_in_category(m, category) ||
+            throw(MorphismNotInCategoryError(
+                "Morphism $(m.id) must belong to the category $(category.id)",
+                m,
+                category))
 
-    Pattern(category, objects, morphisms, Symbol("pattern_$(category.id)"))
+    end
+    return Pattern(category, objects, morphisms, Symbol("$(category.id)_$(length(objects))_$(length(morphisms))"))
 end
 
 """
@@ -302,8 +451,14 @@ is_valid = check_binding(obj5, binding, pattern)
 """
 function check_binding(obj::Object, binding::Dict{<:Object,<:Morphism}, pattern::Pattern)
     # Verify all pattern objects have bindings
-    if !all(o -> haskey(binding, o), pattern.objects)
-        error("Missing bindings")
+    for o in pattern.objects
+        if !haskey(binding, o)
+            throw(PatternHasNoBindingError(
+                "Pattern $(pattern.id) has no binding for object $(o.id)",
+                o,
+                binding,
+                pattern))
+        end
     end
 
     # Verify morphisms commute
@@ -320,7 +475,8 @@ function check_binding(obj::Object, binding::Dict{<:Object,<:Morphism}, pattern:
         path1_arr = collect(path1)
         path2_arr = collect(path2)
 
-        if length(path1_arr) != length(path2_arr) || !all(x == y for (x, y) in zip(path1_arr, path2_arr))
+        if length(path1_arr) != length(path2_arr) ||
+           !all(x == y for (x, y) in zip(path1_arr, path2_arr))
             return false
         end
     end
@@ -353,20 +509,23 @@ colimit = find_colimit(pattern)
 ```
 """
 function find_colimit(pattern::Pattern)
-    if isempty(pattern.objects)
-        error("Pattern must have at least one object")
-    end
-
+    !isempty(pattern.objects) ||
+        throw(PatternMustHaveAtLeastOneObject(
+            "Pattern $(pattern.id) must have at least one object",
+            pattern))
+    println("construct colimit data")
     # Create the colimit object with a properly initialized array of data
-    colimit_data = Vector{Any}(undef, length(pattern.objects))
+    colimit_data = Vector(undef, length(pattern.objects))
     for (i, obj) in enumerate(pattern.objects)
         colimit_data[i] = obj.data
     end
 
     colimit_obj = Object(Symbol("colimit_$(pattern.id)"), colimit_data)
 
-    # Create bindings
+    println("construct bindings")    # Create bindings
     bindings = Dict{Object,Morphism}()
+    typeof(bindings)
+    pattern.objects
     for (i, obj) in enumerate(pattern.objects)
         bindings[obj] = Morphism(
             obj,
@@ -384,29 +543,7 @@ function find_colimit(pattern::Pattern)
         error("Failed to construct valid colimit")
     end
 
-    return colimit_obj
-end
-
-"""
-    is_morphism_in_category(morph::Morphism, cat::Category)
-
-Check if a morphism belongs to a category.
-
-# Arguments
-- `morph::Morphism`: The morphism to check
-- `cat::Category`: The category to check against
-
-# Returns
-- `Bool`: true if the morphism belongs to the category, false otherwise
-
-# Examples
-```julia
-# Check if a morphism belongs to a category
-belongs = is_morphism_in_category(morph, cat)
-```
-"""
-function is_morphism_in_category(morph::Morphism, cat::Category)
-    morph in cat.morphisms
+    return colimit_obj, bindings
 end
 
 end # module 

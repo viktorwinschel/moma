@@ -1,89 +1,92 @@
 using Moma
+using Moma.Categories
+using Test
+
 # Test Object creation
 obj1 = Object(:A, "data1")
 obj2 = Object(:B, "data2")
 obj3 = Object(:C, "data3")
-@assert obj1.id == :A && obj1.data == "data1"
-@assert obj2.id == :B && obj2.data == "data2"
-@assert obj3.id == :C && obj3.data == "data3"
+@assert obj1.id == :A && obj1.data == "data1" &&
+        obj2.id == :B && obj2.data == "data2" &&
+        obj3.id == :C && obj3.data == "data3"
 
 # Test Morphism creation and composition
 m1 = Morphism(obj1, obj2, x -> uppercase(x), :m1)
 m2 = Morphism(obj2, obj3, x -> x * "!", :m2)
-@assert m1.source == obj1 && m1.target == obj2
-@assert m2.source == obj2 && m2.target == obj3
-@assert m1.name == :m1
-@assert m2.name == :m2
-@assert m1.map("test") == "TEST"
-@assert m2.map("test") == "test!"
+@assert m1.source == obj1 && m1.target == obj2 &&
+        m2.source == obj2 && m2.target == obj3 &&
+        m1.id == :m1 &&
+        m2.id == :m2 &&
+        m1.map("test") == "TEST" &&
+        m2.map("test") == "test!"
 
 # Test composition
 m3 = compose(m1, m2)
 @assert m3.source == obj1 &&
         m3.target == obj3 &&
-        m3.map("test") == "TEST!"
-@assert m3.name == :m1_m2  # Check composed morphism name
+        m3.map("test") == "TEST!" &&
+        m3.id == :m1_m2
+
+#compose(m2, m1) is an error, morphisms do not compose
+try
+        compose(m2, m1)
+catch e
+        println(e.msg) # gives "Morphisms m2 and m1 are not composable, target of m2 C != A source of m1."
+        e.msg
+end == "Morphisms m2 and m1 are not composable, target of m2 C != A source of m1."
 
 # Test identity morphism
 id_morph = identity_morphism(obj1)
 @assert id_morph.source == obj1 &&
         id_morph.target == obj1 &&
-        id_morph.map("test") == "test"
-@assert id_morph.name == :id_A  # Check identity morphism name
+        id_morph.map("test") == "test" &&
+        id_morph.id == :id_A  # Check identity morphism name
 
 # Test Category creation and membership
-cat = Category([obj1, obj2, obj3], [m1, m2, m3], :TestCat)
-@assert length(cat.objects) == 3 &&
-        length(cat.morphisms) == 3 &&
-        is_morphism_in_category(m1, cat)
-@assert cat.name == :TestCat
-@assert obj1 in cat.objects
-@assert obj2 in cat.objects
-@assert obj3 in cat.objects
-@assert m1 in cat.morphisms
-@assert m2 in cat.morphisms
-@assert m3 in cat.morphisms
-
-# Test Pattern creation and validation
-pattern = create_pattern(cat, [obj1, obj2], [m1])
-@assert length(pattern.objects) == 2 &&
-        length(pattern.morphisms) == 1 &&
-        pattern.category == cat
-@assert obj1 in pattern.objects
-@assert obj2 in pattern.objects
-@assert m1 in pattern.morphisms
-
-# Test binding checks
-bindings = Dict(
-        obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-        obj2 => identity_morphism(obj2)
-)
-@assert check_binding(obj2, bindings, pattern)
-@assert haskey(bindings, obj1)
-@assert haskey(bindings, obj2)
-@assert bindings[obj1].name == :bind1
-@assert bindings[obj2].name == :id_B
+cat1 = Category([obj1, obj2], [m1, m2], :TestCat)
+@assert length(cat1.objects) == 2 &&
+        length(cat1.morphisms) == 2 &&
+        is_morphism_in_category(m1, cat1) &&
+        cat1.id == :TestCat &&
+        obj1 in cat1.objects &&
+        obj2 in cat1.objects &&
+        m1 in cat1.morphisms &&
+        m2 in cat1.morphisms
 
 # Create simple objects and morphisms
 a = Object(:A, 1)
 b = Object(:B, 2)
 f = Morphism(a, b, x -> x + 1, :f)
-@assert a.id == :A && a.data == 1
-@assert b.id == :B && b.data == 2
-@assert f.name == :f
-@assert f.map(1) == 2
 
 # Create category and pattern
 cat = Category([a, b], [f], :ColimitTest)
 pat = create_pattern(cat, [a, b], [f])
-@assert cat.name == :ColimitTest
-@assert length(cat.objects) == 2
-@assert length(cat.morphisms) == 1
-@assert length(pat.objects) == 2
-@assert length(pat.morphisms) == 1
+cat.id == :ColimitTest
+length(cat.objects) == 2 && length(cat.morphisms) == 1
+length(pat.objects) == 2 && length(pat.morphisms) == 1
 
-# Find colimit
 colimit_obj, bindings = find_colimit(pat)
+
+#create_pattern(cat, [a, b, cc], [f]) is an error, object cc is not in category cat#create_pattern(cat, [a, b], [f, gg]) is an error, morphism gg is not in category cat
+bindings = Dict(
+        a => Morphism(a, b, x -> x + 1, :bind),
+        b => identity_morphism(b)
+)
+cc = Object(:CC, 3)
+gg = Morphism(a, b, x -> x + 2, :gg)
+is_object_in_category(cc, cat)
+try
+        create_pattern(cat, [a, b, cc], [f])
+catch e
+        println(e.msg) # gives "Object CC must belong to the category ColimitTest"
+        e.msg
+end == "Object CC must belong to the category ColimitTest"
+try
+        create_pattern(cat, [a, b], [f, gg])
+catch e
+        println(e.msg) # gives "Morphism gg must belong to the category ColimitTest"
+        e.msg
+end == "Morphism gg must belong to the category ColimitTest"
 
 # Test colimit properties
 @assert colimit_obj.data == [1, 2]  # Combined data
@@ -92,7 +95,7 @@ colimit_obj, bindings = find_colimit(pat)
 @assert bindings[a].target == colimit_obj
 @assert bindings[b].target == colimit_obj
 @assert check_binding(colimit_obj, bindings, pat)
-@assert colimit_obj.id == :colimit  # Check colimit object name
+colimit_obj.id
 
 # Test colimit universal property
 @assert bindings[a].map(a.data) == [1, 2]

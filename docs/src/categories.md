@@ -2,54 +2,49 @@
 
 This section provides a mathematical introduction to the category theory concepts implemented in MoMa.
 
-## Categories
+## Category
 
 ### Mathematical Definition
 
-A category $\mathcal{C}$ consists of:
-- A collection of objects $\text{Ob}(\mathcal{C})$
-- A collection of morphisms $\text{Hom}(\mathcal{C})$, where each morphism $f: A \to B$ has a source $A$ and target $B$
-- For each object $A$, an identity morphism $\text{id}_A: A \to A$
-- A composition operation $\circ: \text{Hom}(B,C) \times \text{Hom}(A,B) \to \text{Hom}(A,C)$ that satisfies:
-  - Associativity: $(h \circ g) \circ f = h \circ (g \circ f)$ $\forall f: A \to B, g: B \to C, h: C \to D$
-  - Identity: $f \circ \text{id}_A = f = \text{id}_B \circ f$ $\forall f: A \to B$
-
-For a detailed theoretical background on categories, see [MES23: Categories and Functors](mes23.md#categories-and-functors).
+A category $\mathcal{A}$ consists of
+- A collection of objects $\text{Ob}(\mathcal{A})$ with identity morphisms $\exists\text{id}_A: A \to A$, $\forall A\in \mathcal{A}$
+- A collection of morphisms $\text{Hom}(\mathcal{A})$, $f_1: A_1 \to A_2$ with source $A_1$ and target $A_2$
+- A composition operation $\circ: \text{Hom}(A_2,A_3) \times \text{Hom}(A_1,A_2) \to \text{Hom}(A_1,A_3)$ that satisfies
+  - Associativity: $(f_3\circ f_2) \circ f_1 = f_3 \circ (f_2 \circ f_1)$, $\forall f_1: A_1 \to A_2, f_2: A_2 \to A_3, f_3: A_3 \to A_4$
+  - Identity: $f \circ \text{id}_{A_1} = f = \text{id}_{A_2} \circ f$, $\forall f: A_1 \to A_2$
 
 ```math
 \begin{CD}
-A @>{f}>> B @>{g}>> C \\
-@V{\text{id}_A}VV @V{\text{id}_B}VV @V{\text{id}_C}VV \\
-A @>{f}>> B @>{g}>> C
+A_1 @>{f_1}>> A_2 @>{f_2}>> A_3 \\
+@V{\text{id}_{A_1}}VV @V{\text{id}_{A_2}}VV @V{\text{id}_{A_3}}VV \\
+A_1 @>{f_1}>> A_2 @>{f_2}>> A_3
 \end{CD}
 ```
 
 ### Implementation
 
-Objects, Morphisms, and Category are implemented in the `Moma.Categories` module as:
-
-- [`Object`](@ref Moma.Categories.Object)
-- [`Morphism`](@ref Moma.Categories.Morphism)
-- [`Category`](@ref Moma.Categories.Category)
+[`Category`](@ref Moma.Categories.Category),
+[`Object`](@ref Moma.Categories.Object), and
+[`Morphism`](@ref Moma.Categories.Morphism)
+are implemented in the `Moma.Categories` module.
 
 ```julia
-# Implementation in Categories.jl
-struct Object{T}
-    name::Symbol
-    data::T
+struct Object{T}        # an object of type T consist of
+    id::Symbol          # name
+    data::T             # data of type T
 end
 
-struct Morphism{S,T}
-    source::Object{S}
-    target::Object{T}
-    map::Function
-    name::Symbol
+struct Morphism{S,T}    # a morphism of type (S,T) consist of
+    source::Object{S}   # source Object of type S
+    target::Object{T}   # target Object of type T
+    map::Function       # Julia function, i.e. computation
+    id::Symbol          # name
 end
 
-struct Category
-    objects::Vector{Object}
-    morphisms::Vector{Morphism}
-    name::Symbol
+struct Category                 # a category consist of
+    objects::Vector{Object}     # objects of type Vector of Objects
+    morphisms::Vector{Morphism} # morphisms of type Vector of Morphisms
+    id::Symbol                  # name
 end
 ```
 
@@ -58,99 +53,93 @@ For comprehensive tests of these implementations, see the test files in the repo
 ### Examples
 
 The following examples demonstrate the basic usage with
-the helper functions implemented in the `Moma.Categories` module as:
+the helper functions 
+[`identity_morphism`](@ref Moma.Categories.identity_morphism),
+[`compose`](@ref Moma.Categories.compose)
+implemented in the `Moma.Categories` module.
 
-- [`identity_morphism`](@ref Moma.Categories.identity_morphism)
-- [`compose`](@ref Moma.Categories.compose)
 
 ```julia
 using Moma
+using Moma.Categories
+using Test
 
 # Test Object creation
 obj1 = Object(:A, "data1")
+@assert obj1.id == :A && obj1.data == "data1"
 obj2 = Object(:B, "data2")
 obj3 = Object(:C, "data3")
-@assert obj1.id == :A && obj1.data == "data1"
-@assert obj2.id == :B && obj2.data == "data2"
-@assert obj3.id == :C && obj3.data == "data3"
 
 # Test Morphism creation and composition
 m1 = Morphism(obj1, obj2, x -> uppercase(x), :m1)
 m2 = Morphism(obj2, obj3, x -> x * "!", :m2)
-@assert m1.source == obj1 && m1.target == obj2
-@assert m2.source == obj2 && m2.target == obj3
-@assert m1.name == :m1
-@assert m2.name == :m2
-@assert m1.map("test") == "TEST"
-@assert m2.map("test") == "test!"
+@assert m1.source == obj1 && m1.target == obj2 &&
+        m2.source == obj2 && m2.target == obj3 &&
+        m1.name == :m1 &&
+        m2.name == :m2 &&
+        m1.map("test") == "TEST" &&
+        m2.map("test") == "test!"
 
 # Test composition
 m3 = compose(m1, m2)
 @assert m3.source == obj1 &&
-    m3.target == obj3 &&
-    m3.map("test") == "TEST!"
-@assert m3.name == :m1_m2  # Check composed morphism name
+        m3.target == obj3 &&
+        m3.map("test") == "TEST!" &&
+        m3.name == :m1_m2 # name of composite symbolically composed by _
+@assert try 
+        compose(m2, m1)
+catch e
+        e.msg 
+end  == "Morphisms m2 and m1 are not composable, target of m2 C != A source of m1."
 
 # Test identity morphism
 id_morph = identity_morphism(obj1)
 @assert id_morph.source == obj1 &&
-    id_morph.target == obj1 &&
-    id_morph.map("test") == "test"
-@assert id_morph.name == :id_A  # Check identity morphism name
+        id_morph.target == obj1 &&
+        id_morph.map("test") == "test" &&
+        id_morph.id == :id_A  #name of identity symbolically composed by _
 
 # Test Category creation and membership
-cat = Category([obj1, obj2, obj3], [m1, m2, m3], :TestCat)
-@assert length(cat.objects) == 3 &&
-    length(cat.morphisms) == 3 &&
-    is_morphism_in_category(m1, cat)
-@assert cat.name == :TestCat
-@assert obj1 in cat.objects
-@assert obj2 in cat.objects
-@assert obj3 in cat.objects
-@assert m1 in cat.morphisms
-@assert m2 in cat.morphisms
-@assert m3 in cat.morphisms
-
-# Test Pattern creation and validation
-pattern = create_pattern(cat, [obj1, obj2], [m1])
-@assert length(pattern.objects) == 2 &&
-    length(pattern.morphisms) == 1 &&
-    pattern.category == cat
-@assert obj1 in pattern.objects
-@assert obj2 in pattern.objects
-@assert m1 in pattern.morphisms
-
-# Test binding checks
-bindings = Dict(
-    obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
-    obj2 => identity_morphism(obj2)
-)
-@assert check_binding(obj2, bindings, pattern)
-@assert haskey(bindings, obj1)
-@assert haskey(bindings, obj2)
-@assert bindings[obj1].name == :bind1
-@assert bindings[obj2].name == :id_B
+cat1 = Category([obj1, obj2], [m1, m2], :TestCat)
+@assert length(cat1.objects) == 2 &&
+        length(cat1.morphisms) == 2 &&
+        is_morphism_in_category(m1, cat1) &&
+        cat1.id == :TestCat &&
+        obj1 in cat1.objects &&
+        obj2 in cat1.objects &&
+        m1 in cat1.morphisms &&
+        m2 in cat1.morphisms
 ```
-
-For more complex examples and edge cases, see the test files in the repository.
 
 ## Functors
 
 ### Mathematical Definition
 
-A functor $F: \mathcal{C} \to \mathcal{D}$ between categories consists of:
-- An object mapping $F_{\text{ob}}: \text{Ob}(\mathcal{C}) \to \text{Ob}(\mathcal{D})$
-- A morphism mapping $F_{\text{mor}}: \text{Hom}_{\mathcal{C}}(A,B) \to \text{Hom}_{\mathcal{D}}(F(A),F(B))$
+A functor $F: \mathcal{A} \to \mathcal{B}$ between categories consists of:
+- An object mapping $F_{\text{ob}}: \text{Ob}(\mathcal{A}) \to \text{Ob}(\mathcal{B})$
+- A morphism mapping $F_{\text{mor}}: \text{Hom}_{\mathcal{A}}(A_1,A_2) \to \text{Hom}_{\mathcal{B}}(F(A_1),F(A_2))$
+
+**Preservation of Identities:** For each object $A \in \mathcal{A}$ the commutative diagram
 
 ```math
 \begin{CD}
-\mathcal{C} @>{F}>> \mathcal{D} \\
-@V{\text{id}_{\mathcal{C}}}VV @V{\text{id}_{\mathcal{D}}}VV \\
-\mathcal{C} @>{F}>> \mathcal{D}
+A @>{\text{id}_{A}}>> A \\
+@V{F}VV @V{F}VV \\
+F(A) @>{\text{id}_{F(A)}}>> F(A)
 \end{CD}
 ```
+says that the functor preserves identity $F(\text{id}_A)=\text{id}_{F(A)}$,
+i.e. $F$ maps identity $\mathrm{id}_A$ to $\mathrm{id}_{F(A)}$.
 
-For theoretical foundations and applications of functors in MES, see [MES23: Functorial Evolution](mes23.md#functorial-evolution).
+**Preservation of Composition:** For a composition $A \xrightarrow{f} B \xrightarrow{g}$ the commutative diagram
+```math
+\begin{CD}
+A @>{g\circ f}>> C \\
+@V{F}VV @V{F}VV \\
+F(A) @>{F(g)\circ F(f)}>> F(C)
+\end{CD}
+```
+says that the functor $F$ preserves composition $F(g\circ f)=F(g)\circ F(f)$.
 
 ### Implementation
 
@@ -194,8 +183,6 @@ F = Functor(src_cat, tgt_cat, obj_map, morph_map, :F)
 
 Given functors $F,G: \mathcal{C} \to \mathcal{D}$, a natural transformation $\eta: F \Rightarrow G$ consists of:
 - A family of morphisms $\eta_A: F(A) \to G(A)$ $\forall A \in \text{Ob}(\mathcal{C})$
-
-For the role of natural transformations in MES, see [MES07: Natural Transformations and System Evolution](mes07.md#natural-transformations).
 
 Such that the naturality condition holds:
 -  $G(f) \circ \eta_A = \eta_B \circ F(f)$ $\forall f: A \to B$ in $\mathcal{C}$
@@ -250,8 +237,6 @@ A pattern $P$ in a category $\mathcal{C}$ consists of:
 - Objects $D(j)$ for each $j \in \text{Ob}(\mathcal{J})$
 - Morphisms $D(f): D(j) \to D(k)$ for each $f: j \to k$ in $\mathcal{J}$
 
-For the significance of patterns and colimits in complex systems, see [MES23: Patterns and Complexity](mes23.md#patterns-and-complexity).
-
 A colimit of pattern $P$ consists of:
 - An object $\text{colim}(P)$
 - A family of morphisms $\iota_j: D(j) \to \text{colim}(P)$
@@ -295,24 +280,50 @@ The following examples demonstrate pattern creation and colimit construction:
 
 ```julia
 using Moma
+using Moma.Categories
 
 # Create simple objects and morphisms
 a = Object(:A, 1)
 b = Object(:B, 2)
+c = Object(:C, 3)
 f = Morphism(a, b, x -> x + 1, :f)
-@assert a.id == :A && a.data == 1
-@assert b.id == :B && b.data == 2
-@assert f.name == :f
-@assert f.map(1) == 2
+g = Morphism(a, b, x -> x + 2, :g)
+@assert a.id == :A && a.data == 1 &&
+        b.id == :B && b.data == 2 &&
+        c.id == :C && c.data == 3 &&
+        f.name == :f &&
+        f.map(1) == 2
 
 # Create category and pattern
 cat = Category([a, b], [f], :ColimitTest)
 pat = create_pattern(cat, [a, b], [f])
-@assert cat.name == :ColimitTest
-@assert length(cat.objects) == 2
-@assert length(cat.morphisms) == 1
-@assert length(pat.objects) == 2
-@assert length(pat.morphisms) == 1
+@assert cat.name == :ColimitTest &&
+        length(cat.objects) == 2 && length(cat.morphisms) == 1 &&
+        length(pat.objects) == 2 && length(pat.morphisms) == 1 &&
+        a in pat.objects && b in pat.objects &&
+        f in pat.morphisms
+        try
+                create_pattern(cat, [a, c], [f])
+        catch e
+                e.msg
+        end == "Object C must belong to the category ColimitTest" &&
+        try
+                create_pattern(cat, [a, b], [g])
+        catch e
+                e.msg
+        end == "Morphism g must belong to the category ColimitTest"
+
+# Test binding checks
+bindings = Dict(
+        obj1 => Morphism(obj1, obj2, x -> uppercase(x), :bind1),
+        obj2 => identity_morphism(obj2)
+)
+@assert check_binding(obj2, bindings, pattern) &&
+        haskey(bindings, obj1) &&
+        haskey(bindings, obj2) &&
+        bindings[obj1].name == :bind1 &&
+        bindings[obj2].name == :id_B
+
 
 # Find colimit
 colimit_obj, bindings = find_colimit(pat)
@@ -341,8 +352,6 @@ A Memory Evolutive System (MES) consists of:
 - A category $\mathcal{C}$ of components and their relationships
 - A hierarchy of complexity levels through colimit formation
 - A dynamic structure through time evolution
-
-For a comprehensive introduction to MES, see [MES07: Introduction](mes07.md#introduction) and [MES23: Memory Evolutive Systems](mes23.md#memory-evolutive-systems).
 
 The key operations include:
 - Pattern formation through selection of objects and morphisms

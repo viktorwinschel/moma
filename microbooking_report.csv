@@ -1,0 +1,2 @@
+id,debit,credit,amount,debit_balance,credit_balance,ascii
+M1,A_1_1,L_2_1,100.0,100.0,-100.0,A_1_1 ──(100.0)──▶ L_2_1

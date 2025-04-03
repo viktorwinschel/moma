@@ -1,0 +1,114 @@
+
+\documentclass{article}
+\usepackage{amsmath, amssymb, tikz, tikz-cd}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+
+\title{Kategorientheorie der Buchhaltung: Mikro- und Makroinvarianzen als Colimits}
+\author{Generated for Viktor}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Kategorientheoretische Struktur}
+
+Wir modellieren ein System von Agenten mit doppelter Buchhaltung durch folgende Konstruktionen:
+
+\begin{itemize}
+  \item \textbf{Objekte}: \( L_i = (\text{Assets}_i, \text{Liabilities}_i) \) = MicroLedger eines Agenten
+  \item \textbf{Morphismen}: \( b_{ij}: L_i \to L_j \) = MicroBooking
+  \item \textbf{Pattern}: Diagramm von Morphismen, z.\,B.\quad
+    \(\begin{tikzcd} L_1 \arrow[r, "b_1"] & L_2 \end{tikzcd}\)
+  \item \textbf{Binding}: konkreter Betrag, z.\,B. \( b_1(100) \)
+  \item \textbf{Colimit}: konsistente Verklebung aller Morphismen zu einem makroökonomischen Zustand mit:
+    \[
+      \sum_i \mu_i = 0, \quad \mu_i = \text{Saldo von } L_i
+    \]
+  \item \textbf{Natürliche Transformation}: \( \mu: F \Rightarrow G \), wobei
+    \[
+      \mu_i: L_i \to L_i, \quad \mu_i(x) = \text{microledger\_balance}(x)
+    \]
+\end{itemize}
+
+\section*{2. Beispiel: Drei Makrobuchungen}
+
+\subsection*{Buchung 1: Waren gegen Warenschein}
+
+\begin{itemize}
+  \item Agent A: Typ = Händler, Konto = Waren (\texttt{:goods})
+  \item Agent B: Typ = Kunde, Konto = Verbindlichkeit (\texttt{:credit})
+  \item Pattern: \( A \xrightarrow{b_1} B \)
+  \item Binding: Betrag \( 100 \)
+\end{itemize}
+
+\[
+\begin{tikzcd}
+A_{\text{goods}} \arrow[r, "b_1(100)"] & B_{\text{credit}}
+\end{tikzcd}
+\]
+
+\[
+\mu_A = +100, \quad \mu_B = -100, \quad \sum \mu_i = 0 \Rightarrow \text{Makroinvarianz erfüllt}
+\]
+
+\subsection*{Buchung 2: Geld gegen Kredit}
+
+\begin{itemize}
+  \item Agent C: Typ = Bank, Konto = Geld (\texttt{:money})
+  \item Agent D: Typ = Kunde, Konto = Kredit (\texttt{:credit})
+  \item Pattern: \( C \xrightarrow{b_2} D \)
+  \item Binding: Betrag \( 50 \)
+\end{itemize}
+
+\[
+\begin{tikzcd}
+C_{\text{money}} \arrow[r, "b_2(50)"] & D_{\text{credit}}
+\end{tikzcd}
+\]
+
+\[
+\mu_C = +50, \quad \mu_D = -50, \quad \sum \mu_i = 0 \Rightarrow \text{Makroinvarianz erfüllt}
+\]
+
+\subsection*{Buchung 3: Investition gegen Eigenkapital}
+
+\begin{itemize}
+  \item Agent E: Typ = Startup, Konto = Investition (\texttt{:goods})
+  \item Agent F: Typ = Investor, Konto = Beteiligung (\texttt{:equity})
+  \item Pattern: \( F \xrightarrow{b_3} E \)
+  \item Binding: Betrag \( 200 \)
+\end{itemize}
+
+\[
+\begin{tikzcd}
+F_{\text{equity}} \arrow[r, "b_3(200)"] & E_{\text{goods}}
+\end{tikzcd}
+\]
+
+\[
+\mu_E = -200, \quad \mu_F = +200, \quad \sum \mu_i = 0 \Rightarrow \text{Makroinvarianz erfüllt}
+\]
+
+\section*{3. Interpretation nach Rolle}
+
+\subsection*{Buchhalter}
+
+Jede Buchung ist ein Soll-Haben-Satz zwischen zwei Konten mit gleichem Betrag.
+
+\subsection*{Programmierer}
+
+Jede Buchung ist eine Funktion:
+\[
+\text{post!}(\text{debit}, :debit, a); \quad \text{post!}(\text{credit}, :credit, a)
+\]
+
+\subsection*{Investor}
+
+Erkennt Flüsse zwischen Agenten und kann die Kapitalbewegung nachvollziehen.
+
+\subsection*{Volkswirt}
+
+Erkennt aus den \( \mu_i \)-Werten, ob das System makroökonomisch konsistent ist.
+
+\end{document}

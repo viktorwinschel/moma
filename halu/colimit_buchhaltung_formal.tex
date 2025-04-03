@@ -1,0 +1,95 @@
+
+\documentclass{article}
+\usepackage{amsmath, amssymb, tikz, graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\title{Kategorientheoretische Struktur einer doppelten Buchhaltung mit Colimits}
+\author{für Viktor}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Formale Kategorientheorie der Buchhaltung}
+
+Wir definieren eine Kategorie \( \mathcal{A} \), in der:
+
+\begin{itemize}
+  \item \textbf{Objekte} \( L_i \in \mathcal{A} \) sind \emph{MicroLedger}, d.h. Agenten mit interner Buchhaltung:
+  \[
+  L_i = (A_i, L_i) \quad \text{mit Assets und Liabilities}
+  \]
+  \item \textbf{Morphismen} \( b_{ij} : L_i \to L_j \) sind \emph{MicroBookings}, also Buchungen mit:
+  \[
+  b_{ij} = \text{Übertrag von Konto } A_i \text{ (debit) nach } L_j \text{ (credit)}
+  \]
+\end{itemize}
+
+\paragraph{Pattern:} Ein Diagramm aus Morphismen,
+\[
+\begin{tikzcd}
+L_i \arrow[r, "b_{ij}"] & L_j
+\end{tikzcd}
+\]
+
+\paragraph{Binding:} Die konkrete Ausführung mit Betrag \( a \in \mathbb{R} \), z.B.
+\[
+b_{ij}(a): \quad \text{Sollbuchung } a \text{ bei } A_i, \quad \text{Habenbuchung } a \text{ bei } L_j
+\]
+
+\paragraph{Colimit:} Gegeben ein Diagramm \( D: \mathcal{J} \to \mathcal{A} \), der Colimit \( \operatorname{colim}(D) \) ist der konsistente aggregierte Ledger:
+\[
+\sum_i \mu_i = 0 \quad \text{mit } \mu_i = \text{microledger\_balance}(L_i)
+\]
+
+\paragraph{Natürliche Transformation:}
+\[
+\mu : F \Rightarrow G \quad \text{mit } \mu_i: L_i \to L_i \quad \text{und } \mu_i(x) = \text{Bilanz}(x)
+\]
+
+\section*{2. Beispiel: Zwei Buchungen}
+
+\paragraph{Buchung 1:} Waren gegen Warenschein
+
+\begin{itemize}
+  \item \( L_1 \): Händler liefert Ware
+  \item \( L_2 \): Kunde erhält Warenschein
+\end{itemize}
+
+\[
+\begin{tikzcd}
+L_1 \arrow[r, "b_1(100)"] & L_2
+\end{tikzcd}
+\qquad
+\mu_1 = +100, \quad \mu_2 = -100, \quad \sum \mu_i = 0
+\]
+
+\paragraph{Buchung 2:} Geld gegen Kredit
+
+\begin{itemize}
+  \item \( L_3 \): Bank vergibt Geld
+  \item \( L_4 \): Kunde erhält Kredit
+\end{itemize}
+
+\[
+\begin{tikzcd}
+L_3 \arrow[r, "b_2(50)"] & L_4
+\end{tikzcd}
+\qquad
+\mu_3 = +50, \quad \mu_4 = -50, \quad \sum \mu_i = 0
+\]
+
+\section*{3. Interpretation}
+
+\begin{description}
+  \item[Buchhalter:] Jede \( b_{ij} \) ist ein Buchungssatz: Soll/Haben mit identischem Betrag.
+  \item[Programmierer:] Jede \( b_{ij} \) ist eine Mutation von Zustandsobjekten mit Constraints.
+  \item[Kategorientheoretiker:] Objekte + Morphismen + Colimit = konsistentes Finanzsystem.
+  \item[Investor:] Jeder Fluss ist bilanziell transparent und nachvollziehbar.
+\end{description}
+
+\end{document}
