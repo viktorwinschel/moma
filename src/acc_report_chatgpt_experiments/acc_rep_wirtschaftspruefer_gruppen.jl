@@ -1,6 +1,6 @@
 using Dates
-using Graphs
-using GraphPlot
+#using Graphs
+#using GraphPlot
 using DataFrames
 using CSV
 
@@ -274,4 +274,4 @@ function example_macro(as, bs)
     save_microbooking_report(microbookings, "microbooking_report.csv", invariance_rows)
 end
 
-example_macro(2, 1)
+example_macro(10, 1000)

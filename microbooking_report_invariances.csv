@@ -1,2 +1,47 @@
-gruppe,konto,diff,erfüllt
-liabilities,A_1_1,100.0,false
+gruppe,kontotypen,erfüllt,bemerkung
+net_worth,[:equity],true,Typisierte Saldenprüfung auf Substruktur
+net_worth,[:equity],true,Agent A_10_1 hat Differenz 1790.0
+net_worth,[:equity],true,Agent A_1_1 hat Differenz 950.0
+net_worth,[:equity],true,Agent A_2_1 hat Differenz 1580.0
+net_worth,[:equity],true,Agent A_3_1 hat Differenz 1500.0
+net_worth,[:equity],true,Agent A_4_1 hat Differenz 590.0
+net_worth,[:equity],true,Agent A_5_1 hat Differenz 970.0
+net_worth,[:equity],true,Agent A_6_1 hat Differenz 630.0
+net_worth,[:equity],true,Agent A_7_1 hat Differenz 1050.0
+net_worth,[:equity],true,Agent A_8_1 hat Differenz 1120.0
+net_worth,[:equity],true,Agent A_9_1 hat Differenz 1480.0
+net_worth,[:equity],true,Agent L_4_1 hat Differenz -6310.0
+net_worth,[:equity],true,Agent L_6_1 hat Differenz -5350.0
+liabilities,"[:credit, :debt, :payable]",true,Typisierte Saldenprüfung auf Substruktur
+liabilities,"[:credit, :debt, :payable]",true,Agent A_10_1 hat Differenz 1890.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_1_1 hat Differenz 2680.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_2_1 hat Differenz 1980.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_3_1 hat Differenz 2750.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_4_1 hat Differenz 3160.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_5_1 hat Differenz 2970.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_6_1 hat Differenz 3000.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_7_1 hat Differenz 3120.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_8_1 hat Differenz 2250.0
+liabilities,"[:credit, :debt, :payable]",true,Agent A_9_1 hat Differenz 2890.0
+liabilities,"[:credit, :debt, :payable]",true,Agent L_10_1 hat Differenz -6620.0
+liabilities,"[:credit, :debt, :payable]",true,Agent L_1_1 hat Differenz -6080.0
+liabilities,"[:credit, :debt, :payable]",true,Agent L_2_1 hat Differenz -4050.0
+liabilities,"[:credit, :debt, :payable]",true,Agent L_3_1 hat Differenz -4760.0
+liabilities,"[:credit, :debt, :payable]",true,Agent L_8_1 hat Differenz -5180.0
+assets,"[:cash, :goods, :receivable]",true,Typisierte Saldenprüfung auf Substruktur
+assets,"[:cash, :goods, :receivable]",true,Agent A_3_1 hat Differenz 6320.0
+assets,"[:cash, :goods, :receivable]",true,Agent A_4_1 hat Differenz 5730.0
+assets,"[:cash, :goods, :receivable]",true,Agent A_5_1 hat Differenz 5280.0
+assets,"[:cash, :goods, :receivable]",true,Agent A_6_1 hat Differenz 5520.0
+assets,"[:cash, :goods, :receivable]",true,Agent A_7_1 hat Differenz 5470.0
+assets,"[:cash, :goods, :receivable]",true,Agent A_8_1 hat Differenz 5250.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_10_1 hat Differenz -4850.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_1_1 hat Differenz -4310.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_2_1 hat Differenz -2660.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_3_1 hat Differenz -2680.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_4_1 hat Differenz -3460.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_5_1 hat Differenz -3030.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_6_1 hat Differenz -2400.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_7_1 hat Differenz -3030.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_8_1 hat Differenz -2750.0
+assets,"[:cash, :goods, :receivable]",true,Agent L_9_1 hat Differenz -4400.0
