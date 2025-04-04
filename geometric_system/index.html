@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Geometric System · MoMa</title><meta name="title" content="Geometric System · MoMa"/><meta property="og:title" content="Geometric System · MoMa"/><meta property="twitter:title" content="Geometric System · MoMa"/><meta name="description" content="Documentation for MoMa."/><meta property="og:description" content="Documentation for MoMa."/><meta property="twitter:description" content="Documentation for MoMa."/><meta property="og:url" content="https://viktorwinschel.github.io/moma/geometric_system/"/><meta property="twitter:url" content="https://viktorwinschel.github.io/moma/geometric_system/"/><link rel="canonical" href="https://viktorwinschel.github.io/moma/geometric_system/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">MoMa</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../categories/">Categories</a></li><li><a class="tocitem" href="../examples/">Examples</a></li><li><a class="tocitem" href="../state_space_models/">State Space Models</a></li><li><a class="tocitem" href="../papers/">Papers</a></li><li><a class="tocitem" href="../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Geometric System</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Geometric System</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/geometric_system.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Geometric-System"><a class="docs-heading-anchor" href="#Geometric-System">Geometric System</a><a id="Geometric-System-1"></a><a class="docs-heading-anchor-permalink" href="#Geometric-System" title="Permalink"></a></h1><p>Category theory provides a powerful framework for handling geometric systems by offering a structured way to represent and manipulate geometric objects and their relationships. This approach has several key benefits:</p><ol><li><p><strong>Structured Representation</strong>: Geometric objects (points, lines, shapes) can be represented as objects in a category, while geometric transformations (translations, rotations, scaling) are represented as morphisms between these objects.</p></li><li><p><strong>Composition of Transformations</strong>: Category theory&#39;s composition rules naturally capture how geometric transformations can be combined. For example, a rotation followed by a translation can be represented as the composition of two morphisms.</p></li><li><p><strong>Invariant Properties</strong>: The categorical framework helps maintain geometric invariants. For instance, when we define a morphism that transforms a point into a line, we can ensure it preserves important geometric properties.</p></li><li><p><strong>Pattern Recognition</strong>: Categories allow us to identify and work with geometric patterns as subcategories, making it easier to recognize and manipulate recurring geometric structures.</p></li><li><p><strong>Hierarchical Organization</strong>: Complex geometric systems can be organized hierarchically using categories and subcategories, reflecting the natural structure of geometric relationships.</p></li></ol><p>The following example demonstrates how we can implement these concepts using our category theory framework:</p><pre><code class="language-julia hljs">using Moma
+
+# Define custom data types for geometric objects
+# Point represents a 2D point with x and y coordinates
+struct Point
+    x::Float64
+    y::Float64
+end
+
+# Line represents a line segment with start and end points
+struct Line
+    start::Point
+    ends::Point
+end
+
+# Create objects in our category using the custom data types
+# Each object has a unique identifier (symbol) and associated data
+p1 = Object(:P1, Point(0.0, 0.0))  # Point at origin
+p2 = Object(:P2, Point(1.0, 1.0))  # Point at (1,1)
+l1 = Object(:L1, Line(Point(0.0, 0.0), Point(1.0, 1.0)))  # Line from origin to (1,1)
+
+# Verify that objects are created correctly by checking their data
+# This ensures our objects maintain their geometric properties
+@assert p1.data.x == 0.0
+@assert p1.data.y == 0.0
+@assert p2.data.x == 1.0
+@assert p2.data.y == 1.0
+@assert l1.data.start.x == 0.0
+@assert l1.data.start.y == 0.0
+@assert l1.data.ends.x == 1.0
+@assert l1.data.ends.y == 1.0
+@assert p1.id == :P1
+@assert p2.id == :P2
+@assert l1.id == :L1
+
+# Create a morphism that transforms a point into a line
+# This morphism takes a point and creates a line from that point to a point 1 unit right and up
+f = Morphism(p1, l1, p -&gt; Line(p, Point(p.x + 1.0, p.y + 1.0)), :f)
+
+# Verify that the morphism correctly transforms the point into a line
+# This ensures our morphisms preserve geometric relationships
+result = f.map(p1.data)
+@assert result.start.x == 0.0
+@assert result.start.y == 0.0
+@assert result.ends.x == 1.0
+@assert result.ends.y == 1.0
+@assert f.id == :f
+@assert f.source == p1
+@assert f.target == l1
+
+# Create a category that contains our geometric objects and morphisms
+# This category represents our geometric system
+geom_cat = Category([p1, p2, l1], [f], :Geometry)
+@assert length(geom_cat.objects) == 3
+@assert length(geom_cat.morphisms) == 1
+@assert geom_cat.id == :Geometry
+@assert p1 in geom_cat.objects
+@assert p2 in geom_cat.objects
+@assert l1 in geom_cat.objects
+@assert f in geom_cat.morphisms
+
+# Create a pattern within our geometric category
+# A pattern is a subcategory that represents a specific geometric configuration
+# Here we create a pattern with a point and a line, connected by our morphism
+geom_pattern = create_pattern(geom_cat, [p1, l1], [f])
+@assert length(geom_pattern.objects) == 2
+@assert length(geom_pattern.morphisms) == 1
+@assert geom_pattern.category == geom_cat
+@assert p1 in geom_pattern.objects
+@assert l1 in geom_pattern.objects
+@assert f in geom_pattern.morphisms</code></pre><pre><code class="nohighlight hljs"></code></pre></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Friday 4 April 2025 10:04">Friday 4 April 2025</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

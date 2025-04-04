@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Error Handling · MoMa</title><meta name="title" content="Error Handling · MoMa"/><meta property="og:title" content="Error Handling · MoMa"/><meta property="twitter:title" content="Error Handling · MoMa"/><meta name="description" content="Documentation for MoMa."/><meta property="og:description" content="Documentation for MoMa."/><meta property="twitter:description" content="Documentation for MoMa."/><meta property="og:url" content="https://viktorwinschel.github.io/moma/error_handling/"/><meta property="twitter:url" content="https://viktorwinschel.github.io/moma/error_handling/"/><link rel="canonical" href="https://viktorwinschel.github.io/moma/error_handling/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">MoMa</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../categories/">Categories</a></li><li><a class="tocitem" href="../examples/">Examples</a></li><li><a class="tocitem" href="../state_space_models/">State Space Models</a></li><li><a class="tocitem" href="../papers/">Papers</a></li><li><a class="tocitem" href="../api/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Error Handling</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Error Handling</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/viktorwinschel/moma/blob/main/docs/src/error_handling.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Error-Handling"><a class="docs-heading-anchor" href="#Error-Handling">Error Handling</a><a id="Error-Handling-1"></a><a class="docs-heading-anchor-permalink" href="#Error-Handling" title="Permalink"></a></h1><p>The framework includes comprehensive error checking to ensure categorical laws are maintained:</p><pre><code class="language-julia hljs">using Moma
+
+# Declare global variables
+global incompatible_caught = false
+global invalid_pattern_caught = false
+global invalid_binding_caught = false
+
+# Create some basic objects and morphisms for testing
+A = Object(:A, 1)
+B = Object(:B, 2)
+C = Object(:C, 3)
+valid_f = Morphism(A, B, x -&gt; x + 1, :valid_f)
+valid_g = Morphism(B, C, x -&gt; x * 2, :valid_g)
+cat = Category([A, B, C], [valid_f, valid_g], :TestCat)
+
+# Test object properties
+@assert A.id == :A &amp;&amp; A.data == 1
+@assert B.id == :B &amp;&amp; B.data == 2
+@assert C.id == :C &amp;&amp; C.data == 3
+
+# Test morphism properties
+@assert valid_f.source == A &amp;&amp; valid_f.target == B
+@assert valid_g.source == B &amp;&amp; valid_g.target == C
+@assert valid_f.id == :valid_f &amp;&amp; valid_g.id == :valid_g
+@assert valid_f.map(1) == 2  # Test function mapping
+@assert valid_g.map(2) == 4  # Test function mapping
+
+# Test category properties
+@assert cat.id == :TestCat
+@assert length(cat.objects) == 3
+@assert length(cat.morphisms) == 2
+@assert A in cat.objects &amp;&amp; B in cat.objects &amp;&amp; C in cat.objects
+@assert valid_f in cat.morphisms &amp;&amp; valid_g in cat.morphisms
+
+# Test valid composition works
+composed = compose(valid_f, valid_g)
+@assert composed.source == A
+@assert composed.target == C
+@assert composed.map(1) == 4  # (1 + 1) * 2
+@assert composed.id == :valid_f_valid_g
+
+# Test identity morphism
+id_A = identity_morphism(A)
+@assert id_A.id == A.id  # Identity morphism name
+
+# Test incompatible morphism composition
+f = Morphism(A, B, x -&gt; x, :f)
+g = Morphism(C, A, x -&gt; x, :g)
+try
+    compose(f, g)
+catch e
+    global incompatible_caught = true
+    @assert e isa ErrorException
+    @assert e.msg == &quot;Morphisms are not composable&quot;
+end
+@assert incompatible_caught
+
+# Test invalid pattern creation
+try
+    X = Object(:X, 0)  # Object not in category
+    create_pattern(cat, [X], Morphism[])
+catch e
+    global invalid_pattern_caught = true
+    @assert e isa ErrorException
+    @assert occursin(&quot;Objects must belong to the category&quot;, e.msg)
+end
+@assert invalid_pattern_caught
+
+# Test valid pattern creation
+valid_pattern = create_pattern(cat, [A, B], [valid_f])
+@assert valid_pattern.category == cat
+@assert length(valid_pattern.objects) == 2
+@assert length(valid_pattern.morphisms) == 1
+@assert A in valid_pattern.objects &amp;&amp; B in valid_pattern.objects
+@assert valid_f in valid_pattern.morphisms
+@assert valid_pattern.id == Symbol(&quot;pattern_TestCat&quot;)
+
+# Test invalid colimit binding
+try
+    # Create a valid pattern first
+    bad_obj = Object(:bad, 0)
+    empty_bindings = Dict{Object{Int64},Morphism{Int64,Int64}}()
+    check_binding(bad_obj, empty_bindings, valid_pattern)
+catch e
+    global invalid_binding_caught = true
+    @assert e isa ErrorException
+    @assert occursin(&quot;Missing bindings&quot;, e.msg)
+end
+@assert invalid_binding_caught
+
+# Test morphism category membership
+@assert is_morphism_in_category(valid_f, cat)
+@assert is_morphism_in_category(valid_g, cat)
+@assert !is_morphism_in_category(Morphism(A, C, x -&gt; x * 3, :h), cat)  # Non-member morphism</code></pre><h2 id="Self-Healing-Systems-in-MES-and-Julia"><a class="docs-heading-anchor" href="#Self-Healing-Systems-in-MES-and-Julia">Self-Healing Systems in MES and Julia</a><a id="Self-Healing-Systems-in-MES-and-Julia-1"></a><a class="docs-heading-anchor-permalink" href="#Self-Healing-Systems-in-MES-and-Julia" title="Permalink"></a></h2><p>Memory Evolutive Systems (MES) introduce the concept of self-healing through their hierarchical organization and co-regulators. This concept can be implemented in Julia using its powerful error handling mechanisms. Here&#39;s how we can connect these ideas:</p><h3 id="MES-Self-Healing-Concepts"><a class="docs-heading-anchor" href="#MES-Self-Healing-Concepts">MES Self-Healing Concepts</a><a id="MES-Self-Healing-Concepts-1"></a><a class="docs-heading-anchor-permalink" href="#MES-Self-Healing-Concepts" title="Permalink"></a></h3><ol><li><strong>Hierarchical Organization</strong>: MES systems are organized in levels, where each level can handle errors at its own scale</li><li><strong>Co-regulators</strong>: These are specialized subsystems that can detect and respond to errors</li><li><strong>Memory Links</strong>: Connections between different parts of the system that can be used for error recovery</li><li><strong>Time Scales</strong>: Different levels operate at different time scales, allowing for layered error handling</li></ol><h3 id="Implementation-in-Julia"><a class="docs-heading-anchor" href="#Implementation-in-Julia">Implementation in Julia</a><a id="Implementation-in-Julia-1"></a><a class="docs-heading-anchor-permalink" href="#Implementation-in-Julia" title="Permalink"></a></h3><p>We can (have not yet) implement these concepts using Julia&#39;s error handling mechanisms:</p><pre><code class="language-julia hljs"># Example of hierarchical error handling inspired by MES
+struct SystemLevel
+    name::Symbol
+    co_regulators::Vector{Function}
+    memory_links::Dict{Symbol, Any}
+    time_scale::Float64
+end
+
+# Co-regulator function that can detect and handle errors
+function create_co_regulator(level::SystemLevel, error_type::Type)
+    return function handle_error(err::error_type)
+        # Log the error at this level
+        @info &quot;Error detected at level $(level.name)&quot; error=err
+        
+        # Try to recover using memory links
+        for (link_name, link_data) in level.memory_links
+            try
+                # Attempt recovery using stored information
+                recover_from_memory(err, link_data)
+                return true
+            catch e
+                @warn &quot;Recovery attempt failed for link $link_name&quot; error=e
+            end
+        end
+        
+        # If recovery fails, propagate to next level
+        rethrow(err)
+    end
+end
+
+# Example usage
+function setup_hierarchical_system()
+    # Create system levels with different time scales
+    low_level = SystemLevel(:low, [], Dict(), 0.1)  # Fast response
+    mid_level = SystemLevel(:mid, [], Dict(), 1.0)  # Medium response
+    high_level = SystemLevel(:high, [], Dict(), 10.0)  # Slow response
+    
+    # Add co-regulators for different error types
+    push!(low_level.co_regulators, create_co_regulator(low_level, ArgumentError))
+    push!(mid_level.co_regulators, create_co_regulator(mid_level, MethodError))
+    push!(high_level.co_regulators, create_co_regulator(high_level, ErrorException))
+    
+    return [low_level, mid_level, high_level]
+end
+
+# Example of using the hierarchical system
+function process_with_self_healing(data)
+    system = setup_hierarchical_system()
+    
+    try
+        # Attempt processing at lowest level
+        result = process_data(data)
+        return result
+    catch err
+        # Try each level&#39;s co-regulators
+        for level in system
+            for co_regulator in level.co_regulators
+                try
+                    return co_regulator(err)
+                catch e
+                    continue  # Try next co-regulator
+                end
+            end
+        end
+        # If all recovery attempts fail, propagate error
+        rethrow(err)
+    end
+end</code></pre><h3 id="Key-Features-of-This-Implementation"><a class="docs-heading-anchor" href="#Key-Features-of-This-Implementation">Key Features of This Implementation</a><a id="Key-Features-of-This-Implementation-1"></a><a class="docs-heading-anchor-permalink" href="#Key-Features-of-This-Implementation" title="Permalink"></a></h3><ol><li><strong>Layered Error Handling</strong>: Each system level can handle errors at its own time scale</li><li><strong>Memory-Based Recovery</strong>: Uses stored information (memory links) to attempt recovery</li><li><strong>Co-regulator Pattern</strong>: Specialized handlers for different types of errors</li><li><strong>Graceful Degradation</strong>: System can fall back to simpler modes when errors occur</li><li><strong>Error Propagation</strong>: Errors can move up the hierarchy if they can&#39;t be handled at the current level</li></ol><h3 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h3><ol><li><strong>Define Clear Error Types</strong>: Create specific error types for different failure modes</li><li><strong>Implement Recovery Strategies</strong>: Each co-regulator should have specific recovery procedures</li><li><strong>Maintain State</strong>: Use memory links to store recovery-relevant information</li><li><strong>Monitor and Log</strong>: Track error patterns and recovery attempts</li><li><strong>Time-Aware Handling</strong>: Consider the time scale of each level when implementing recovery</li></ol><p>This approach combines the theoretical framework of MES with Julia&#39;s practical error handling capabilities, creating robust, self-healing systems that can adapt to and recover from various types of failures.</p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.9.0 on <span class="colophon-date" title="Friday 4 April 2025 10:04">Friday 4 April 2025</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
